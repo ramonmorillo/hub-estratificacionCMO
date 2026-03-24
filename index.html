@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Estratificación CMO - Acceso Rápido</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0a4d68;
+            --primary-light: #088395;
+            --accent: #05bfdb;
+            --bg: #f8fafb;
+            --surface: #ffffff;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        body {
+            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f8fafb 0%, #e8f1f5 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border-left: 6px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        
+        .mapex-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        .mapex-link:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .search-box {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--surface);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 77, 104, 0.1);
+        }
+        
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        
+        .categories {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .category-tag {
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .category-tag:hover {
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+        
+        .category-tag.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .artifacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .artifact-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .artifact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .artifact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        
+        .artifact-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .artifact-header {
+            margin-bottom: 1rem;
+        }
+        
+        .artifact-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .artifact-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .artifact-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+        
+        .artifact-link {
+            display: block;
+            text-align: center;
+            padding: 0.875rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .artifact-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(10, 77, 104, 0.3);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--surface);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            grid-column: 1/-1;
+        }
+        
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state p {
+            color: var(--text-muted);
+        }
+        
+        footer {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .credits {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .disclaimer {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.25rem;
+            border-radius: 8px;
+            color: #856404;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+        
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: #664d03;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            .artifacts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 Hub de Estratificación CMO</h1>
+            <p class="subtitle">Acceso rápido a las herramientas de estratificación para la atención farmacéutica según modelo CMO</p>
+            <a href="https://www.sefh.es/mapex/documentacion.php" target="_blank" class="mapex-link">
+                📚 Acceder a documentación MAPEX
+            </a>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar herramientas...">
+        </div>
+
+        <div class="categories" id="categories">
+            <div class="category-tag active" data-category="all">Todas</div>
+        </div>
+
+        <div class="artifacts-grid" id="artifactsGrid"></div>
+
+        <footer>
+            <div class="credits">
+                Creado por <strong>Ramón Morillo</strong> • Febrero 2026
+            </div>
+            
+            <div class="disclaimer">
+                <strong>⚠️ Aviso Importante</strong>
+                Las herramientas de estratificación de riesgo contenidas en este hub son instrumentos de apoyo clínico que deben ser interpretados siempre en el contexto del paciente individual. Estas calculadoras no sustituyen el criterio clínico profesional ni el juicio médico experto. Toda decisión terapéutica debe basarse en una evaluación integral del paciente, considerando su historia clínica completa, comorbilidades, contexto social y preferencias personales.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const artifacts = [
+            {
+                name: "CMO-VIH",
+                category: "infectologia",
+                description: "Sistema avanzado de atención farmacéutica en VIH con estratificación CMO (Capacidad, Motivación, Oportunidad)",
+                url: "https://ramonmorillo.github.io/cmo-vih-app/"
+            },
+            {
+                name: "CMO-Respiratorio",
+                category: "respiratorio",
+                description: "Herramienta de evaluación y estratificación de riesgo en patologías respiratorias",
+                url: "https://claude.ai/public/artifacts/b84d05e7-5fb8-490b-a4c2-21b68d80b225"
+            },
+            {
+                name: "CMO-Riesgo Cardiovascular",
+                category: "cardiovascular",
+                description: "Evaluación de riesgo cardiovascular para prevención primaria y secundaria",
+                url: "https://claude.ai/public/artifacts/de83a58a-741d-4b29-93bc-05be11a0f792"
+            },
+            {
+                name: "CMO-Esclerosis Múltiple",
+                category: "neurologico",
+                description: "Herramienta de evaluación y seguimiento de pacientes con esclerosis múltiple",
+                url: "https://claude.ai/public/artifacts/b97e8c28-d89b-4cf0-8d92-477b333402aa"
+            },
+            {
+                name: "CMO-Inmunomediadas",
+                category: "inmunologico",
+                description: "Evaluación de enfermedades autoinmunes y mediadas por el sistema inmunitario",
+                url: "https://claude.ai/public/artifacts/01180439-53f0-4787-9b8f-ef50d3d1f76f"
+            },
+            {
+                name: "CMO-Pediatría",
+                category: "pediatrico",
+                description: "Herramienta de estratificación de riesgo en población pediátrica",
+                url: "https://claude.ai/public/artifacts/462531ff-0aa3-4f79-af5a-f89958024aa3"
+            },
+            {
+                name: "CMO-Oncohematología",
+                category: "oncologico",
+                description: "Estratificación de riesgo y evaluación en pacientes oncológicos y hematológicos",
+                url: "https://claude.ai/public/artifacts/81cff5d0-1e12-46a4-b573-bd115d17fda8"
+            },
+            {
+                name: "CMO-Coagulopatías",
+                category: "hematologico",
+                description: "Evaluación y estratificación de riesgo en pacientes con trastornos de la coagulación",
+                url: "https://claude.ai/public/artifacts/f51f463b-3efe-4f45-854f-b077d4e864a3"
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        function renderArtifacts() {
+            const grid = document.getElementById('artifactsGrid');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = artifacts.filter(a => {
+                const matchesCategory = currentFilter === 'all' || a.category === currentFilter;
+                const matchesSearch = a.name.toLowerCase().includes(searchTerm) || 
+                                     a.description.toLowerCase().includes(searchTerm) ||
+                                     a.category.toLowerCase().includes(searchTerm);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <h3>No se encontraron resultados</h3>
+                        <p>Intenta con otros términos de búsqueda</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(artifact => `
+                <div class="artifact-card">
+                    <div class="artifact-header">
+                        <div class="artifact-title">${artifact.name}</div>
+                        <span class="artifact-category">${artifact.category}</span>
+                    </div>
+                    <div class="artifact-description">${artifact.description}</div>
+                    <a href="${artifact.url}" target="_blank" class="artifact-link">
+                        🔗 Abrir Herramienta
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        function renderCategories() {
+            const categoriesDiv = document.getElementById('categories');
+            const categories = ['all', ...new Set(artifacts.map(a => a.category))];
+            
+            categoriesDiv.innerHTML = categories.map(cat => `
+                <div class="category-tag ${cat === currentFilter ? 'active' : ''}" 
+                     data-category="${cat}"
+                     onclick="filterByCategory('${cat}')">
+                    ${cat === 'all' ? 'Todas' : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </div>
+            `).join('');
+        }
+
+        function filterByCategory(category) {
+            currentFilter = category;
+            renderCategories();
+            renderArtifacts();
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', renderArtifacts);
+
+        // Initialize
+        renderCategories();
+        renderArtifacts();
+    </script>
+</body>
+</html>
