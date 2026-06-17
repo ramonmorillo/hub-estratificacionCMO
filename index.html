@@ -96,6 +96,26 @@
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
         }
+
+        .hub-meta {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.25rem;
+        }
+
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.875rem;
+            background: #e8f7fb;
+            color: var(--primary);
+            border: 1px solid rgba(5, 191, 219, 0.35);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
         
         .search-box {
             position: relative;
@@ -340,6 +360,10 @@
             <a href="https://www.sefh.es/mapex/documentacion.php" target="_blank" class="mapex-link">
                 📚 Acceder a documentación MAPEX
             </a>
+            <div class="hub-meta" aria-label="Información del hub">
+                <span class="meta-pill">📅 Actualizado: junio 2026</span>
+                <span class="meta-pill">👁️ Visitas: <span id="visitCounter">280</span></span>
+            </div>
         </header>
 
         <div class="search-box">
@@ -423,6 +447,17 @@
         ];
 
         let currentFilter = 'all';
+        const VISIT_COUNTER_KEY = 'hubEstratificacionCMOVisitCounter';
+        const INITIAL_VISIT_COUNT = 280;
+
+        function updateVisitCounter() {
+            const storedVisits = Number.parseInt(localStorage.getItem(VISIT_COUNTER_KEY), 10);
+            const previousVisits = Number.isNaN(storedVisits) ? INITIAL_VISIT_COUNT : storedVisits;
+            const updatedVisits = previousVisits + 1;
+
+            localStorage.setItem(VISIT_COUNTER_KEY, updatedVisits.toString());
+            document.getElementById('visitCounter').textContent = updatedVisits.toLocaleString('es-ES');
+        }
 
         function renderArtifacts() {
             const grid = document.getElementById('artifactsGrid');
@@ -484,6 +519,7 @@
         document.getElementById('searchInput').addEventListener('input', renderArtifacts);
 
         // Initialize
+        updateVisitCounter();
         renderCategories();
         renderArtifacts();
     </script>
