@@ -362,7 +362,6 @@
             </a>
             <div class="hub-meta" aria-label="Información del hub">
                 <span class="meta-pill">📅 Actualizado: Septiembre-2026</span>
-                <span class="meta-pill">👁️ Visitas: <span id="visitCounter">280</span></span>
             </div>
         </header>
 
@@ -453,18 +452,6 @@
         ];
 
         let currentFilter = 'all';
-        const VISIT_COUNTER_KEY = 'hubEstratificacionCMOVisitCounter';
-        const INITIAL_VISIT_COUNT = 280;
-
-        function updateVisitCounter() {
-            const storedVisits = Number.parseInt(localStorage.getItem(VISIT_COUNTER_KEY), 10);
-            const previousVisits = Number.isNaN(storedVisits) ? INITIAL_VISIT_COUNT : storedVisits;
-            const updatedVisits = previousVisits + 1;
-
-            localStorage.setItem(VISIT_COUNTER_KEY, updatedVisits.toString());
-            document.getElementById('visitCounter').textContent = updatedVisits.toLocaleString('es-ES');
-        }
-
         function renderArtifacts() {
             const grid = document.getElementById('artifactsGrid');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -525,7 +512,6 @@
         document.getElementById('searchInput').addEventListener('input', renderArtifacts);
 
         // Initialize
-        updateVisitCounter();
         renderCategories();
         renderArtifacts();
     </script>
