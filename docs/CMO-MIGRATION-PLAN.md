@@ -7,7 +7,7 @@ Orden de menor a mayor riesgo y complejidad. Cada fila es **una rama y un PR** e
 | 0 ✅ | Hub | Sin lógica clínica | — | Baja |
 | 1 🟡 | **CMO-Respiratorio** (piloto clínico; PR ramonmorillo/cmorespiratorio#8, CI en verde) | La más madura: CI, e2e, pruebas de interfaz y documentación legal. Detectará cualquier regresión del DOM | Hecho: copia en `src/cmo-ds/` (`--dest src/cmo-ds`), copia recursiva en `scripts/build.js` y control de red ampliado | Media |
 | 2 🟡 | Pediatría (ramonmorillo/cmopediatria#6), Oncohematología (ramonmorillo/cmoncologia#6), Migraña (ramonmorillo/estratificacionmigrana#12) | Misma arquitectura de build que Respiratorio | Hecho; ver «Resultado de la fase 2» | Media |
-| 3 | EM, RCV | Pocas líneas; pruebas existentes | EM: añadir versión | Baja |
+| 3 🟡 | EM (ramonmorillo/estratificacionEM#4), RCV (ramonmorillo/cmoriesgocardiovascular#4) | Pocas líneas; pruebas existentes | Hecho; ver «Resultado de la fase 3». EM sigue sin versión declarada | Baja |
 | 4 | VIH | i18n es/en/pt: las etiquetas de la firma se traducen en los JSON de i18n (pendiente de extender el componente) | Extender la firma con `lang` | Media |
 | 5 | Coagulopatías | React + TypeScript | Fijar dependencias (H9) antes de nada | Media |
 | 6 | Inmunomediadas, VHB-VHD | **Sin pruebas** | Casos de referencia (CMO-CLINICAL-SAFETY §2.2); VHB-VHD: retirar el CDN (H3) y la frase regulatoria (H2) | Media-alta |
@@ -56,6 +56,30 @@ Hallazgos:
 - **Oncohematología:** no tenía pie; se añade uno con enlaces a `LEGAL_NOTICE.md` y `PRIVACY.md`.
 - **Migraña:** no declara el documento fuente ni los autores del modelo, así que la firma solo acredita el desarrollo digital y la versión del algoritmo (v1.0).
 
+## Resultado de la fase 3 (2026-10-29)
+
+**Corrección del arnés.** En EM, la primera versión no detectaba la mutación de umbrales: con un 40 % de casillas marcadas, casi todos los casos activaban la prioridad automática (embarazo/lactancia → P1), que enmascara los umbrales. Ahora la densidad de relleno varía con la semilla (10-50 %), y se añadieron los pasos `FILL` (rellenar los campos que aparecen tras un clic) y la sonda `PROBE`. Con la versión corregida se repitió la validación de la fase 2:
+
+| App | Paridad real | Detección de la mutación de umbral |
+|---|---|---|
+| EM | 40/40 | 9/40 |
+| RCV | 40/40 (flujo «Estratificar a mano» → «Calcular») | 9/40 |
+| Pediatría | 40/40 | 7/40 |
+| Migraña | 150/150 | 11/150 |
+| Oncohematología | 150/150 | **1/150**: sensibilidad baja. La garantía principal es que el diff no toca `clinical.js` y sus 39 pruebas unitarias pasan |
+
+Otros resultados de la fase 3:
+
+- **Pruebas:** EM, autocomprobación + 4/4; RCV, 7 → 11.
+- **axe:** 0 → 0 en ambas.
+- **Foco con teclado:** 1,6:1 → 9,4:1 en ambas.
+- **RCV:** se corrigen dos defectos previos en móvil, los pasos 1-2 inalcanzables en la barra y un desbordamiento de 107 px a 320 px.
+
+Hallazgos de transparencia que decide el autor, sin cambiar en los PR porque alteran texto visible:
+
+- **EM:** la sección «Extracción automática con inteligencia artificial» funciona con coincidencia local de palabras clave.
+- **RCV:** el botón «Usar IA para analizar texto» usa reglas locales mientras no se configure un endpoint.
+
 ## Siguiente paso concreto
 
-Revisar y fusionar los 4 PR clínicos. Después, fase 3 (EM y RCV) con el mismo procedimiento y arnés.
+Revisar y fusionar los PR clínicos (fases 1-3). Después, fase 4 (VIH, con i18n es/en/pt en la firma).
