@@ -4,7 +4,7 @@ Marque cada punto con evidencia (comando + resultado) en la descripción del PR.
 
 ## Automático
 
-- [ ] `node --test cmo-design-system/tests/signature.test.mjs` → 7/7
+- [ ] `node --test cmo-design-system/tests/signature.test.mjs` → 10/10
 - [ ] `AXE_PATH=… node tests/hub.e2e.mjs` → todas las comprobaciones sin fallo, incluida axe
 - [ ] `node cmo-design-system/tools/cmo-release-check.mjs index.html legal.html` → sin ERROR (con `--strict` → sin avisos)
 - [ ] En las herramientas: batería existente idéntica a la línea base y `cmo-ds-sync.mjs . --check` correcto

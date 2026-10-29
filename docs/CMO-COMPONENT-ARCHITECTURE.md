@@ -68,5 +68,5 @@ El hub incluye `legal.html` como plantilla de referencia (aviso legal, privacida
 
 ## 5. Pruebas
 
-- `cmo-design-system/tests/signature.test.mjs`: modelo puro de la firma (7 casos).
+- `cmo-design-system/tests/signature.test.mjs`: modelo puro de la firma, incluido el i18n (10 casos).
 - `tests/hub.e2e.mjs`: paridad funcional con la versión anterior del hub, teclado, privacidad, adaptación a pantallas, movimiento reducido y axe.
