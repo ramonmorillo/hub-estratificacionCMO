@@ -4,76 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hub de Estratificación CMO - Acceso Rápido</title>
+    <meta name="description" content="Catálogo de herramientas de estratificación farmacoterapéutica basadas en el modelo CMO (Capacidad, Motivación y Oportunidad).">
+    <meta name="theme-color" content="#14203a">
+    <link rel="icon" href="cmo-design-system/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="cmo-design-system/src/cmo-tokens.css">
+    <link rel="stylesheet" href="cmo-design-system/src/cmo-components.css">
     <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--teal:#007f83;--bright:#00b4ad;--magenta:#a50086;--olive:#827400;--blue:#1c8199;--ink:#35474b;--muted:#617276;--line:#dbe7e6}
-body{font:16px/1.65 Arial,Helvetica,sans-serif;color:var(--ink);background:#f6f9f8}
-a{color:var(--teal)}button,input{font:inherit}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--magenta);outline-offset:4px}
-.container{max-width:1240px;margin:auto;padding:0 32px}
-.brandbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:27px 0;border-bottom:1px solid var(--line)}
-.brand{font-size:22px;font-weight:700;letter-spacing:-1px;color:var(--teal)}.brand span{font-weight:400;color:var(--muted);font-size:13px;letter-spacing:0;display:block}
-.brandbar>a{text-decoration:none;font-size:14px;font-weight:700}
-header{position:relative;padding:64px 0 46px;border-bottom:1px solid var(--line)}
-header:before{content:'';position:absolute;top:0;left:0;height:4px;width:180px;background:linear-gradient(90deg,var(--bright) 0 40%,var(--magenta) 40% 65%,var(--olive) 65% 82%,var(--blue) 82%)}
-.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:700;color:var(--teal);margin-bottom:17px}
-h1{font-size:clamp(34px,5vw,58px);line-height:1.12;letter-spacing:-2px;color:var(--teal);max-width:780px;margin-bottom:22px}h1 span{color:var(--magenta)}
-.subtitle{max-width:700px;color:var(--muted);font-size:18px;line-height:1.7}
-.mapex-link{display:inline-flex;margin-top:26px;padding:12px 21px;background:var(--teal);color:white;text-decoration:none;font-size:14px;font-weight:700;border-radius:5px}
-.mapex-link:hover{background:#00696d}.hub-meta{margin-top:19px}.meta-pill{font-size:12px;color:var(--muted)}
-.catalog-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:38px 0 20px}h2{font-size:25px;letter-spacing:-.6px}.result-count{font-size:13px;color:var(--muted)}
-.search-box{margin-bottom:18px}.search-box input{width:100%;padding:15px 18px;border:1px solid #bdcecd;border-radius:6px;background:white;color:var(--ink)}.search-box label{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
-.categories{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.category-tag{padding:7px 13px;border:1px solid var(--line);background:white;border-radius:4px;color:var(--muted);font-size:13px;cursor:pointer}.category-tag:hover{border-color:var(--teal);color:var(--teal)}.category-tag.active{background:var(--teal);color:white;border-color:var(--teal)}
-.artifacts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.artifact-card{--card:var(--teal);display:flex;flex-direction:column;padding:27px;background:white;border:1px solid var(--line);border-top:4px solid var(--card);border-radius:6px;transition:box-shadow .2s,transform .2s}
-.artifact-card:nth-child(4n+2){--card:var(--magenta)}.artifact-card:nth-child(4n+3){--card:var(--olive)}.artifact-card:nth-child(4n+4){--card:var(--blue)}
-.artifact-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px #254c4a10}
-.artifact-header{display:flex;flex-direction:column-reverse;gap:13px;margin-bottom:12px}
-.artifact-category{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--card)}
-.artifact-title{font-size:21px;line-height:1.3;letter-spacing:-.5px;color:var(--ink)}
-.artifact-description{font-size:14px;color:var(--muted);margin-bottom:25px}
-.artifact-link{margin-top:auto;border-top:1px solid var(--line);padding-top:17px;color:var(--card);text-decoration:none;font-size:13px;font-weight:700;display:flex;justify-content:space-between}.artifact-link:hover{text-decoration:underline}
-.empty-state{grid-column:1/-1;text-align:center;padding:55px 15px;background:white;border:1px solid var(--line);border-radius:6px}.empty-state-icon{display:none}.empty-state p{color:var(--muted)}
-footer{margin-top:50px;border-top:1px solid var(--line);padding:28px 0 35px}.credits{font-size:13px;color:var(--muted)}
-.disclaimer{margin-top:22px;padding:20px 24px;background:#f0f2e8;border-left:3px solid var(--olive);font-size:12px;color:#57604d}.disclaimer strong{display:block;font-size:13px;margin-bottom:6px}
-@media(max-width:900px){.artifacts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:580px){.container{padding:0 20px}.brandbar{align-items:start}.brandbar>a{font-size:12px}.brand{font-size:19px}header{padding:40px 0 30px}h1{letter-spacing:-1px}.subtitle{font-size:16px}.artifacts-grid{grid-template-columns:1fr}.catalog-heading{align-items:start;flex-direction:column;gap:4px}.artifact-card{padding:23px}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+        .hub-search { margin: var(--cmo-space-5) 0 var(--cmo-space-4); max-width: 720px; }
+        .hub-catalog-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--cmo-space-4); flex-wrap: wrap; }
+        .hub-count { margin: 0; font-size: var(--cmo-text-sm); color: var(--cmo-ink-muted); }
+        .hub-actions { display: flex; flex-wrap: wrap; gap: var(--cmo-space-3); margin-top: var(--cmo-space-5); }
+        .hub-note { margin-top: var(--cmo-space-7); }
+        .hub-note p { max-width: 75ch; }
+        @media (max-width: 600px) { .cmo-brandbar { flex-direction: column; align-items: flex-start; } }
+    </style>
+    <script type="application/json" id="cmo-app-meta">
+    {
+        "schema": "cmo-app-meta/1",
+        "id": "hub-estratificacion-cmo",
+        "name": "Hub de Estratificación CMO",
+        "appVersion": "1.0.0",
+        "algorithm": null,
+        "status": "draft",
+        "releaseDate": null,
+        "clinicalReviewDate": null,
+        "credits": [
+            { "role": "Diseño y desarrollo digital", "name": "Dr. Ramón Morillo Verdugo" }
+        ],
+        "model": "Basado en el modelo CMO: Capacidad, Motivación y Oportunidad.",
+        "website": "https://ramonmorillo.es",
+        "copyright": { "year": "2026", "holders": ["Ramón Morillo Verdugo"] },
+        "designSystem": "0.1.0",
+        "repository": "https://github.com/ramonmorillo/hub-estratificacionCMO"
+    }
+    </script>
+    <script type="module" src="cmo-design-system/src/cmo-author-signature.js"></script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a04dad56e064c7ab68ffed70d23e732"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
-<body>
-    <div class="container">
-        <div class="brandbar"><div class="brand">CMO<span>Atención farmacéutica · Estratificación</span></div><a href="https://www.sefh.es/mapex/documentacion.php" target="_blank" rel="noopener noreferrer">Documentación MAPEX ↗</a></div><header><p class="eyebrow">Capacidad · Motivación · Oportunidad</p>
-            <h1>Hub de Estratificación <span>CMO</span></h1>
-            <p class="subtitle">Acceso rápido a las herramientas de estratificación para la atención farmacéutica según modelo CMO</p>
-            <a href="https://www.sefh.es/mapex/documentacion.php" target="_blank" rel="noopener noreferrer" class="mapex-link">
-                Consultar documentación MAPEX ↗
+<body class="cmo-scope">
+    <a class="cmo-skip" href="#herramientas">Saltar al catálogo de herramientas</a>
+    <div class="cmo-container">
+        <header class="cmo-brandbar">
+            <a class="cmo-brand" href="./" aria-label="CMO · Estratificación farmacoterapéutica, inicio del hub">
+                <img class="cmo-brand__mark" src="cmo-design-system/assets/cmo-mark.svg" alt="" width="36" height="36">
+                <span><span class="cmo-brand__name">CMO</span><span class="cmo-brand__tagline">Estratificación farmacoterapéutica</span></span>
             </a>
-            <div class="hub-meta" aria-label="Información del hub">
-                <span class="meta-pill">Última actualización: Septiembre-2026</span>
-            </div>
+            <nav class="cmo-nav" aria-label="Principal">
+                <a href="#herramientas">Herramientas</a>
+                <a href="#acerca">Acerca de</a>
+                <a href="legal.html">Información legal</a>
+                <a href="https://www.sefh.es/mapex/documentacion.php" target="_blank" rel="noopener noreferrer">Documentación MAPEX <span aria-hidden="true">↗</span><span class="cmo-visually-hidden">(se abre en una pestaña nueva)</span></a>
+            </nav>
         </header>
 
-        <main><div class="catalog-heading"><h2>Herramientas de estratificación</h2><p class="result-count" id="resultCount" role="status" aria-live="polite"></p></div><div class="search-box"><label for="searchInput">Encuentra tu herramienta</label>
-            <input type="text" id="searchInput" placeholder="Busca por patología, herramienta o área clínica…">
-        </div>
-
-        <div class="categories" id="categories">
-            <div class="category-tag active" data-category="all">Todas</div>
-        </div>
-
-        <div class="artifacts-grid" id="artifactsGrid"></div>
-
-        </main><footer>
-            <div class="credits">
-                Creado por <strong>Ramón Morillo</strong> • Febrero 2026
+        <section class="cmo-hero" aria-labelledby="titulo">
+            <div class="cmo-strata" aria-hidden="true"><i></i><i></i><i></i></div>
+            <p class="cmo-eyebrow">Capacidad · Motivación · Oportunidad</p>
+            <h1 class="cmo-title" id="titulo">Hub de Estratificación CMO</h1>
+            <p class="cmo-lead">Acceso rápido a las herramientas de estratificación para la atención farmacéutica según modelo CMO</p>
+            <div class="hub-actions">
+                <a class="cmo-btn" href="#herramientas">Ver herramientas</a>
+                <a class="cmo-btn cmo-btn--secondary" href="https://www.sefh.es/mapex/documentacion.php" target="_blank" rel="noopener noreferrer">Consultar documentación MAPEX <span aria-hidden="true">↗</span><span class="cmo-visually-hidden">(se abre en una pestaña nueva)</span></a>
             </div>
-            
-            <div class="disclaimer">
-                <strong>Uso clínico responsable</strong>
-                Las herramientas de estratificación de riesgo contenidas en este hub son instrumentos de apoyo clínico que deben ser interpretados siempre en el contexto del paciente individual. Estas calculadoras no sustituyen el criterio clínico profesional ni el juicio médico experto. Toda decisión terapéutica debe basarse en una evaluación integral del paciente, considerando su historia clínica completa, comorbilidades, contexto social y preferencias personales.
+        </section>
+
+        <main id="herramientas" tabindex="-1">
+            <div class="hub-catalog-head">
+                <h2 class="cmo-h2">Herramientas de estratificación</h2>
+                <p class="hub-count" id="resultCount" role="status" aria-live="polite"></p>
+            </div>
+            <div class="cmo-field hub-search">
+                <label class="cmo-label" for="searchInput">Encuentra tu herramienta</label>
+                <input class="cmo-input" type="search" id="searchInput" autocomplete="off" aria-describedby="searchHint" placeholder="Busca por patología, herramienta o área clínica…">
+                <span class="cmo-hint" id="searchHint">El texto de búsqueda se procesa solo en su navegador; no se envía ni se guarda.</span>
+            </div>
+
+            <div class="cmo-chips" id="categories" role="group" aria-label="Filtrar por área clínica"></div>
+
+            <div class="cmo-grid" id="artifactsGrid" style="margin-top: var(--cmo-space-5)"></div>
+
+            <section class="hub-note" id="acerca" aria-labelledby="acerca-titulo">
+                <h2 class="cmo-h2" id="acerca-titulo">Acerca de este hub</h2>
+                <p>El hub es un catálogo de enlaces: no realiza estratificaciones ni recibe datos de pacientes. Cada herramienta es una aplicación independiente que declara su propio documento fuente, su versión, su autoría y su política de privacidad. Consulte esa información en cada herramienta antes de utilizarla.</p>
+            </section>
+        </main>
+
+        <footer class="cmo-footer">
+            <div class="cmo-footer__grid">
+                <cmo-author-signature meta="cmo-app-meta">
+                    <p>Dr. Ramón Morillo Verdugo · <a href="https://ramonmorillo.es">ramonmorillo.es</a></p>
+                </cmo-author-signature>
+                <div>
+                    <ul class="cmo-legal-links" aria-label="Información legal">
+                        <li><a href="legal.html#aviso-legal">Aviso legal</a></li>
+                        <li><a href="legal.html#privacidad">Privacidad</a></li>
+                        <li><a href="legal.html#cookies">Cookies</a></li>
+                        <li><a href="legal.html#condiciones">Condiciones de uso</a></li>
+                        <li><a href="legal.html#accesibilidad">Accesibilidad</a></li>
+                    </ul>
+                    <div class="cmo-disclaimer" style="margin-top: var(--cmo-space-4)">
+                        <strong>Uso clínico responsable</strong>
+                        Las herramientas de estratificación de riesgo contenidas en este hub son instrumentos de apoyo clínico que deben ser interpretados siempre en el contexto del paciente individual. Estas calculadoras no sustituyen el criterio clínico profesional ni el juicio médico experto. Toda decisión terapéutica debe basarse en una evaluación integral del paciente, considerando su historia clínica completa, comorbilidades, contexto social y preferencias personales.
+                    </div>
+                </div>
             </div>
         </footer>
     </div>
@@ -143,15 +176,18 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:28px 0 35px}.cre
         ];
 
         const categoryLabels = {all:'Todas',infectologia:'Infectología',respiratorio:'Respiratorio',cardiovascular:'Cardiovascular',neurologico:'Neurología',inmunologico:'Inmunología',pediatrico:'Pediatría',oncologico:'Oncología',hematologico:'Hematología'};
-        const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        // Submarca por herramienta (solo identidad visual; ver docs/CMO-DESIGN-SYSTEM.md §3)
+        const accents = {'CMO-VIH':'#b02a4a','CMO-Respiratorio':'#0b6f86','CMO-Riesgo Cardiovascular':'#b3261e','CMO-Esclerosis Múltiple':'#4f46a8','CMO-Migraña':'#6b3fa0','CMO-Inmunomediadas':'#8a5a00','CMO-Pediatría':'#1d7a5a','CMO-Oncohematología':'#7a2f8f','CMO-Coagulopatías':'#a0371f','CMO-VHB/VHD':'#8d6a00'};
+        const normalize = value => value.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+        const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
         let currentFilter = 'all';
         function renderArtifacts() {
             const grid = document.getElementById('artifactsGrid');
             const searchTerm = normalize(document.getElementById('searchInput').value);
-            
+
             let filtered = artifacts.filter(a => {
                 const matchesCategory = currentFilter === 'all' || a.category === currentFilter;
-                const matchesSearch = normalize(a.name).includes(searchTerm) || 
+                const matchesSearch = normalize(a.name).includes(searchTerm) ||
                                      normalize(a.description).includes(searchTerm) ||
                                      normalize(categoryLabels[a.category]).includes(searchTerm);
                 return matchesCategory && matchesSearch;
@@ -160,9 +196,8 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:28px 0 35px}.cre
             document.getElementById('resultCount').textContent = filtered.length + ' de ' + artifacts.length + ' herramientas';
             if (filtered.length === 0) {
                 grid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">🔍</div>
-                        <h3>No se encontraron resultados</h3>
+                    <div class="cmo-empty">
+                        <h3 class="cmo-h3">No se encontraron resultados</h3>
                         <p>Intenta con otros términos de búsqueda</p>
                     </div>
                 `;
@@ -170,29 +205,23 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:28px 0 35px}.cre
             }
 
             grid.innerHTML = filtered.map(artifact => `
-                <div class="artifact-card">
-                    <div class="artifact-header">
-                        <h3 class="artifact-title">${artifact.name}</h3>
-                        <span class="artifact-category">${categoryLabels[artifact.category]}</span>
-                    </div>
-                    <div class="artifact-description">${artifact.description}</div>
-                    <a href="${artifact.url}" target="_blank" rel="noopener noreferrer" class="artifact-link">
-                        Abrir herramienta <span aria-hidden="true">↗</span>
+                <article class="cmo-card cmo-card--tool" style="--cmo-accent:${accents[artifact.name] || 'var(--cmo-brand)'}">
+                    <p class="cmo-card__kicker">${escapeHtml(categoryLabels[artifact.category])}</p>
+                    <h3 class="cmo-h3">${escapeHtml(artifact.name)}</h3>
+                    <p class="cmo-card__text">${escapeHtml(artifact.description)}</p>
+                    <a href="${escapeHtml(artifact.url)}" target="_blank" rel="noopener noreferrer" class="cmo-card__action">
+                        Abrir herramienta <span class="cmo-visually-hidden">${escapeHtml(artifact.name)} (se abre en una pestaña nueva)</span><span aria-hidden="true">↗</span>
                     </a>
-                </div>
+                </article>
             `).join('');
         }
 
         function renderCategories() {
             const categoriesDiv = document.getElementById('categories');
             const categories = ['all', ...new Set(artifacts.map(a => a.category))];
-            
+
             categoriesDiv.innerHTML = categories.map(cat => `
-                <button type="button" aria-pressed="${cat === currentFilter}" class="category-tag ${cat === currentFilter ? 'active' : ''}" 
-                     data-category="${cat}"
-                     onclick="filterByCategory('${cat}')">
-                    ${categoryLabels[cat]}
-                </button>
+                <button type="button" class="cmo-chip" aria-pressed="${cat === currentFilter}" data-category="${cat}">${categoryLabels[cat]}</button>
             `).join('');
         }
 
@@ -200,10 +229,16 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:28px 0 35px}.cre
             currentFilter = category;
             renderCategories();
             renderArtifacts();
+            const active = document.querySelector(`#categories [data-category="${category}"]`);
+            if (active) active.focus();
         }
 
         // Event listeners
         document.getElementById('searchInput').addEventListener('input', renderArtifacts);
+        document.getElementById('categories').addEventListener('click', event => {
+            const button = event.target.closest('button[data-category]');
+            if (button) filterByCategory(button.dataset.category);
+        });
 
         // Initialize
         renderCategories();
@@ -211,4 +246,3 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:28px 0 35px}.cre
     </script>
 </body>
 </html>
-
