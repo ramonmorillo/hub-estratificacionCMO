@@ -60,6 +60,7 @@ Reglas:
 - `releaseDate` solo se rellena en el commit de publicación, con la fecha real de esa publicación. Mientras `status` no sea `released`, la firma muestra «pendiente de publicación». Nunca se usa `new Date()`.
 - `appVersion` (interfaz y código) y `algorithm.version` (clínica) son independientes. Un cambio visual sube `appVersion` en *minor* o *patch*, nunca `algorithm.version`.
 - `credits` es una lista: se conservan todas las atribuciones legítimas.
+- Desde la versión 0.2.0, `name`, `model`, `credits[].role` y `credits[].name` admiten `{ "es": …, "en": …, "pt": … }`. La firma usa el `lang` del elemento o de `<html>`; si falta el idioma, se usa el español.
 
 ## 4. Contenido legal
 

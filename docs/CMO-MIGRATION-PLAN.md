@@ -8,7 +8,7 @@ Orden de menor a mayor riesgo y complejidad. Cada fila es **una rama y un PR** e
 | 1 🟡 | **CMO-Respiratorio** (piloto clínico; PR ramonmorillo/cmorespiratorio#8, CI en verde) | La más madura: CI, e2e, pruebas de interfaz y documentación legal. Detectará cualquier regresión del DOM | Hecho: copia en `src/cmo-ds/` (`--dest src/cmo-ds`), copia recursiva en `scripts/build.js` y control de red ampliado | Media |
 | 2 🟡 | Pediatría (ramonmorillo/cmopediatria#6), Oncohematología (ramonmorillo/cmoncologia#6), Migraña (ramonmorillo/estratificacionmigrana#12) | Misma arquitectura de build que Respiratorio | Hecho; ver «Resultado de la fase 2» | Media |
 | 3 🟡 | EM (ramonmorillo/estratificacionEM#4), RCV (ramonmorillo/cmoriesgocardiovascular#4) | Pocas líneas; pruebas existentes | Hecho; ver «Resultado de la fase 3». EM sigue sin versión declarada | Baja |
-| 4 | VIH | i18n es/en/pt: las etiquetas de la firma se traducen en los JSON de i18n (pendiente de extender el componente) | Extender la firma con `lang` | Media |
+| 4 🟡 | VIH (ramonmorillo/cmo-vih-app#13) | i18n es/en/pt | Hecho con el sistema de diseño 0.2.0 (firma multilingüe); ver «Resultado de la fase 4» | Media |
 | 5 | Coagulopatías | React + TypeScript | Fijar dependencias (H9) antes de nada | Media |
 | 6 | Inmunomediadas, VHB-VHD | **Sin pruebas** | Casos de referencia (CMO-CLINICAL-SAFETY §2.2); VHB-VHD: retirar el CDN (H3) y la frase regulatoria (H2) | Media-alta |
 
@@ -80,6 +80,33 @@ Hallazgos de transparencia que decide el autor, sin cambiar en los PR porque alt
 - **EM:** la sección «Extracción automática con inteligencia artificial» funciona con coincidencia local de palabras clave.
 - **RCV:** el botón «Usar IA para analizar texto» usa reglas locales mientras no se configure un endpoint.
 
+## Resultado de la fase 4 (2026-10-29)
+
+**Sistema de diseño 0.2.0.** `<cmo-author-signature>` pasa a ser multilingüe (es/en/pt):
+
+- Usa el `lang` del propio elemento o, si no tiene, el de `<html>`, y se repinta cuando la app cambia de idioma.
+- Los textos del esquema admiten `{ es, en, pt }`.
+- En inglés, las fechas se muestran en formato ISO.
+- Es compatible con 0.1.0, así que las apps de las fases 1-3 siguen con su copia 0.1.0 fijada hasta que se decida actualizarlas.
+
+**VIH** (`cmo-vih-app#13`):
+
+- Pruebas 45 → 50.
+- Paridad 40/40 en el recorrido «Manual» → «Estratificar» → «Recalcular». Detecta la mutación de umbrales en 12/40 casos y cubre P1, P2 y P3.
+- Firma verificada en es → pt-BR → en.
+- La firma toma los créditos y el © literalmente de `data/i18n` (es la única app con © declarado).
+
+**Arnés y auditoría axe tras el recorrido.** El arnés pasa ahora axe también sobre el estado final del recorrido. Se repitió en las 7 apps clínicas:
+
+- **Ninguna regresión.** En VIH se detectaron y corrigieron **3 regresiones** durante el trabajo: el contraste del aviso de privacidad, el texto secundario de la tarjeta de nivel y el desplegable «Base científica».
+- **VIH:** se corrige además un contraste previo de las insignias `.badge--*` (4 casos).
+- **Infracciones previas sin cambios**, todas originadas en JS o HTML de la app y fuera del alcance visual:
+  - RCV: `select-name`(21).
+  - Pediatría: `select-name`(20).
+  - EM: `label`(1) en `#reportText`.
+
+**Transparencia sobre IA.** Ya son tres las apps que anuncian IA y funcionan con reglas locales: EM, RCV y VIH. Lo decide el autor.
+
 ## Siguiente paso concreto
 
-Revisar y fusionar los PR clínicos (fases 1-3). Después, fase 4 (VIH, con i18n es/en/pt en la firma).
+Revisar y fusionar los PR clínicos (fases 1-4). Después, fase 5 (Coagulopatías: fijar dependencias antes del rediseño).
