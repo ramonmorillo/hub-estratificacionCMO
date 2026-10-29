@@ -19,6 +19,7 @@ Fuente: `cmo-design-system/src/` · Sin dependencias, sin fuentes web y sin peti
 | `--cmo-m` Motivación | #743aa0 | 7,4 / 6,8 |
 | `--cmo-o` Oportunidad | #0d6680 | 6,5 / 6,0 |
 | `--cmo-focus` | #1f3aa8 | 9,4 / 8,7 |
+| `--cmo-brand-soft` (fondo) | #eef1fb | brand-strong encima: 8,35 |
 | `--cmo-control-border` | #7b8495 | ≥ 3:1 (criterio 1.4.11) |
 | `--cmo-level-1` sobre su fondo | #a3241a / #fbecea | 6,5 |
 | `--cmo-level-2` sobre su fondo | #93500a / #fdf1e2 | 5,6 |
@@ -54,7 +55,17 @@ VIH #b02a4a · Respiratorio #0b6f86 · RCV #b3261e · EM #4f46a8 · Migraña #6b
 | Autoría y versión | `<cmo-author-signature>` | Ver CMO-COMPONENT-ARCHITECTURE §3 |
 | Exportación | `.cmo-btn--secondary` + `@media print` del sistema | La lógica de exportación sigue siendo de cada app |
 
-## 5. Accesibilidad (objetivo WCAG 2.2 AA)
+## 5. Coexistencia con los estilos de cada app (lección del piloto Respiratorio)
+
+Al vivir en `@layer`, cualquier regla **sin capa** de la app gana, incluidos los selectores globales de elemento. En Respiratorio, `dl{display:grid}` partía la firma en dos columnas. El patrón de corrección se aplica **en la app**, nunca con `!important` en el sistema de diseño:
+
+```css
+.site-footer .cmo-signature__rows{grid-template-columns:none}
+```
+
+Antes de integrar el sistema en una app, revise sus reglas globales sobre `dl`, `dt`, `dd`, `p`, `a`, `button`, `input` y `footer`.
+
+## 6. Accesibilidad (objetivo WCAG 2.2 AA)
 
 Enlace de salto, foco de 3 px con 2 px de separación, objetivos ≥ 44 px (≥ 36 px en chips, por encima del mínimo de 24 px del 2.5.8), soporte de `forced-colors`, `prefers-reduced-motion`, enlaces externos anunciados («se abre en una pestaña nueva») y contador con `role="status"`.
 

@@ -22,6 +22,7 @@
     --cmo-o: #0d6680;  /* Oportunidad · petróleo */
     --cmo-brand: var(--cmo-c);
     --cmo-brand-strong: #1f3aa8;
+    --cmo-brand-soft: #eef1fb;   /* fondos suaves de marca; brand-strong sobre él: 8,35:1 */
     --cmo-focus: #1f3aa8;
 
     /* Submarca: cada herramienta redefine solo este token (ver tabla en docs) */
