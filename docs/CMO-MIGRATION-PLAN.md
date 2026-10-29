@@ -5,7 +5,7 @@ Orden de menor a mayor riesgo y complejidad. Cada fila es **una rama y un PR** e
 | Fase | Herramienta | Por qué en este orden | Prerrequisitos específicos | Complejidad |
 |---|---|---|---|---|
 | 0 ✅ | Hub | Sin lógica clínica | — | Baja |
-| 1 🟡 | **CMO-Respiratorio** (piloto clínico; rama `design/cmo-ds-0.1.0` subida, pendiente de PR y revisión) | La más madura: CI, e2e, pruebas de interfaz y documentación legal. Detectará cualquier regresión del DOM | Incluir `vendor/` en `scripts/build.js`; el build bloquea `fetch`, pero el sistema de diseño no lo usa | Media |
+| 1 🟡 | **CMO-Respiratorio** (piloto clínico; rama `design/cmo-ds-0.1.0` subida, pendiente de PR y revisión) | La más madura: CI, e2e, pruebas de interfaz y documentación legal. Detectará cualquier regresión del DOM | Hecho: copia en `src/cmo-ds/` (`--dest src/cmo-ds`), copia recursiva en `scripts/build.js` y control de red ampliado | Media |
 | 2 | Pediatría, Oncohematología, Migraña | Misma arquitectura de build que Respiratorio | Migraña: copiar a la raíz de Pages (`build-pages.mjs`) | Media |
 | 3 | EM, RCV | Pocas líneas; pruebas existentes | EM: añadir versión | Baja |
 | 4 | VIH | i18n es/en/pt: las etiquetas de la firma se traducen en los JSON de i18n (pendiente de extender el componente) | Extender la firma con `lang` | Media |
