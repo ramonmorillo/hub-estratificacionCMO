@@ -7,6 +7,7 @@ Identidad visual compartida de las herramientas de estratificación CMO. Versió
 - `assets/`: sello «Estratos» y favicon.
 - `tools/cmo-ds-sync.mjs`: copia fijada en una herramienta (`--check` verifica la integridad).
 - `tools/cmo-release-check.mjs`: control previo a publicación.
+- `tools/cmo-parity.mjs`: arnés de paridad clínica antes/después para cada migración (validarlo con una mutación).
 
 Documentación: `../docs/CMO-DESIGN-SYSTEM.md` y `../docs/CMO-COMPONENT-ARCHITECTURE.md`.
 Pruebas: `node --test tests/signature.test.mjs`.
