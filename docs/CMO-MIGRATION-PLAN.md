@@ -10,7 +10,7 @@ Orden de menor a mayor riesgo y complejidad. Cada fila es **una rama y un PR** e
 | 3 ✅ | EM (ramonmorillo/estratificacionEM#4), RCV (ramonmorillo/cmoriesgocardiovascular#4); fusionados el 2026-10-30 | Pocas líneas; pruebas existentes | Hecho; ver «Resultado de la fase 3». EM sigue sin versión declarada | Baja |
 | 4 ✅ | VIH (ramonmorillo/cmo-vih-app#13; fusionado el 2026-10-30) | i18n es/en/pt | Hecho con el sistema de diseño 0.2.0 (firma multilingüe); ver «Resultado de la fase 4» | Media |
 | 5 ✅ | Coagulopatías (dependencias: ramonmorillo/cmocoagulopatias#7; diseño: ramonmorillo/cmocoagulopatias#8; fusionados y desplegados el 2026-10-30) | React + TypeScript | Hecho; ver «Resultado de la fase 5» | Media |
-| 6 🟡 | Inmunomediadas (pruebas: ramonmorillo/cmoinmunomediadas#4; diseño: ramonmorillo/cmoinmunomediadas#5), VHB-VHD (pruebas: ramonmorillo/cmo-vhb-vhd#10; seguridad: ramonmorillo/cmo-vhb-vhd#11; diseño: ramonmorillo/cmo-vhb-vhd#12); PR encadenados, abiertos | No tenían pruebas | Hecho; ver «Resultado de la fase 6» | Media-alta |
+| 6 ✅ | Inmunomediadas (pruebas: ramonmorillo/cmoinmunomediadas#4; diseño: ramonmorillo/cmoinmunomediadas#5), VHB-VHD (pruebas: ramonmorillo/cmo-vhb-vhd#10; seguridad: ramonmorillo/cmo-vhb-vhd#11; diseño: ramonmorillo/cmo-vhb-vhd#12); fusionados el 2026-10-30 | No tenían pruebas | Hecho; ver «Resultado de la fase 6» | Media-alta |
 
 ## Pasos por herramienta (lista corta)
 
@@ -167,6 +167,14 @@ En Inmunomediadas, la regla de embarazo (que fuerza P1) enmascaraba los umbrales
 
 ## Siguiente paso concreto
 
-Revisar y fusionar los PR encadenados de la fase 6, en orden: Inmunomediadas #4 → #5 y VHB-VHD #10 → #11 → #12. Al fusionar cada uno, se redirige la base del siguiente.
+Las 10 herramientas y el hub tienen el CMO Design System en su rama publicada.
 
-Con eso, las 10 herramientas tendrán el DS. En todas, la firma mostrará «pendiente de publicación» hasta su commit de publicación (`status: "released"` + fecha real), que depende de la decisión de versión de cada app. Quedan además las decisiones sobre los hallazgos clínicos, de privacidad y de transparencia sobre IA.
+**Publicación.** En todas, la firma muestra «pendiente de publicación» hasta un commit de publicación (`status: "released"` + fecha real), que depende de la decisión de versión de cada app. Ver CMO-RELEASE-CHECKLIST. Inmunomediadas declara `v1` en el código y `v1.0.0` en el CHANGELOG; VHB-VHD y EM no declaran versión.
+
+**Decisiones del autor, pendientes:**
+
+- Hallazgos clínicos de Inmunomediadas y VHB-VHD (ver fase 6).
+- Seudónimo débil de VHB-VHD.
+- Rótulos de «IA» en 5 apps.
+- Futuro de `xlsx` 0.18.5.
+- Actualizar a la versión 0.2.0 las apps de las fases 1-3, que siguen con la 0.1.0. Es opcional y compatible.
