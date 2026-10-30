@@ -5,11 +5,11 @@ Orden de menor a mayor riesgo y complejidad. Cada fila es **una rama y un PR** e
 | Fase | Herramienta | Por qué en este orden | Prerrequisitos específicos | Complejidad |
 |---|---|---|---|---|
 | 0 ✅ | Hub | Sin lógica clínica | — | Baja |
-| 1 🟡 | **CMO-Respiratorio** (piloto clínico; PR ramonmorillo/cmorespiratorio#8, CI en verde) | La más madura: CI, e2e, pruebas de interfaz y documentación legal. Detectará cualquier regresión del DOM | Hecho: copia en `src/cmo-ds/` (`--dest src/cmo-ds`), copia recursiva en `scripts/build.js` y control de red ampliado | Media |
-| 2 🟡 | Pediatría (ramonmorillo/cmopediatria#6), Oncohematología (ramonmorillo/cmoncologia#6), Migraña (ramonmorillo/estratificacionmigrana#12) | Misma arquitectura de build que Respiratorio | Hecho; ver «Resultado de la fase 2» | Media |
-| 3 🟡 | EM (ramonmorillo/estratificacionEM#4), RCV (ramonmorillo/cmoriesgocardiovascular#4) | Pocas líneas; pruebas existentes | Hecho; ver «Resultado de la fase 3». EM sigue sin versión declarada | Baja |
-| 4 🟡 | VIH (ramonmorillo/cmo-vih-app#13) | i18n es/en/pt | Hecho con el sistema de diseño 0.2.0 (firma multilingüe); ver «Resultado de la fase 4» | Media |
-| 5 🟡 | Coagulopatías (dependencias: ramonmorillo/cmocoagulopatias#7; diseño, encadenado: ramonmorillo/cmocoagulopatias#8) | React + TypeScript | Hecho; ver «Resultado de la fase 5» | Media |
+| 1 ✅ | **CMO-Respiratorio** (piloto clínico; ramonmorillo/cmorespiratorio#8, fusionado el 2026-10-29) | La más madura: CI, e2e, pruebas de interfaz y documentación legal. Detectará cualquier regresión del DOM | Hecho: copia en `src/cmo-ds/` (`--dest src/cmo-ds`), copia recursiva en `scripts/build.js` y control de red ampliado | Media |
+| 2 ✅ | Pediatría (ramonmorillo/cmopediatria#6), Oncohematología (ramonmorillo/cmoncologia#6), Migraña (ramonmorillo/estratificacionmigrana#12); fusionados el 2026-10-30 | Misma arquitectura de build que Respiratorio | Hecho; ver «Resultado de la fase 2» | Media |
+| 3 ✅ | EM (ramonmorillo/estratificacionEM#4), RCV (ramonmorillo/cmoriesgocardiovascular#4); fusionados el 2026-10-30 | Pocas líneas; pruebas existentes | Hecho; ver «Resultado de la fase 3». EM sigue sin versión declarada | Baja |
+| 4 ✅ | VIH (ramonmorillo/cmo-vih-app#13; fusionado el 2026-10-30) | i18n es/en/pt | Hecho con el sistema de diseño 0.2.0 (firma multilingüe); ver «Resultado de la fase 4» | Media |
+| 5 🟡 | Coagulopatías (dependencias: ramonmorillo/cmocoagulopatias#7, fusionado; diseño: ramonmorillo/cmocoagulopatias#8, ya con base `main`) | React + TypeScript | Hecho; ver «Resultado de la fase 5» | Media |
 | 6 | Inmunomediadas, VHB-VHD | **Sin pruebas** | Casos de referencia (CMO-CLINICAL-SAFETY §2.2); VHB-VHD: retirar el CDN (H3) y la frase regulatoria (H2) | Media-alta |
 
 ## Pasos por herramienta (lista corta)
@@ -121,4 +121,4 @@ Hallazgos de transparencia que decide el autor, sin cambiar en los PR porque alt
 
 ## Siguiente paso concreto
 
-Revisar y fusionar los PR (fases 1-5; en Coagulopatías, primero el #7). Queda la fase 6 (Inmunomediadas y VHB-VHD), que **no tiene pruebas**: antes del rediseño hay que crear casos de referencia y, en VHB-VHD, retirar el CDN de `xlsx` y la frase «No es un producto sanitario».
+Fusionar ramonmorillo/cmocoagulopatias#8. En todas las apps fusionadas, la firma muestra «pendiente de publicación» hasta un commit de publicación (`status: "released"` + fecha real), que depende de la decisión de versión de cada app. Queda la fase 6 (Inmunomediadas y VHB-VHD), que **no tiene pruebas**: antes del rediseño hay que crear casos de referencia y, en VHB-VHD, retirar el CDN de `xlsx` y la frase «No es un producto sanitario».
