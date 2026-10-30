@@ -165,9 +165,9 @@ En Inmunomediadas, la regla de embarazo (que fuerza P1) enmascaraba los umbrales
   - **Privacidad:** `pseudonym_id` es un hash de 32 bits, sin sal, del identificador local, y se puede revertir por fuerza bruta en espacios pequeños como los NHC.
 - **Transparencia sobre IA.** Ya son 5 las apps que anuncian IA y funcionan con heurística local: EM, RCV, VIH, Inmunomediadas y VHB-VHD.
 
-## Publicación (preparada el 2026-10-30)
+## Publicación (2026-10-30) ✅
 
-Decisión del autor: **B, subir la versión menor**; DS 0.2.0 en todas. Un PR de publicación por herramienta (`status: "released"`, `releaseDate: "2026-10-30"`; si se fusiona otro día, hay que corregir la fecha):
+Decisión del autor: **B, subir la versión menor**; DS 0.2.0 en todas. Un PR de publicación por herramienta (`status: "released"`, `releaseDate: "2026-10-30"`). **Todos fusionados el 2026-10-30**, el mismo día de la fecha declarada; el hub se publica como 1.0.0 en este PR. Incluyen la titularidad SEFH de las adaptaciones CMO en la firma (campo `model`).
 
 | Herramienta | Versión | PR |
 |---|---|---|
@@ -184,7 +184,9 @@ Decisión del autor: **B, subir la versión menor**; DS 0.2.0 en todas. Un PR de
 
 ## Siguiente paso concreto
 
-1. Fusionar los PR de rótulos de IA y de seudónimo (independientes de la publicación).
-2. Fusionar los 10 PR de publicación (fecha real; 1.0.0 de EM y VHB-VHD confirmada).
-3. Revisión clínica: hallazgos de Inmunomediadas (ramonmorillo/cmo-vhb-vhd#15 ya fusionado).
-4. Pendientes del titular sin cambios: H1, H4-H6, H8 y los `[PENDIENTE]` de `legal.html`.
+**Migración completada.** Las 10 herramientas y el hub están publicados con el CMO Design System 0.2.0, firma con versión y fecha reales y titularidad SEFH. Pendientes del autor:
+
+1. Revisión clínica de los hallazgos de Inmunomediadas (edad vacía +1; bloque demográfico 11/9).
+2. Valoración regulatoria MDR de la finalidad prevista de cada herramienta (CMO-LEGAL-COMPLIANCE).
+3. Licencia: hoy «todos los derechos reservados»; decidir si se abre el código (p. ej. licencia de código abierto) por separado de los materiales SEFH.
+4. Cada nueva versión: subir la versión, actualizar CHANGELOG y fijar `releaseDate` en el commit de publicación (CMO-RELEASE-CHECKLIST).

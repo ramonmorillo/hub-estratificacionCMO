@@ -79,18 +79,24 @@ await check('Teclado: primer Tab = enlace de salto visible; foco con contorno �
   const o = await page.evaluate(() => parseFloat(getComputedStyle(document.activeElement).outlineWidth));
   assert.ok(o >= 3, `outline ${o}`); await ctx.close();
 });
-await check('Firma de autoría: versión 1.0.0 y fecha «pendiente de publicación» (no inventada)', async () => {
+await check('Firma de autoría: versión 1.0.0 y fecha tomada de cmo-app-meta (nunca generada)', async () => {
   const t = await after.page.textContent('cmo-author-signature');
-  assert.match(t, /Versión:?\s*1\.0\.0/); assert.match(t, /pendiente de publicación/); assert.match(t, /Ramón Morillo Verdugo/);
-  assert.doesNotMatch(t, /\d{2}\/\d{2}\/\d{4}/);
+  const meta = JSON.parse(await after.page.textContent('#cmo-app-meta'));
+  assert.match(t, /Versión:?\s*1\.0\.0/); assert.match(t, /Ramón Morillo Verdugo/);
+  if (meta.status === 'released') {
+    const [y, m, d] = meta.releaseDate.split('-');
+    assert.ok(t.includes(`${d}/${m}/${y}`), 'la firma muestra releaseDate'); assert.doesNotMatch(t, /pendiente de publicación/);
+  } else {
+    assert.match(t, /pendiente de publicación/); assert.doesNotMatch(t, /\d{2}\/\d{2}\/\d{4}/);
+  }
 });
-await check('Privacidad: sin cookies ni almacenamiento local; único recurso externo = Cloudflare Web Analytics', async () => {
+await check('Privacidad: sin cookies ni almacenamiento local; ningún recurso externo', async () => {
   for (const p of ['/index.html', '/legal.html']) {
     const s = await open(p);
     const st = await s.page.evaluate(() => ({ c: document.cookie, l: localStorage.length, s: sessionStorage.length }));
     const cookies = await s.ctx.cookies();
     assert.deepEqual([st.c, st.l, st.s, cookies.length], ['', 0, 0, 0], p);
-    assert.ok(s.external.every(u => u.startsWith('https://static.cloudflareinsights.com/')), p + ': ' + s.external.join(', '));
+    assert.deepEqual(s.external, [], p + ': ' + s.external.join(', '));
     await s.ctx.close();
   }
 });

@@ -6,7 +6,7 @@ Leyenda: **V** aplicable y verificada · **P** aplicable, pendiente de adaptaci�
 
 | Herramienta | Datos de salud en el navegador | Persistencia | Envío a terceros | Riesgos específicos |
 |---|---|---|---|---|
-| Hub | No | Ninguna | Cloudflare Web Analytics; alojamiento en GitHub | Analítica sin política hasta ahora |
+| Hub | No | Ninguna | Solo alojamiento en GitHub Pages (analítica de Cloudflare retirada el 2026-10-30) | — |
 | VIH | Sí (casos seudonimizados) | localStorage + IndexedDB | No | Texto clínico pegado: verificar que no se persiste |
 | Respiratorio | Sí | localStorage (sin cifrar; está documentado) | No (el build lo impide) | Equipos compartidos |
 | RCV | Sí (en memoria) | No | Solo si se configura un endpoint (vacío por defecto) | Si se activa, habrá encargado del tratamiento y transferencia |
@@ -36,9 +36,9 @@ En todas las herramientas, el **desarrollador no recibe datos**. Cuando un centr
 
 ## 3. Pendientes que debe aportar el titular (bloquean la versión `--strict`)
 
-1. Correo de contacto profesional para el aviso legal y para el ejercicio de derechos. *(En `ramonmorillo.es` aparece un correo en una encuesta; no se ha reutilizado sin confirmación.)*
-2. Decidir si se publican NIF y domicilio (tras la valoración de la LSSI).
+1. ~~Correo de contacto~~: resuelto (ralejandro.morillo.sspa@juntadeandalucia.es, indicado por el titular).
+2. ~~NIF y domicilio~~: el titular decide no publicarlos.
 3. Licencia del código (p. ej. una licencia de código abierto) y de los contenidos, por separado de los materiales SEFH.
-4. Valoración jurídica de Cloudflare Web Analytics (consentimiento, base jurídica y transferencias) o retirada del script.
+4. ~~Cloudflare Web Analytics~~: retirado del hub.
 5. Por cada herramienta: documento fuente exacto, autores del modelo y autorización de uso, si existe.
 6. Valoración regulatoria MDR de la finalidad prevista de cada herramienta.

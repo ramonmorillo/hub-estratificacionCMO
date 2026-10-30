@@ -16,7 +16,7 @@ Marque cada punto con evidencia (comando + resultado) en la descripción del PR.
 - [ ] `CHANGELOG.md` actualizado; `algorithm.version` sin cambios salvo una decisión clínica documentada
 - [ ] Marcadores `[PENDIENTE…]` resueltos o aceptados conscientemente por el titular
 - [ ] Revisión visual a 375 y 1280 px; navegación completa con teclado; una pasada con lector de pantalla
-- [ ] Sin credenciales en el diff (el token de Cloudflare es una clave pública de *beacon*, no un secreto)
+- [ ] Sin credenciales en el diff
 - [ ] Sin afirmaciones de validación, aval institucional ni marcado CE no acreditadas
 
 ## Evidencia del hub (2026-10-29, rama `claude/determined-thompson-my7j5j`)
