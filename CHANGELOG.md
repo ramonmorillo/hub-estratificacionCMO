@@ -2,7 +2,10 @@
 
 Formato SemVer. Las versiones anteriores a 1.0.0 no estaban numeradas y se identifican por su commit.
 
-## 1.0.0 — sin publicar (pendiente de fecha real de publicación)
+## 1.0.0 — 2026-10-30
+- Publicación: `cmo-app-meta` con `status: "released"` y `releaseDate: "2026-10-30"`.
+- Privacidad: se retira Cloudflare Web Analytics; el hub no carga recursos de terceros.
+- Aviso legal completo, sin marcadores `[PENDIENTE]`: titular y responsable del tratamiento, contacto, titularidad SEFH de las adaptaciones CMO, «todos los derechos reservados», legislación española y condiciones de GitHub Pages.
 - Nueva identidad «CMO Design System» 0.1.0 (sustituye a la paleta de referencia SEFH del commit `1b329fa`).
 - Firma de autoría y versión basada en metadatos controlados. Se retiran las fechas «Febrero 2026» y «Septiembre-2026», que no coincidían con el historial.
 - Nueva página `legal.html` (aviso legal, privacidad, cookies, condiciones, transparencia y accesibilidad), con pendientes marcados.

@@ -75,7 +75,8 @@ Grafías divergentes: «Ramón Morillo», «Ramón Morillo Verdugo», «Ramón M
 | Nuevo | VHB-VHD: seudónimo = hash de 32 bits sin sal del identificador local (reversible). **Decisión delegada: seudónimo aleatorio reutilizado por paciente**; los registros existentes no se reescriben | ramonmorillo/cmo-vhb-vhd#14 |
 | Nuevo | VHB-VHD: etiqueta de nivel incoherente con reglas de seguridad y errores del extractor. **El autor pide revisión clínica**: propuesta en borrador | ramonmorillo/cmo-vhb-vhd#15 |
 | Nuevo | Inmunomediadas: edad vacía +1; bloque demográfico 11/9. **Lo revisa el autor** | Pruebas de ramonmorillo/cmoinmunomediadas#4 |
-| H1, H4-H6, H8 | Sin cambios: pendientes del titular | — |
+| H4 | Resuelto: se retira Cloudflare Web Analytics del hub; sin terceros salvo el alojamiento (GitHub Pages). Aviso legal y privacidad completos, sin `[PENDIENTE]` | Hub (PR posterior a #18) |
+| H1, H5, H6, H8 | Sin cambios (H8: «todos los derechos reservados» declarado en el aviso legal) | — |
 
 ## 5. Funciones clínicas críticas que no deben tocarse
 
