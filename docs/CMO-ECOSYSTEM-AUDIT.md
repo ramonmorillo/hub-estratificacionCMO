@@ -62,6 +62,21 @@ Grafías divergentes: «Ramón Morillo», «Ramón Morillo Verdugo», «Ramón M
 | H10 | VHB-VHD e Inmunomediadas sin pruebas automatizadas | Media | Crear casos de referencia antes de cualquier cambio visual |
 | H11 | Falso positivo descartado: el endpoint `mi-backend.ejemplo.org` de Inmunomediadas está **comentado**; sin configurar, la extracción es heurística local | — | Mantener vacío; documentar en la política de privacidad |
 
+### 4.1 Estado de los hallazgos (2026-10-30)
+
+| # | Estado | Dónde |
+|---|---|---|
+| H2 | Resuelto: «No es un producto sanitario certificado» | ramonmorillo/cmo-vhb-vhd#11 (fusionado) |
+| H3 | Resuelto: copia local fijada con SRI, sin CDN. **Decisión del autor (delegada): mantener `xlsx` 0.18.5** mientras la app solo escriba XLSX; criterios de revisión en `vendor/xlsx/README.md` | ramonmorillo/cmo-vhb-vhd#11 (fusionado), #16 |
+| H7 | Resuelto: las 10 herramientas usan la copia fijada del DS; ninguna capa con `!important` nueva | Fases 1-6 |
+| H9 | Resuelto: dependencias fijadas, lockfile y `npm ci` | ramonmorillo/cmocoagulopatias#7 (fusionado) |
+| H10 | Resuelto: casos de referencia | ramonmorillo/cmoinmunomediadas#4, ramonmorillo/cmo-vhb-vhd#10 (fusionados) |
+| Nuevo | Rótulos de «IA» en 5 apps que usan reglas locales. **Decisión del autor: corregir** | ramonmorillo/estratificacionEM#5, ramonmorillo/cmoriesgocardiovascular#5, ramonmorillo/cmo-vih-app#14, ramonmorillo/cmoinmunomediadas#6, ramonmorillo/cmo-vhb-vhd#13 |
+| Nuevo | VHB-VHD: seudónimo = hash de 32 bits sin sal del identificador local (reversible). **Decisión delegada: seudónimo aleatorio reutilizado por paciente**; los registros existentes no se reescriben | ramonmorillo/cmo-vhb-vhd#14 |
+| Nuevo | VHB-VHD: etiqueta de nivel incoherente con reglas de seguridad y errores del extractor. **El autor pide revisión clínica**: propuesta en borrador | ramonmorillo/cmo-vhb-vhd#15 |
+| Nuevo | Inmunomediadas: edad vacía +1; bloque demográfico 11/9. **Lo revisa el autor** | Pruebas de ramonmorillo/cmoinmunomediadas#4 |
+| H1, H4-H6, H8 | Sin cambios: pendientes del titular | — |
+
 ## 5. Funciones clínicas críticas que no deben tocarse
 
 Ficheros que contienen variables, pesos, umbrales o reglas, y que quedan **fuera del alcance** del rediseño: `assets/modules/{cmo-engine,config,needs-mapper,interventions-catalog}.js` (VIH, RCV, Inmuno), `src/{clinical,extractor,assessment-state,workflow,report}.js` (Respiratorio, Pediatría, Oncología), `assets/js/model.js` (EM), `cmo-migrana-app/src/{core,local-extractor}.mjs` (Migraña), `src/{domain,data}/*` (Coagulopatías), bloque de reglas de `app.js` (VHB-VHD, líneas 1–90 aprox.). También las claves de almacenamiento y los esquemas de exportación (p. ej. `hbv_hdv_patients_v1`, `cmo-inmunomediadas-v1-*`, `DB_NAME` de VIH).
