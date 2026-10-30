@@ -179,12 +179,12 @@ Decisión del autor: **B, subir la versión menor**; DS 0.2.0 en todas. Un PR de
 | VIH | 3.0.0 → 3.1.0 | ramonmorillo/cmo-vih-app#15 |
 | Coagulopatías | 1.0.0 → 1.1.0 | ramonmorillo/cmocoagulopatias#9 |
 | Inmunomediadas | v1 → v1.1.0 | ramonmorillo/cmoinmunomediadas#7 |
-| EM | Sin versión → **1.0.0 propuesta** (borrador) | ramonmorillo/estratificacionEM#6 |
-| VHB-VHD | Sin versión → **1.0.0 propuesta** (borrador) | ramonmorillo/cmo-vhb-vhd#16 |
+| EM | Sin versión → **1.0.0** (confirmada por el autor) | ramonmorillo/estratificacionEM#6 |
+| VHB-VHD | Sin versión → **1.0.0** (confirmada por el autor; incluye retirar «idioma» del extractor) | ramonmorillo/cmo-vhb-vhd#16 |
 
 ## Siguiente paso concreto
 
 1. Fusionar los PR de rótulos de IA y de seudónimo (independientes de la publicación).
-2. Confirmar la versión 1.0.0 de EM y VHB-VHD y fusionar los 10 PR de publicación (fecha real).
-3. Revisión clínica: ramonmorillo/cmo-vhb-vhd#15 (borrador) y hallazgos de Inmunomediadas.
+2. Fusionar los 10 PR de publicación (fecha real; 1.0.0 de EM y VHB-VHD confirmada).
+3. Revisión clínica: hallazgos de Inmunomediadas (ramonmorillo/cmo-vhb-vhd#15 ya fusionado).
 4. Pendientes del titular sin cambios: H1, H4-H6, H8 y los `[PENDIENTE]` de `legal.html`.
