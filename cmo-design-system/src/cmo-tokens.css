@@ -1,0 +1,60 @@
+/*!
+ * CMO Design System — tokens  ·  v0.2.0
+ * Dirección creativa «Estratos». Sin dependencias, sin fuentes externas.
+ * Ratios de contraste verificados: ver docs/CMO-DESIGN-SYSTEM.md §2.
+ * REGLA: los tokens --cmo-level-* son los ÚNICOS colores permitidos para
+ * resultados de estratificación. Marca y submarca nunca se usan en resultados.
+ */
+@layer cmo.tokens {
+  :root {
+    /* Neutros: tinta y papel */
+    --cmo-ink: #14203a;
+    --cmo-ink-muted: #4b5568;
+    --cmo-paper: #f7f6f2;
+    --cmo-surface: #ffffff;
+    --cmo-surface-sunk: #efeee8;
+    --cmo-rule: #dedbd2;          /* separadores decorativos (no informativos) */
+    --cmo-control-border: #7b8495; /* ≥3:1 sobre blanco y papel (WCAG 1.4.11) */
+
+    /* Marca: tríada CMO (solo identidad, nunca estados clínicos) */
+    --cmo-c: #2d48b8;  /* Capacidad   · cobalto  */
+    --cmo-m: #743aa0;  /* Motivación  · violeta  */
+    --cmo-o: #0d6680;  /* Oportunidad · petróleo */
+    --cmo-brand: var(--cmo-c);
+    --cmo-brand-strong: #1f3aa8;
+    --cmo-brand-soft: #eef1fb;   /* fondos suaves de marca; brand-strong sobre él: 8,35:1 */
+    --cmo-focus: #1f3aa8;
+
+    /* Submarca: cada herramienta redefine solo este token (ver tabla en docs) */
+    --cmo-accent: var(--cmo-brand);
+
+    /* Semántica de estratificación: orden 1 = máxima prioridad/complejidad.
+       El TEXTO del nivel lo aporta siempre la herramienta (Nivel/Prioridad). */
+    --cmo-level-1: #a3241a; --cmo-level-1-bg: #fbecea;
+    --cmo-level-2: #93500a; --cmo-level-2-bg: #fdf1e2;
+    --cmo-level-3: #1e6b45; --cmo-level-3-bg: #e8f3ec;
+    --cmo-info: #0d6680;    --cmo-info-bg: #e6f1f4;
+    --cmo-warn: #93500a;    --cmo-warn-bg: #fdf1e2;
+    --cmo-error: #a3241a;   --cmo-error-bg: #fbecea;
+
+    /* Tipografía: pilas de sistema (privacidad: sin peticiones a terceros) */
+    --cmo-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --cmo-font-serif: "Iowan Old Style", Charter, "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --cmo-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --cmo-text-xs: .8125rem; --cmo-text-sm: .9375rem; --cmo-text-md: 1rem;
+    --cmo-text-lg: 1.25rem; --cmo-text-xl: 1.625rem; --cmo-text-2xl: clamp(2rem, 4.5vw, 3.25rem);
+    --cmo-leading: 1.6;
+
+    /* Espaciado (base 4 px) */
+    --cmo-space-1: 4px; --cmo-space-2: 8px; --cmo-space-3: 12px; --cmo-space-4: 16px;
+    --cmo-space-5: 24px; --cmo-space-6: 32px; --cmo-space-7: 48px; --cmo-space-8: 64px;
+
+    /* Forma */
+    --cmo-radius-sm: 6px; --cmo-radius-md: 10px; --cmo-radius-pill: 999px;
+    --cmo-shadow-1: 0 1px 2px #14203a14, 0 1px 1px #14203a0a;
+    --cmo-shadow-2: 0 8px 24px #14203a17;
+    --cmo-container: 1180px;
+    --cmo-gutter: 16px;
+  }
+  @media (min-width: 720px) { :root { --cmo-gutter: 32px; } }
+}
