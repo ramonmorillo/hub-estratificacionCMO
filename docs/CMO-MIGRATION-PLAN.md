@@ -5,11 +5,11 @@ Orden de menor a mayor riesgo y complejidad. Cada fila es **una rama y un PR** e
 | Fase | Herramienta | Por qué en este orden | Prerrequisitos específicos | Complejidad |
 |---|---|---|---|---|
 | 0 ✅ | Hub | Sin lógica clínica | — | Baja |
-| 1 🟡 | **CMO-Respiratorio** (piloto clínico; PR ramonmorillo/cmorespiratorio#8, CI en verde) | La más madura: CI, e2e, pruebas de interfaz y documentación legal. Detectará cualquier regresión del DOM | Hecho: copia en `src/cmo-ds/` (`--dest src/cmo-ds`), copia recursiva en `scripts/build.js` y control de red ampliado | Media |
-| 2 🟡 | Pediatría (ramonmorillo/cmopediatria#6), Oncohematología (ramonmorillo/cmoncologia#6), Migraña (ramonmorillo/estratificacionmigrana#12) | Misma arquitectura de build que Respiratorio | Hecho; ver «Resultado de la fase 2» | Media |
-| 3 🟡 | EM (ramonmorillo/estratificacionEM#4), RCV (ramonmorillo/cmoriesgocardiovascular#4) | Pocas líneas; pruebas existentes | Hecho; ver «Resultado de la fase 3». EM sigue sin versión declarada | Baja |
-| 4 🟡 | VIH (ramonmorillo/cmo-vih-app#13) | i18n es/en/pt | Hecho con el sistema de diseño 0.2.0 (firma multilingüe); ver «Resultado de la fase 4» | Media |
-| 5 | Coagulopatías | React + TypeScript | Fijar dependencias (H9) antes de nada | Media |
+| 1 ✅ | **CMO-Respiratorio** (piloto clínico; ramonmorillo/cmorespiratorio#8, fusionado el 2026-10-29) | La más madura: CI, e2e, pruebas de interfaz y documentación legal. Detectará cualquier regresión del DOM | Hecho: copia en `src/cmo-ds/` (`--dest src/cmo-ds`), copia recursiva en `scripts/build.js` y control de red ampliado | Media |
+| 2 ✅ | Pediatría (ramonmorillo/cmopediatria#6), Oncohematología (ramonmorillo/cmoncologia#6), Migraña (ramonmorillo/estratificacionmigrana#12); fusionados el 2026-10-30 | Misma arquitectura de build que Respiratorio | Hecho; ver «Resultado de la fase 2» | Media |
+| 3 ✅ | EM (ramonmorillo/estratificacionEM#4), RCV (ramonmorillo/cmoriesgocardiovascular#4); fusionados el 2026-10-30 | Pocas líneas; pruebas existentes | Hecho; ver «Resultado de la fase 3». EM sigue sin versión declarada | Baja |
+| 4 ✅ | VIH (ramonmorillo/cmo-vih-app#13; fusionado el 2026-10-30) | i18n es/en/pt | Hecho con el sistema de diseño 0.2.0 (firma multilingüe); ver «Resultado de la fase 4» | Media |
+| 5 🟡 | Coagulopatías (dependencias: ramonmorillo/cmocoagulopatias#7, fusionado; diseño: ramonmorillo/cmocoagulopatias#8, ya con base `main`) | React + TypeScript | Hecho; ver «Resultado de la fase 5» | Media |
 | 6 | Inmunomediadas, VHB-VHD | **Sin pruebas** | Casos de referencia (CMO-CLINICAL-SAFETY §2.2); VHB-VHD: retirar el CDN (H3) y la frase regulatoria (H2) | Media-alta |
 
 ## Pasos por herramienta (lista corta)
@@ -107,6 +107,18 @@ Hallazgos de transparencia que decide el autor, sin cambiar en los PR porque alt
 
 **Transparencia sobre IA.** Ya son tres las apps que anuncian IA y funcionan con reglas locales: EM, RCV y VIH. Lo decide el autor.
 
+## Resultado de la fase 5 (2026-10-30)
+
+**PR #7, dependencias.** `"latest"` se sustituye por las versiones exactas que resolvía `latest` el 2026-10-30. Se añaden `package-lock.json` y `.gitignore`, y el workflow pasa de `npm install` a `npm ci` con caché. Pruebas 79/79 y build correcto con `npm ci`. No es posible conocer las versiones exactas del despliegue del 16/09, porque no había lockfile.
+
+**PR #8, diseño** (encadenado sobre el #7):
+
+- **Carga del tema.** En React, el tema debe cargarse después de `styles.css`. Se consigue con una sola línea de imports en `main.tsx`, verificando el orden en el CSS empaquetado. La firma va en `index.html`, fuera de `#root`.
+- **Pruebas:** 79 → 83. La prueba nueva está en `tests/*.mjs`, para no exigir `@types/node` en `tsc -b`.
+- **Paridad:** 40/40 hasta el resultado, con P1, P2 y P3. El arnés detecta la mutación de `PRIORITY_CUTS` en 8/40 casos. Se añadió al arnés la opción `RANDCLICK` para los botones de opción.
+- **axe:** inicio 6 → 0 y resultado 8 → 0. Se corrigen contrastes previos del stepper, de la numeración de secciones y de la nota de guardado.
+- **Foco:** pasa del contorno por defecto de 1 px a 3 px `#1f3aa8`.
+
 ## Siguiente paso concreto
 
-Revisar y fusionar los PR clínicos (fases 1-4). Después, fase 5 (Coagulopatías: fijar dependencias antes del rediseño).
+Fusionar ramonmorillo/cmocoagulopatias#8. En todas las apps fusionadas, la firma muestra «pendiente de publicación» hasta un commit de publicación (`status: "released"` + fecha real), que depende de la decisión de versión de cada app. Queda la fase 6 (Inmunomediadas y VHB-VHD), que **no tiene pruebas**: antes del rediseño hay que crear casos de referencia y, en VHB-VHD, retirar el CDN de `xlsx` y la frase «No es un producto sanitario».

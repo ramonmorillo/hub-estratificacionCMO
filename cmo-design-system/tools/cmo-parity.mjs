@@ -2,7 +2,8 @@
 // Misma semilla → mismas interacciones en la versión ANTERIOR y la NUEVA; compara textContent de <main>,
 // valores de todos los campos y localStorage (fechas normalizadas). Además: axe, desbordamiento y capturas.
 // Uso: node cmo-parity.mjs <raízAnterior> <raízNueva> <basePath> <axe.min.js> <dirCapturas> [semillas=25] [pasos: selectores separados por |; FILL rellena de nuevo]
-// Opcional: PROBE=<selector> imprime su texto por semilla; SKIP=<selectores> excluye campos (p. ej. selector de idioma).
+// Opcional: PROBE=<selector> imprime su texto por semilla; SKIP=<selectores> excluye campos (p. ej. selector de idioma);
+// RANDCLICK=<selector> pulsa al azar controles tipo botón (opciones de variables), con la misma semilla.
 // Con la semilla 1 pasa axe también sobre el estado final del recorrido (resultados), en ambas versiones.
 // Valide siempre el arnés con una mutación clínica controlada (p. ej. un umbral) antes de confiar en un 25/25.
 import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path'; import {createRequire} from 'node:module';
@@ -17,7 +18,7 @@ async function run(srv,seed){
   p.on('pageerror',e=>errs.push(String(e))); p.on('dialog',d=>d.accept()); p.on('request',r=>{if(!r.url().startsWith(url(srv)))ext.push(r.url())});
   if(process.env.PROBE)await p.addInitScript(sel=>{window.__PROBE=sel},process.env.PROBE);
   await p.goto(url(srv)); await p.waitForTimeout(150);
-  const snap=await p.evaluate(async ({seed,CLICK,SKIP})=>{
+  const snap=await p.evaluate(async ({seed,CLICK,SKIP,RANDCLICK})=>{
     const R=()=>document.querySelector('main')||document.querySelector('#app')||document.body; // raíz comparada
     let x=seed*2654435761%4294967296||1; const rnd=()=>{x^=x<<13;x>>>=0;x^=x>>>17;x^=x<<5;x>>>=0;return x/4294967296};
     const dens=((seed%5)+1)/10; // densidad 0,1–0,5: cubre casos de baja puntuación y evita que la prioridad automática enmascare umbrales
@@ -33,6 +34,7 @@ async function run(srv,seed){
         else if(el.tagName==='TEXTAREA'){}
         else {el.value='T'+Math.floor(rnd()*1000);fire(el)}
       }
+      if(RANDCLICK){for(const b of [...R().querySelectorAll(RANDCLICK)]){if(rnd()<dens*0.8&&!b.disabled){b.click();await sleep(5)}}} // controles tipo botón (opciones)
       await sleep(30);
     } };
     await fillAll();
@@ -42,7 +44,7 @@ async function run(srv,seed){
     const norm=s=>s.replace(/\d{1,2}\/\d{1,2}\/\d{4},?\s*\d{1,2}:\d{2}(:\d{2})?/g,'<FECHA>').replace(/\d{4}-\d{2}-\d{2}T[\d:.]+Z?/g,'<ISO>').replace(/\bcase-\d{10,}-[a-z0-9]+\b/g,'<CASEID>').replace(/\s+/g,' ');
     const probe=(window.__PROBE&&document.querySelector(window.__PROBE))?.textContent?.trim()||null;
     return {probe,text:norm(R().textContent),vals,ls:Object.keys(localStorage).sort().map(k=>k+'='+norm(localStorage.getItem(k)).replace(/"(id|caseId|createdAt|updatedAt|savedAt|exportedAt)":"[^"]*"/g,'"$1":"*"'))};
-  },{seed,CLICK,SKIP:process.env.SKIP||''});
+  },{seed,CLICK,SKIP:process.env.SKIP||'',RANDCLICK:process.env.RANDCLICK||''});
   let flowAxe=null;
   if(seed===1){ // axe también sobre el estado final del recorrido (resultados, paneles abiertos tras los clics)
     await p.addScriptTag({path:AXE}); const r=await p.evaluate(()=>axe.run(document,{runOnly:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}));
