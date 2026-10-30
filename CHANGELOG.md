@@ -7,6 +7,7 @@ Formato SemVer. Las versiones anteriores a 1.0.0 no estaban numeradas y se ident
 - Firma de autoría y versión basada en metadatos controlados. Se retiran las fechas «Febrero 2026» y «Septiembre-2026», que no coincidían con el historial.
 - Nueva página `legal.html` (aviso legal, privacidad, cookies, condiciones, transparencia y accesibilidad), con pendientes marcados.
 - Accesibilidad: enlace de salto, chips con `aria-pressed` y ✓, enlaces externos anunciados, búsqueda `type=search`, 0 infracciones axe.
+- `cmo-parity.mjs`: pasos `PICK@`, `TYPE@`, `EACH@` (con `EACHDENS`, `EACHSKIP`) y `DLG` para asistentes con campos obligatorios y confirmación fila a fila (fase 6).
 - Sin cambios en el catálogo: mismas 10 herramientas, URLs, categorías y lógica de búsqueda (verificado en `tests/hub.e2e.mjs`).
 
 ## Anteriores (sin versión)

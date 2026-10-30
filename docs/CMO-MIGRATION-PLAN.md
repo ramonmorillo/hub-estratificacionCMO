@@ -9,8 +9,8 @@ Orden de menor a mayor riesgo y complejidad. Cada fila es **una rama y un PR** e
 | 2 ✅ | Pediatría (ramonmorillo/cmopediatria#6), Oncohematología (ramonmorillo/cmoncologia#6), Migraña (ramonmorillo/estratificacionmigrana#12); fusionados el 2026-10-30 | Misma arquitectura de build que Respiratorio | Hecho; ver «Resultado de la fase 2» | Media |
 | 3 ✅ | EM (ramonmorillo/estratificacionEM#4), RCV (ramonmorillo/cmoriesgocardiovascular#4); fusionados el 2026-10-30 | Pocas líneas; pruebas existentes | Hecho; ver «Resultado de la fase 3». EM sigue sin versión declarada | Baja |
 | 4 ✅ | VIH (ramonmorillo/cmo-vih-app#13; fusionado el 2026-10-30) | i18n es/en/pt | Hecho con el sistema de diseño 0.2.0 (firma multilingüe); ver «Resultado de la fase 4» | Media |
-| 5 🟡 | Coagulopatías (dependencias: ramonmorillo/cmocoagulopatias#7, fusionado; diseño: ramonmorillo/cmocoagulopatias#8, ya con base `main`) | React + TypeScript | Hecho; ver «Resultado de la fase 5» | Media |
-| 6 | Inmunomediadas, VHB-VHD | **Sin pruebas** | Casos de referencia (CMO-CLINICAL-SAFETY §2.2); VHB-VHD: retirar el CDN (H3) y la frase regulatoria (H2) | Media-alta |
+| 5 ✅ | Coagulopatías (dependencias: ramonmorillo/cmocoagulopatias#7; diseño: ramonmorillo/cmocoagulopatias#8; fusionados y desplegados el 2026-10-30) | React + TypeScript | Hecho; ver «Resultado de la fase 5» | Media |
+| 6 🟡 | Inmunomediadas (pruebas: ramonmorillo/cmoinmunomediadas#4; diseño: ramonmorillo/cmoinmunomediadas#5), VHB-VHD (pruebas: ramonmorillo/cmo-vhb-vhd#10; seguridad: ramonmorillo/cmo-vhb-vhd#11; diseño: ramonmorillo/cmo-vhb-vhd#12); PR encadenados, abiertos | No tenían pruebas | Hecho; ver «Resultado de la fase 6» | Media-alta |
 
 ## Pasos por herramienta (lista corta)
 
@@ -119,6 +119,54 @@ Hallazgos de transparencia que decide el autor, sin cambiar en los PR porque alt
 - **axe:** inicio 6 → 0 y resultado 8 → 0. Se corrigen contrastes previos del stepper, de la numeración de secciones y de la nota de guardado.
 - **Foco:** pasa del contorno por defecto de 1 px a 3 px `#1f3aa8`.
 
+## Resultado de la fase 6 (2026-10-30)
+
+**Casos de referencia antes del rediseño** (CMO-CLINICAL-SAFETY §2.2). Ninguna de las dos apps tenía pruebas. En cada una se añade `npm test` (`node --test`, sin dependencias), con pruebas de caracterización que fijan el comportamiento actual con valores literales. Las pruebas se validaron con mutaciones.
+
+- **Inmunomediadas** (#4), 12 pruebas sobre `computeStratification` y `config.js`:
+  - Fronteras 17/18 y 30/31.
+  - Regla de embarazo.
+  - Variables sin confirmar.
+  - Mutaciones: umbral P1 31 → 30, fallan 3 pruebas; peso 4 → 5, fallan 4.
+- **VHB-VHD** (#10), 12 pruebas:
+  - `app.js` es un script clásico. Se carga **sin modificarlo** en un contexto `vm` (`tests/load-app.mjs`), omitiendo solo la llamada final `init();`.
+  - Cubre las fronteras 7/8 y 12/13, las reglas de seguridad, la extracción heurística, el pseudónimo y las columnas de exportación.
+  - Mutaciones: umbral 13 → 12, fallan 3; peso 4 → 5, fallan 4; `minLevel` 2 → 3, fallan 3; patrón `erc` retirado, falla 1.
+
+**VHB-VHD, seguridad y regulación** (#11, separado del rediseño):
+
+- **H3.** `xlsx@0.18.5` deja de cargarse desde jsDelivr y pasa a `vendor/xlsx/`, con SRI y procedencia documentada. La integridad del tarball se verificó contra el registro npm. Resultado: 0 peticiones a terceros, y la exportación XLSX queda verificada en Chromium (3 hojas, columnas idénticas).
+- **H2.** «No es un producto sanitario» → «no es un producto sanitario certificado».
+
+**Rediseño:**
+
+| | Inmunomediadas (#5) | VHB-VHD (#12) |
+|---|---|---|
+| Pruebas | 12 → 16 | 15 → 19 |
+| Paridad | 40/40 + 40/40 (recorrido manual completo de 7 pasos; dos configuraciones) | 40/40 (estratificar + guardar) |
+| Detección de mutación | P1 31 → 25: 8/40; P2 18 → 15: 5/40 | 13 → 12: 2/40; 8 → 10: 2/40 (todas las semillas de la banda afectada salvo 1, elevada por una regla de seguridad) |
+| axe antes → después | Idéntico en los 7 pasos. Previos sin cambios: paso 3 `label`(4) + `select-name`(27); paso 7 `scrollable-region-focusable`(1) | 0 → 0 (inicio, recorrido y extracción IA) |
+| Desbordamiento a 375 px | 0 → 0 | **97 → 0** (rejilla `.layout`). Las 2 tablas desplazables pasan a ser enfocables con teclado |
+| Foco / borde de campos | 1,6 / 1,3:1 → 9,4 / ≥3:1 (corregida durante el trabajo una regresión de especificidad del borde) | 1,6 / 1,5:1 → 9,4 / ≥3:1 |
+| Versión en la firma | `1` (`APP_VERSION = 'v1'`; el CHANGELOG dice v1.0.0) | Ninguna (el código no declara versión) |
+
+**Arnés de paridad.** Se añaden los pasos `PICK@`, `TYPE@` y `EACH@` (con `EACHDENS` y `EACHSKIP`) y la variable `DLG`, para asistentes con campos obligatorios y confirmación fila a fila.
+
+En Inmunomediadas, la regla de embarazo (que fuerza P1) enmascaraba los umbrales: la detección era de solo 1/40. Por eso se añade una configuración «sensible», que deja esas filas sin determinar, y se mantiene la configuración por defecto, que cubre la regla.
+
+**Hallazgos que decide el autor (documentados en las pruebas, no corregidos):**
+
+- **Inmunomediadas:**
+  - La edad vacía suma +1 (se trata como «≤12»).
+  - El bloque demográfico puede llegar a 11 puntos frente al máximo declarado de 9.
+- **VHB-VHD:**
+  - Con una regla de seguridad, la etiqueta cita un rango que no corresponde a la puntuación: 2 puntos → «Nivel 2 (… 8-12 puntos)».
+  - Errores de la extracción heurística: negación no inmediata, la subcadena `erc` («tercera», «cerca»), «últimos 12 meses» y «VHB sin VHD» → VHB-VHD.
+  - **Privacidad:** `pseudonym_id` es un hash de 32 bits, sin sal, del identificador local, y se puede revertir por fuerza bruta en espacios pequeños como los NHC.
+- **Transparencia sobre IA.** Ya son 5 las apps que anuncian IA y funcionan con heurística local: EM, RCV, VIH, Inmunomediadas y VHB-VHD.
+
 ## Siguiente paso concreto
 
-Fusionar ramonmorillo/cmocoagulopatias#8. En todas las apps fusionadas, la firma muestra «pendiente de publicación» hasta un commit de publicación (`status: "released"` + fecha real), que depende de la decisión de versión de cada app. Queda la fase 6 (Inmunomediadas y VHB-VHD), que **no tiene pruebas**: antes del rediseño hay que crear casos de referencia y, en VHB-VHD, retirar el CDN de `xlsx` y la frase «No es un producto sanitario».
+Revisar y fusionar los PR encadenados de la fase 6, en orden: Inmunomediadas #4 → #5 y VHB-VHD #10 → #11 → #12. Al fusionar cada uno, se redirige la base del siguiente.
+
+Con eso, las 10 herramientas tendrán el DS. En todas, la firma mostrará «pendiente de publicación» hasta su commit de publicación (`status: "released"` + fecha real), que depende de la decisión de versión de cada app. Quedan además las decisiones sobre los hallazgos clínicos, de privacidad y de transparencia sobre IA.
