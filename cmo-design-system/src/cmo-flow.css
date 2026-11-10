@@ -6,7 +6,8 @@
  */
 @layer cmo.components {
   /* Indicador de progreso por etapas */
-  .cmo-stepper { position: sticky; top: 0; z-index: 5; background: var(--cmo-paper); border-bottom: 1px solid var(--cmo-rule); }
+  /* No es fijo (sticky): un indicador fijo taparía controles y el foco al desplazar (WCAG 2.4.11 y 2.5.8). */
+  .cmo-stepper { background: var(--cmo-paper); border-bottom: 1px solid var(--cmo-rule); }
   .cmo-stepper ol { display: flex; gap: var(--cmo-space-1); margin: 0 auto; padding: var(--cmo-space-2) 0; list-style: none;
     width: min(var(--cmo-container), 100% - 2 * var(--cmo-gutter)); overflow-x: auto; scrollbar-width: thin; }
   .cmo-stepper li { flex: 1 0 auto; }
@@ -50,7 +51,7 @@
 
   /* Respuesta de tres estados: Sí / No / Pendiente (la ausencia de dato nunca es «No») */
   .cmo-tristate { display: inline-flex; margin: 0; padding: 0; border: 1px solid var(--cmo-control-border); border-radius: var(--cmo-radius-sm); overflow: hidden; background: var(--cmo-surface); }
-  .cmo-tristate label { display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--cmo-space-4); font-size: var(--cmo-text-sm); font-weight: 600; cursor: pointer; border-right: 1px solid var(--cmo-control-border); }
+  .cmo-tristate label { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--cmo-space-4); font-size: var(--cmo-text-sm); font-weight: 600; cursor: pointer; border-right: 1px solid var(--cmo-control-border); }
   .cmo-tristate label:last-child { border-right: 0; }
   .cmo-tristate input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .cmo-tristate label:has(input:checked) { background: var(--cmo-ink); color: #fff; }
@@ -100,7 +101,6 @@
     .cmo-stepper button:not([aria-current="step"]) > span { font-size: var(--cmo-text-xs); }
     .cmo-stage__actions > * { flex: 1 1 100%; }
   }
-  @media (prefers-reduced-motion: no-preference) { .cmo-stepper button { transition: background-color .12s ease, color .12s ease; } }
   @media print { .cmo-stepper, .cmo-stage__actions, .cmo-toast { display: none; } }
   @media (forced-colors: active) { .cmo-stepper button[aria-current="step"], .cmo-tristate label:has(input:checked) { outline: 2px solid CanvasText; } }
 }

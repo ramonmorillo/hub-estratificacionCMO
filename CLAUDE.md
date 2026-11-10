@@ -9,7 +9,11 @@ Repositorio del hub y fuente canónica del **CMO Design System** (`cmo-design-sy
 - No inventar datos legales, autorías ni validaciones: usar `[PENDIENTE: …]`.
 - Estilos nuevos: dentro de `@layer cmo.*`, con clases `.cmo-*`, sin `!important`; nada de fuentes ni scripts de terceros.
 
+## Coordinación del ecosistema
+- Estado, decisiones y siguientes pasos: `docs/ECOSISTEMA_CMO_PROGRESS.md` (leer primero). Arquitectura común: `docs/ECOSISTEMA_CMO_ARCHITECTURE.md`.
+- El núcleo (`cmo-report.js`, `cmo-pdf.js`, `cmo-flow.js`) no contiene lógica clínica; cada herramienta aporta un adaptador y conserva su motor intacto.
+
 ## Pruebas
-- `node --test cmo-design-system/tests/signature.test.mjs`
+- `node --test cmo-design-system/tests/*.mjs` (firma + núcleo del flujo común)
 - `AXE_PATH=<ruta axe.min.js> node tests/hub.e2e.mjs` (Playwright preinstalado; axe opcional)
 - `node cmo-design-system/tools/cmo-release-check.mjs index.html legal.html`
