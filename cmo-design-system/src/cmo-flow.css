@@ -81,9 +81,11 @@
   .cmo-report h1 { margin: 0 0 var(--cmo-space-1); font: 600 var(--cmo-text-lg)/1.25 var(--cmo-font-serif); }
   .cmo-report h2 { margin: var(--cmo-space-5) 0 var(--cmo-space-2); padding-bottom: var(--cmo-space-1); border-bottom: 1px solid var(--cmo-brand-strong);
     font: 700 var(--cmo-text-xs)/1.3 var(--cmo-font-sans); letter-spacing: .05em; text-transform: uppercase; color: var(--cmo-brand-strong); }
-  .cmo-report dl { display: grid; gap: 2px; margin: var(--cmo-space-3) 0; }
+  .cmo-report { overflow-wrap: anywhere; }
+  .cmo-report dl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; margin: var(--cmo-space-3) 0; }
   .cmo-report dl div { display: flex; flex-wrap: wrap; gap: 0 var(--cmo-space-3); }
   .cmo-report dt { font-weight: 700; color: var(--cmo-ink-muted); } .cmo-report dt::after { content: ":"; }
+  .cmo-report dt, .cmo-report dd { min-width: 0; white-space: normal; }
   .cmo-report dd { margin: 0; }
   .cmo-report ul { margin: 0; padding-left: var(--cmo-space-5); }
   .cmo-report__tool, .cmo-report footer { font-size: var(--cmo-text-xs); color: var(--cmo-ink-muted); }

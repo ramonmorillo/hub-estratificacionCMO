@@ -139,3 +139,13 @@ test('evidenceAt: fragmento literal y aviso de posible negación', async () => {
   assert.equal(evidenceAt('Niega HTA', 6, 3).negated, true);
   assert.equal(evidenceAt('HTA mal controlada', 0, 3).negated, false);
 });
+
+test('el resultado sigue siempre a la valoración, con o sin sección de contexto', () => {
+  for (const withContext of [true, false]) {
+    const b = base(); if (!withContext) b.context = [];
+    const lines = reportToText(createReport(b)).split('\n');
+    const result = lines.findIndex(l => l.startsWith('RESULTADO DE ESTRATIFICACIÓN'));
+    assert.ok(result > lines.indexOf('VALORACIÓN CMO (ESTRATIFICACIÓN)'));
+    assert.ok(result < lines.indexOf('VARIABLES QUE CONTRIBUYEN AL RESULTADO'));
+  }
+});

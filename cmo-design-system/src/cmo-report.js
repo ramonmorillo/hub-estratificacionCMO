@@ -136,6 +136,7 @@ export function validateReport(r) {
   return errors;
 }
 
+const STRATIFICATION_TITLE = 'Valoración CMO (estratificación)';
 const scoreLabel = s => (s.score === null ? '' : `${s.score}${s.maxScore === null ? '' : `/${s.maxScore}`}`);
 const subtotalsLabel = s => s.subtotals.map(x => `${x.label} ${x.points}${x.max === null ? '' : `/${x.max}`}`).join('; ');
 const toolLabel = r => `${r.tool.name}${r.tool.version ? ` v${r.tool.version}` : ''}`;
@@ -157,7 +158,7 @@ export function reportSections(r) {
   const sub = t => t && { kind: 'sub', text: t };
 
   add('Situación clínica y farmacoterapéutica relevante', r.context.map(c => kv(c.label, c.value)));
-  add('Valoración CMO (estratificación)', [
+  add(STRATIFICATION_TITLE, [
     kv('Modelo', [r.model.name, r.model.version && `versión ${r.model.version}`].filter(Boolean).join(' · ')),
     kv('Puntuación total', scoreLabel(s) && `${scoreLabel(s)}${s.subtotals.length ? ` (${subtotalsLabel(s)})` : ''}`),
     kv('Resultado calculado por el modelo', s.calculatedLevel),
@@ -211,11 +212,13 @@ export function reportToText(r) {
   const out = [r.title.toUpperCase()];
   reportHeader(r).forEach(([k, v]) => out.push(`${k}: ${v}`));
   const line = l => (l.kind === 'kv' ? `- ${l.key}: ${l.text}` : l.kind === 'sub' ? l.text : l.kind === 'item' ? `  - ${l.text}` : `- ${l.text}`);
-  reportSections(r).forEach((section, index) => {
-    if (index === 2) out.push('', resultLine(r).toUpperCase());
+  // El resultado va siempre inmediatamente después de la valoración, exista o no la sección de contexto.
+  let placed = false;
+  for (const section of reportSections(r)) {
     out.push('', section.title.toUpperCase(), ...section.lines.map(line));
-  });
-  if (reportSections(r).length < 3) out.push('', resultLine(r).toUpperCase());
+    if (section.title === STRATIFICATION_TITLE) { out.push('', resultLine(r).toUpperCase()); placed = true; }
+  }
+  if (!placed) out.push('', resultLine(r).toUpperCase());
   out.push('', ...footerLines(r));
   return out.map(toPlain).join('\n').replace(/\n{3,}/g, '\n\n');
 }
