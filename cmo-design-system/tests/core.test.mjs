@@ -127,3 +127,15 @@ test('el núcleo no contiene red, almacenamiento ni fechas implícitas', () => {
   }
   assert.ok(!/new Date\(\)|Date\.now\(\)/.test(readFileSync(new URL('../src/cmo-report.js', import.meta.url), 'utf8')), 'cmo-report.js es determinista');
 });
+
+test('evidenceAt: fragmento literal y aviso de posible negación', async () => {
+  const { evidenceAt } = await import('../src/cmo-report.js');
+  const t = 'Paciente estable. No fumador desde 2010. Fumador pasivo.';
+  const i = t.indexOf('fumador');
+  const ev = evidenceAt(t, i, 7);
+  assert.equal(ev.match, 'fumador'); assert.equal(ev.negated, true);
+  assert.equal(evidenceAt(t, t.indexOf('Fumador pasivo'), 7).negated, false, 'la negación no cruza el punto');
+  assert.equal(evidenceAt('VIH negativo', 0, 3).negated, true);
+  assert.equal(evidenceAt('Niega HTA', 6, 3).negated, true);
+  assert.equal(evidenceAt('HTA mal controlada', 0, 3).negated, false);
+});
