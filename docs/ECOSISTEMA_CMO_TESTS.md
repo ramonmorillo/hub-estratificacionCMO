@@ -9,7 +9,7 @@ Todo lo que figura aquí se ejecutó el 2026-11-10 (Node 22, Chromium de Playwri
 | Hub | 11 firma + 11 e2e + control de publicación | **23** unitarias (11 firma + 12 núcleo) · e2e 11/11 con axe 0 · «Apto» | Informe único (texto = HTML = PDF en secciones), provisional, validación, escape, CSV, sobre de exportación, importación hostil, PDF (estructura, xref, paginación), evidencia/negación, ausencia de red y almacenamiento |
 | EM | 6 casos de autocomprobación + 4 | Autocomprobación + **21** unitarias · **4** e2e | Paridad con el motor (6 casos frontera en dos modos + todas las variables y opciones una a una), pendientes y peor escenario, excluyentes, modificación profesional, catálogo de intervenciones = original, informe, ida y vuelta de exportación, analizador = copia congelada 1.0.0, huella de `model.js` |
 | RCV | 11 | **22** unitarias · **4** e2e | Fronteras 16/17 y 22/23, paridad por variable y opción, provisional con 0 datos, propuestas sin validar, embarazo, menor de 18, elevación, necesidades = `needs-mapper`, informe, importación manipulada, huellas de 6 ficheros clínicos |
-| Pediatría | 27 | 28 | Regresión XSS |
+| Pediatría | 27 | **38** unitarias · **6** e2e | Huellas (clinical.js sin VERSION, extractor.js), fronteras 16/17 y 30/31, paridad en 300 formularios, pendientes y cota, edad inválida, modificación con justificación reforzada, actuaciones, informe, saneado de importación, CSV |
 | Oncohematología | 43 | **58** unitarias · **5** e2e | Huellas de 3 ficheros clínicos, paridad con el motor en 400 casos aleatorios, fronteras 15/16 y 27/28, pendientes y cota superior, modificación, informe, importación hostil y formato anterior, CSV, análisis con decisión previa |
 | Migraña | 71 | 72 | Regresión XSS |
 | VIH | 50 | **68** unitarias · **4** e2e | Huellas de motor/configuración/analizador, paridad con el motor en 300 casos, propuestas sin confirmar, modificación, importación, estado corrupto, exportaciones sin texto libre, borrador, un solo clic en «Analizar» |
@@ -35,6 +35,8 @@ Cada batería e2e se repitió varias veces seguidas (EM y RCV 5; Oncohematologí
 - VIH incluye además: etapa de seguimiento (estado de intervenciones, plan), PDF descargado y el mismo informe en inglés.
 - **No ejecutado en VIH**: recorrido manual completo con las 16 variables, cambio de idioma a en/pt más allá de la carga, casos guardados (IndexedDB).
 
+- **Pediatría** (6 recorridos, axe 0): P1 por 31 puntos con estados de actuaciones y plan → informe (copiar = .txt idéntico, PDF, impresión, JSON, CSV); provisional con confirmación; edad negativa sin errores; análisis de texto donde nada puntúa hasta confirmar; importación hostil; lista de casos con la prioridad final; 375 px; 0 peticiones externas.
+
 ## 3. Validación de las propias pruebas (mutaciones)
 
 | Mutación | Resultado |
@@ -42,6 +44,7 @@ Cada batería e2e se repitió varias veces seguidas (EM y RCV 5; Oncohematologí
 | EM: el adaptador trata «No» como criterio activo | 8 pruebas fallan |
 | EM: el peor escenario deja de calcularse | 3 fallan |
 | RCV: el adaptador acepta registros sin validar | 1 falla |
+| Pediatría: se acepta cualquier edad / se ignora la validación de la modificación | 1 prueba falla en cada caso |
 | Oncohematología: el adaptador ignora los pendientes | 4 pruebas fallan |
 | Oncohematología: se incorporan todas las propuestas, no solo las decididas | Falla el recorrido asistido |
 | Oncohematología: la modificación profesional se ignora | 1 prueba falla |
@@ -50,7 +53,7 @@ Cada batería e2e se repitió varias veces seguidas (EM y RCV 5; Oncohematologí
 
 ## 4. Comprobación en navegador de los parches XSS (Pediatría, Migraña, VHB-VHD)
 
-Texto con `<img onerror>` pegado y análisis lanzado: **Pediatría** (donde la auditoría lo había ejecutado) y **VHB-VHD**: no se ejecuta ni crea elementos. **Migraña**: la app carga sin errores, pero el punto corregido (justificación de la modificación) **no se volvió a ejercitar en navegador**; queda cubierto por la prueba estática de regresión. Oncohematología y VIH tienen ahora recorridos e2e propios con carga hostil.
+Texto con `<img onerror>` pegado y análisis lanzado: **VHB-VHD** (Pediatría tiene ahora su e2e propio): no se ejecuta ni crea elementos. **Migraña**: la app carga sin errores, pero el punto corregido (justificación de la modificación) **no se volvió a ejercitar en navegador**; queda cubierto por la prueba estática de regresión. Oncohematología y VIH tienen ahora recorridos e2e propios con carga hostil.
 
 ## 5. Limitaciones
 

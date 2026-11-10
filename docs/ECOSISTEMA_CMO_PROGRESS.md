@@ -9,7 +9,7 @@
 | Hub / núcleo 0.3.0 | Hecho; informe con etiquetas es/en/pt (`LABELS`, portugués sin revisar) | `2ab796c` | PR; decidir publicación 0.3.0 |
 | EM | **Adaptación completa** (7 etapas, núcleo) | `8e2d957` | Revisión clínica de lo marcado; PR; commit de publicación 1.1.0 |
 | RCV | **Adaptación completa** (núcleo + 5 defectos) | `ec336b4` | Ídem; decidir versión (hoy 1.2.0 sin subir) |
-| Pediatría | Solo parche XSS | `e68c1d6` | Adaptar al núcleo (ya tiene estado pendiente: coste bajo) |
+| Pediatría | **Adaptación** (informe único + PDF, actuaciones con estado, plan, necesidades, provisional con cota; página única con progreso) | `5108cbd` | Revisión clínica de lo marcado; PR contra `claude/awesome-cray-vilcvr` (no hay `main`); publicación 1.3.0 |
 | Oncohematología | **Adaptación completa** (7 etapas, núcleo, decisión previa por propuesta, provisional) | `5af557b` | Revisión clínica de lo marcado; PR; commit de publicación 1.3.0 |
 | Migraña | Solo parche XSS | `670ba4d` | Importación sin validar; informe único |
 | VIH | **Adaptación sustancial**: puerta de revisión, importación validada, provisional, etapa de seguimiento con estado de intervenciones, informe único y PDF en es/en/pt (conserva su asistente propio) | `1d229e7` | Validar el cambio de comportamiento; revisar el portugués; recorrido manual de las 16 variables y casos guardados |
@@ -47,4 +47,4 @@
 
 Procedimiento en `ECOSISTEMA_CMO_ARCHITECTURE.md` §6. Plantillas reales: `estratificacionEM/assets/js/assessment.js` (modelo de casillas) y `cmoriesgocardiovascular/assets/modules/assessment.js` (modelo de registros validados); pruebas e2e reutilizables en `tests/e2e/flow.e2e.mjs` de ambas.
 Plantilla adicional: `cmoncologia/src/assessment.js` (modelo de campos con varios valores por variable y cota superior de pendientes) y `cmo-vih-app/assets/modules/review-gate.js` (puerta de revisión sobre un motor que no se puede tocar).
-Orden recomendado: Pediatría → Migraña → VHB-VHD → Inmunomediadas → Coagulopatías.
+Orden recomendado: Migraña → VHB-VHD → Inmunomediadas → Coagulopatías.
