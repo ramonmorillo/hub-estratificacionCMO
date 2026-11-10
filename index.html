@@ -36,7 +36,7 @@
                 isolation: isolate;
                 overflow: hidden;
                 padding: clamp(28px, 6vw, 72px) clamp(20px, 5vw, 64px);
-                border-radius: 24px;
+                border-radius: 24px 24px 0 0;
                 color: #fff;
                 background: radial-gradient(ellipse at 82% 28%, var(--cmo-hub-teal), #005b63 48%, #06373f 84%);
             }
@@ -77,7 +77,6 @@
                 justify-content: space-between;
                 flex-wrap: wrap;
                 gap: var(--cmo-space-3);
-                margin-top: clamp(28px, 5vw, 56px);
             }
 
             .cmo-h2 { font-size: clamp(1.65rem, 4vw, 2.65rem); font-weight: 400; }
@@ -107,6 +106,90 @@
             }
 
             .cmo-hub-note p { max-width: 75ch; margin-bottom: 0; }
+
+            .cmo-hub-ticker {
+                display: flex;
+                align-items: stretch;
+                overflow: hidden;
+                border-radius: 0 0 24px 24px;
+                background: #06373f;
+                color: #fff;
+                font-size: var(--cmo-text-sm);
+            }
+
+            .cmo-hub-ticker-control {
+                display: flex;
+                align-items: center;
+                flex-shrink: 0;
+                gap: 8px;
+                padding: 10px 16px;
+                border-inline-end: 1px solid #ffffff40;
+                cursor: pointer;
+            }
+
+            .cmo-hub-ticker-control input { margin: 0; accent-color: var(--cmo-hub-teal); }
+            .cmo-hub-ticker-control input:focus-visible { outline-color: #c0f6ef; }
+            .cmo-hub-ticker-window { flex: 1; min-width: 0; overflow: hidden; }
+            .cmo-hub-ticker-track { display: flex; width: max-content; animation: cmo-hub-scroll 42s linear infinite; }
+            .cmo-hub-ticker-items { display: flex; align-items: center; gap: 26px; padding: 14px 26px 14px 0; }
+            .cmo-hub-ticker-items span { white-space: nowrap; }
+            .cmo-hub-ticker-items span::after { content: ""; display: inline-block; width: 6px; height: 6px; margin-inline-start: 26px; vertical-align: .15em; transform: rotate(45deg); background: #77d6d1; }
+            .cmo-hub-ticker:has(input:checked) .cmo-hub-ticker-track { animation-play-state: paused; }
+            @keyframes cmo-hub-scroll { to { transform: translateX(-50%); } }
+
+            .cmo-hub-section { margin-block-start: clamp(40px, 7vw, 84px); }
+            .cmo-hub-section p { max-width: 68ch; }
+            .cmo-hub-intro { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: end; gap: var(--cmo-space-6); }
+            .cmo-hub-intro .cmo-h2 { max-width: 23ch; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.04; }
+            .cmo-hub-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cmo-space-4); margin: 0; }
+            .cmo-hub-metrics div { padding-block: var(--cmo-space-3); border-top: 2px solid var(--cmo-hub-teal); }
+            .cmo-hub-metrics dt { font: 400 clamp(2rem, 5vw, 3.75rem)/1 var(--cmo-font-serif); color: var(--cmo-brand-strong); }
+            .cmo-hub-metrics dd { margin: 8px 0 0; color: var(--cmo-ink-muted); font-size: var(--cmo-text-sm); }
+
+            .cmo-hub-pillars, .cmo-hub-resources {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+                gap: var(--cmo-space-4);
+                margin-block-start: var(--cmo-space-5);
+            }
+
+            .cmo-hub-pillar { border-top: 4px solid var(--cmo-hub-blue); }
+            .cmo-hub-pillar:nth-child(2) { border-top-color: var(--cmo-hub-magenta); }
+            .cmo-hub-pillar:nth-child(3) { border-top-color: var(--cmo-hub-ochre); }
+            .cmo-hub-pillar a { margin-top: auto; }
+            .cmo-hub-guide {
+                padding: clamp(20px, 5vw, 52px);
+                border-radius: 24px;
+                background: #06373f;
+                color: #fff;
+                --cmo-focus: #c0f6ef;
+            }
+
+            .cmo-hub-guide .cmo-eyebrow { color: #c0f6ef; }
+            .cmo-hub-guide ol {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+                gap: var(--cmo-space-5);
+                padding-inline-start: 1.5em;
+            }
+
+            .cmo-hub-guide li::marker { color: #c0f6ef; font-weight: 700; }
+            .cmo-hub-guide li p { margin-block: 6px 0; }
+            .cmo-hub-guide a { color: #c0f6ef; }
+            .cmo-hub-resources .cmo-card p { margin: 0; color: var(--cmo-ink-muted); }
+            .cmo-hub-resources .cmo-card a { margin-top: auto; }
+
+            @media (max-width: 760px) {
+                .cmo-hub-intro { grid-template-columns: 1fr; gap: var(--cmo-space-3); }
+                .cmo-hub-ticker-control { padding-inline: 10px; }
+            }
+
+            @media (prefers-reduced-motion: reduce), print {
+                .cmo-hub-ticker-control, .cmo-hub-ticker-items[aria-hidden="true"] { display: none; }
+                .cmo-hub-ticker-track { width: auto; animation: none; }
+                .cmo-hub-ticker-items { flex-wrap: wrap; gap: 8px 16px; padding-inline: 16px; }
+                .cmo-hub-ticker-items span::after { display: none; }
+            }
 
             @media (max-width: 850px) {
                 .cmo-hub-orbit { display: none; }
@@ -156,57 +239,164 @@
             </a>
             <nav class="cmo-nav" aria-label="Principal">
                 <a href="#herramientas">Herramientas</a>
+                <a href="#modelo-cmo">Modelo CMO</a>
+                <a href="#recursos-mapex">Recursos</a>
                 <a href="#acerca">Acerca de</a>
                 <a href="legal.html">Información legal</a>
                 <a href="https://www.sefh.es/mapex/documentacion.php" target="_blank" rel="noopener noreferrer">Documentación MAPEX <span aria-hidden="true">↗</span><span class="cmo-visually-hidden">(se abre en una pestaña nueva)</span></a>
             </nav>
         </header>
 
-        <section class="cmo-hero" aria-labelledby="titulo">
-            <svg class="cmo-hub-orbit" viewBox="0 0 420 420" aria-hidden="true" focusable="false">
-                <g fill="none" stroke="#c0f6ef">
-                    <circle cx="210" cy="210" r="195" opacity=".26" stroke-dasharray="1 7"/>
-                    <circle cx="210" cy="210" r="166" opacity=".25"/>
-                    <circle cx="210" cy="210" r="110" opacity=".22"/>
-                    <path d="M210 44v332M44 210h332" opacity=".18" stroke-dasharray="3 8"/>
-                </g>
-                <g fill="none" stroke-width="1.5">
-                    <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(-30 210 210)" stroke="#77d6d1"/>
-                    <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(30 210 210)" stroke="#f1a3d7"/>
-                    <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(90 210 210)" stroke="#f4d889"/>
-                </g>
-                <circle cx="210" cy="210" r="45" fill="#005b63" stroke="#c0f6ef"/>
-                <g text-anchor="middle" fill="#fff" font-family="Georgia, serif">
-                    <text x="210" y="218" font-size="24">CMO</text>
-                </g>
-                <circle cx="340" cy="135" r="5" fill="var(--cmo-hub-blue)" stroke="#fff"/>
-                <circle cx="340" cy="285" r="5" fill="var(--cmo-hub-magenta)" stroke="#fff"/>
-                <circle cx="210" cy="60" r="5" fill="var(--cmo-hub-ochre)" stroke="#fff"/>
-            </svg>
-            <div class="cmo-strata" aria-hidden="true"><i></i><i></i><i></i></div>
-            <p class="cmo-eyebrow">Capacidad · Motivación · Oportunidad</p>
-            <h1 class="cmo-title" id="titulo">Hub de Estratificación CMO</h1>
-            <p class="cmo-lead">Acceso rápido a las herramientas de estratificación para la atención farmacéutica según modelo CMO</p>
-            <div class="cmo-hub-actions">
-                <a class="cmo-btn" href="#herramientas">Ver herramientas</a>
-                <a class="cmo-btn cmo-btn--secondary" href="https://www.sefh.es/mapex/documentacion.php" target="_blank" rel="noopener noreferrer">Consultar documentación MAPEX <span aria-hidden="true">↗</span><span class="cmo-visually-hidden">(se abre en una pestaña nueva)</span></a>
-            </div>
-        </section>
+        <main>
+            <section class="cmo-hero" aria-labelledby="titulo">
+                <svg class="cmo-hub-orbit" viewBox="0 0 420 420" aria-hidden="true" focusable="false">
+                    <g fill="none" stroke="#c0f6ef">
+                        <circle cx="210" cy="210" r="195" opacity=".26" stroke-dasharray="1 7"/>
+                        <circle cx="210" cy="210" r="166" opacity=".25"/>
+                        <circle cx="210" cy="210" r="110" opacity=".22"/>
+                        <path d="M210 44v332M44 210h332" opacity=".18" stroke-dasharray="3 8"/>
+                    </g>
+                    <g fill="none" stroke-width="1.5">
+                        <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(-30 210 210)" stroke="#77d6d1"/>
+                        <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(30 210 210)" stroke="#f1a3d7"/>
+                        <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(90 210 210)" stroke="#f4d889"/>
+                    </g>
+                    <circle cx="210" cy="210" r="45" fill="#005b63" stroke="#c0f6ef"/>
+                    <g text-anchor="middle" fill="#fff" font-family="Georgia, serif">
+                        <text x="210" y="218" font-size="24">CMO</text>
+                    </g>
+                    <circle cx="340" cy="135" r="5" fill="var(--cmo-hub-blue)" stroke="#fff"/>
+                    <circle cx="340" cy="285" r="5" fill="var(--cmo-hub-magenta)" stroke="#fff"/>
+                    <circle cx="210" cy="60" r="5" fill="var(--cmo-hub-ochre)" stroke="#fff"/>
+                </svg>
+                <div class="cmo-strata" aria-hidden="true"><i></i><i></i><i></i></div>
+                <p class="cmo-eyebrow">Capacidad · Motivación · Oportunidad</p>
+                <h1 class="cmo-title" id="titulo">Hub de Estratificación CMO</h1>
+                <p class="cmo-lead">Acceso rápido a las herramientas de estratificación para la atención farmacéutica según modelo CMO</p>
+                <div class="cmo-hub-actions">
+                    <a class="cmo-btn" href="#herramientas">Ver herramientas</a>
+                    <a class="cmo-btn cmo-btn--secondary" href="https://www.sefh.es/mapex/documentacion.php" target="_blank" rel="noopener noreferrer">Consultar documentación MAPEX <span aria-hidden="true">↗</span><span class="cmo-visually-hidden">(se abre en una pestaña nueva)</span></a>
+                </div>
+            </section>
 
-        <main id="herramientas" tabindex="-1">
-            <div class="cmo-hub-catalog-head">
-                <h2 class="cmo-h2">Herramientas de estratificación</h2>
-                <p class="cmo-hub-count" id="resultCount" role="status" aria-live="polite"></p>
-            </div>
-            <div class="cmo-field cmo-hub-search">
-                <label class="cmo-label" for="searchInput">Encuentra tu herramienta</label>
-                <input class="cmo-input" type="search" id="searchInput" autocomplete="off" aria-describedby="searchHint" placeholder="Busca por patología, herramienta o área clínica…">
-                <span class="cmo-hint" id="searchHint">El texto de búsqueda se procesa solo en su navegador; no se envía ni se guarda.</span>
+            <div class="cmo-hub-ticker">
+                <label class="cmo-hub-ticker-control"><input type="checkbox"> Pausar franja</label>
+                <div class="cmo-hub-ticker-window">
+                    <div class="cmo-hub-ticker-track">
+                        <div class="cmo-hub-ticker-items">
+                            <span>Capacidad</span>
+                            <span>Motivación</span>
+                            <span>Oportunidad</span>
+                            <span>Estratificación asistencial</span>
+                            <span>Entrevista motivacional</span>
+                            <span>Telefarmacia</span>
+                            <span>Seguimiento longitudinal</span>
+                            <span>Resultados en salud</span>
+                        </div>
+                        <div class="cmo-hub-ticker-items" aria-hidden="true">
+                            <span>Capacidad</span>
+                            <span>Motivación</span>
+                            <span>Oportunidad</span>
+                            <span>Estratificación asistencial</span>
+                            <span>Entrevista motivacional</span>
+                            <span>Telefarmacia</span>
+                            <span>Seguimiento longitudinal</span>
+                            <span>Resultados en salud</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="cmo-chips" id="categories" role="group" aria-label="Filtrar por área clínica"></div>
+            <section class="cmo-hub-section cmo-hub-intro" aria-labelledby="hub-intro">
+                <div>
+                    <p class="cmo-eyebrow">Qué es este hub</p>
+                    <h2 class="cmo-h2" id="hub-intro">Estratificar para personalizar la atención farmacéutica</h2>
+                    <p>Este hub reúne herramientas de estratificación para profesionales de farmacia hospitalaria. Permite localizar la adaptación adecuada a cada área clínica y abrirla desde un mismo catálogo.</p>
+                    <p>El modelo CMO forma parte de <a href="https://www.sefh.es/mapex/">MAPEX</a>, la iniciativa que la SEFH impulsa desde 2014 para desarrollar la atención farmacéutica en consultas externas.</p>
+                </div>
+                <dl class="cmo-hub-metrics">
+                    <div><dt>3</dt><dd>pilares del modelo CMO</dd></div>
+                    <div><dt>2014</dt><dd>inicio del proyecto MAPEX</dd></div>
+                </dl>
+            </section>
 
-            <div class="cmo-grid" id="artifactsGrid" style="margin-top: var(--cmo-space-5)"></div>
+            <section class="cmo-hub-section" id="herramientas" tabindex="-1" aria-labelledby="hub-catalogo">
+                <div class="cmo-hub-catalog-head">
+                    <h2 class="cmo-h2" id="hub-catalogo">Herramientas de estratificación</h2>
+                    <p class="cmo-hub-count" id="resultCount" role="status" aria-live="polite"></p>
+                </div>
+                <div class="cmo-field cmo-hub-search">
+                    <label class="cmo-label" for="searchInput">Encuentra tu herramienta</label>
+                    <input class="cmo-input" type="search" id="searchInput" autocomplete="off" aria-describedby="searchHint" placeholder="Busca por patología, herramienta o área clínica…">
+                    <span class="cmo-hint" id="searchHint">El texto de búsqueda se procesa solo en su navegador; no se envía ni se guarda.</span>
+                </div>
+
+                <div class="cmo-chips" id="categories" role="group" aria-label="Filtrar por área clínica"></div>
+
+                <div class="cmo-grid" id="artifactsGrid" style="margin-top: var(--cmo-space-5)"></div>
+            </section>
+
+            <section class="cmo-hub-section" id="modelo-cmo" aria-labelledby="hub-modelo">
+                <p class="cmo-eyebrow">El marco de trabajo</p>
+                <h2 class="cmo-h2" id="hub-modelo">Tres pilares para una atención centrada en la persona</h2>
+                <p>La estratificación ayuda a ajustar la intensidad de la atención. El modelo CMO incorpora también el acuerdo de objetivos y la continuidad del seguimiento.</p>
+                <div class="cmo-hub-pillars">
+                    <article class="cmo-card cmo-hub-pillar">
+                        <h3 class="cmo-h3">Capacidad</h3>
+                        <p class="cmo-card__text">Valorar las necesidades individuales y utilizar la estratificación para ajustar la intensidad de la atención y del seguimiento.</p>
+                        <a href="https://www.sefh.es/mapex/cmo-capacidad.php">Ver Capacidad en MAPEX</a>
+                    </article>
+                    <article class="cmo-card cmo-hub-pillar">
+                        <h3 class="cmo-h3">Motivación</h3>
+                        <p class="cmo-card__text">Acordar objetivos farmacoterapéuticos con la persona y coordinar las actuaciones con el equipo asistencial. La entrevista motivacional apoya esa conversación.</p>
+                        <a href="https://www.sefh.es/mapex/cmo-motivacion.php">Ver Motivación en MAPEX</a>
+                    </article>
+                    <article class="cmo-card cmo-hub-pillar">
+                        <h3 class="cmo-h3">Oportunidad</h3>
+                        <p class="cmo-card__text">Acompañar a la persona cuando lo necesita y mantener el seguimiento a lo largo del tiempo. La telefarmacia puede complementar la atención presencial.</p>
+                        <a href="https://www.sefh.es/mapex/cmo-oportunidad.php">Ver Oportunidad en MAPEX</a>
+                    </article>
+                </div>
+            </section>
+
+            <section class="cmo-hub-section cmo-hub-guide" aria-labelledby="hub-guia">
+                <p class="cmo-eyebrow">Guía de uso</p>
+                <h2 class="cmo-h2" id="hub-guia">Del catálogo a la consulta</h2>
+                <ol>
+                    <li><strong>Localiza la adaptación.</strong><p>Busca por patología o filtra por área clínica en el catálogo.</p></li>
+                    <li><strong>Revisa la herramienta.</strong><p>Comprueba la población a la que se dirige, su versión y el documento de referencia.</p></li>
+                    <li><strong>Contextualiza el resultado.</strong><p>Interprétalo junto con la valoración individual antes de planificar el seguimiento.</p></li>
+                </ol>
+                <a href="#herramientas">Volver al catálogo</a>
+            </section>
+
+            <section class="cmo-hub-section" id="recursos-mapex" aria-labelledby="hub-recursos">
+                <p class="cmo-eyebrow">Fuentes y lecturas</p>
+                <h2 class="cmo-h2" id="hub-recursos">Recursos de MAPEX-SEFH</h2>
+                <p>Una selección para entender el modelo, localizar sus adaptaciones y profundizar en el seguimiento farmacoterapéutico.</p>
+                <div class="cmo-hub-resources">
+                    <article class="cmo-card">
+                        <h3 class="cmo-h3">El modelo CMO</h3>
+                        <p>Marco de atención farmacéutica en consultas externas, con bibliografía y casos.</p>
+                        <a href="https://www.sefh.es/mapex/cmo-modelo.php">Consultar el modelo</a>
+                    </article>
+                    <article class="cmo-card">
+                        <h3 class="cmo-h3">Adaptaciones por patología</h3>
+                        <p>Índice de documentos de MAPEX con las adaptaciones publicadas y otros materiales de apoyo.</p>
+                        <a href="https://www.sefh.es/mapex/documentacion.php">Consultar la documentación</a>
+                    </article>
+                    <article class="cmo-card">
+                        <h3 class="cmo-h3">Adherencia</h3>
+                        <p>Guía MAPEX-ADHEFAR para medir, monitorizar y mejorar la adherencia en consultas externas.</p>
+                        <a href="https://www.sefh.es/mapex/images/Guia-MAPEX-ADHEFAR.pdf">Abrir la guía (PDF)</a>
+                    </article>
+                    <article class="cmo-card">
+                        <h3 class="cmo-h3">Telefarmacia</h3>
+                        <p>Marco estratégico y materiales para profesionales y pacientes.</p>
+                        <a href="https://www.sefh.es/mapex/cmo-oportunidad.php">Consultar los recursos de telefarmacia</a>
+                    </article>
+                </div>
+            </section>
 
             <section class="cmo-hub-note" id="acerca" aria-labelledby="acerca-titulo">
                 <h2 class="cmo-h2" id="acerca-titulo">Acerca de este hub</h2>
