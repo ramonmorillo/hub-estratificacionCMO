@@ -62,6 +62,10 @@ Respiratorio no se ha modificado. Puede converger al núcleo más adelante (sust
 6. Pruebas: paridad variable a variable con el motor, casos frontera existentes, informe, importación hostil, e2e (manual, asistido, 375 px, sin terceros) con axe; validar la batería con al menos una mutación.
 7. `cmo-app-meta` en `status: "draft"` y CHANGELOG; la versión y la fecha se fijan en el commit de publicación (`CMO-RELEASE-CHECKLIST.md`).
 
+## 6b. Idiomas del informe
+
+`createReport({locale})` admite `es` (predeterminado), `en` y `pt` (`LABELS` en `cmo-report.js`; el PDF y la impresión usan el mismo idioma). El portugués está pendiente de revisión profesional. Las etiquetas de estado de intervención están también en `LABELS[locale].statuses`.
+
 ## 7. Limitación conocida del Design System
 
 Los componentes viven en `@layer cmo.*`; los estilos sin capa de cada herramienta (p. ej. `button {…}`, `input {width:100%}`) los vencen. Cada herramienta necesita unas pocas reglas de restitución en su `cmo-visual.css` (EM: ~25 líneas). Es el precio de no romper los estilos propios; no se usa `!important`.

@@ -12,7 +12,7 @@ Todo lo que figura aquí se ejecutó el 2026-11-10 (Node 22, Chromium de Playwri
 | Pediatría | 27 | 28 | Regresión XSS |
 | Oncohematología | 43 | **58** unitarias · **5** e2e | Huellas de 3 ficheros clínicos, paridad con el motor en 400 casos aleatorios, fronteras 15/16 y 27/28, pendientes y cota superior, modificación, informe, importación hostil y formato anterior, CSV, análisis con decisión previa |
 | Migraña | 71 | 72 | Regresión XSS |
-| VIH | 50 | **61** unitarias · **4** e2e | Huellas de motor/configuración/analizador, paridad con el motor en 300 casos, propuestas sin confirmar, modificación, importación, estado corrupto, exportaciones sin texto libre, borrador, un solo clic en «Analizar» |
+| VIH | 50 | **68** unitarias · **4** e2e | Huellas de motor/configuración/analizador, paridad con el motor en 300 casos, propuestas sin confirmar, modificación, importación, estado corrupto, exportaciones sin texto libre, borrador, un solo clic en «Analizar» |
 | VHB-VHD | 19 | 20 | Regresión XSS |
 | Coagulopatías, Inmunomediadas, Respiratorio | 83 · 16 · 50+10 | Sin cambios (no modificados) | — |
 
@@ -32,6 +32,7 @@ Cada batería e2e se repitió varias veces seguidas (EM y RCV 5; Oncohematologí
 
 - **Oncohematología** (5 recorridos, axe 0 en las 7 etapas): manual completo con 28 puntos → P1; provisional → completar → definitivo; análisis asistido donde nada puntúa hasta decidir (aceptado entra, descartado y no decidido quedan pendientes, texto y evidencia ausentes del borrador); casos locales con borrado confirmado; recarga que **recupera el borrador** (antes se perdía); importación hostil (valores fuera de dominio, prioridad inventada, XSS, resultado falsificado, formato anterior) recalculada con el motor; 375 px sin desbordamiento; 0 peticiones a terceros.
 - **VIH** (4 recorridos, axe 0 en revisión, estratificación provisional e informe): un solo clic en «Analizar»; propuestas sin confirmar no puntúan ni activan la prioridad automática; confirmar → P1; descartar; modificación sin justificación no se aplica, con justificación se aplica y avisa; las salidas (texto HCE, JSON, CSV) muestran estado y modificación y no contienen el texto pegado; importación con valor inválido descartada y aplicación operativa tras recargar con estado corrupto; 375 px; 0 peticiones a terceros.
+- VIH incluye además: etapa de seguimiento (estado de intervenciones, plan), PDF descargado y el mismo informe en inglés.
 - **No ejecutado en VIH**: recorrido manual completo con las 16 variables, cambio de idioma a en/pt más allá de la carga, casos guardados (IndexedDB).
 
 ## 3. Validación de las propias pruebas (mutaciones)

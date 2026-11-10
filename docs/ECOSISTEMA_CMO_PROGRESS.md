@@ -6,13 +6,13 @@
 
 | Herramienta | Estado | Commit | Siguiente paso |
 |---|---|---|---|
-| Hub / núcleo 0.3.0 | Hecho | `42907e7` + docs | PR; decidir publicación 0.3.0 |
+| Hub / núcleo 0.3.0 | Hecho; informe con etiquetas es/en/pt (`LABELS`, portugués sin revisar) | `2ab796c` | PR; decidir publicación 0.3.0 |
 | EM | **Adaptación completa** (7 etapas, núcleo) | `8e2d957` | Revisión clínica de lo marcado; PR; commit de publicación 1.1.0 |
 | RCV | **Adaptación completa** (núcleo + 5 defectos) | `ec336b4` | Ídem; decidir versión (hoy 1.2.0 sin subir) |
 | Pediatría | Solo parche XSS | `e68c1d6` | Adaptar al núcleo (ya tiene estado pendiente: coste bajo) |
 | Oncohematología | **Adaptación completa** (7 etapas, núcleo, decisión previa por propuesta, provisional) | `5af557b` | Revisión clínica de lo marcado; PR; commit de publicación 1.3.0 |
 | Migraña | Solo parche XSS | `670ba4d` | Importación sin validar; informe único |
-| VIH | **Puerta de revisión + importación validada + provisional** (sin flujo completo) | `f7f95b2` | Núcleo con etiquetas es/en/pt → etapas 5–6, informe único y PDF; validar el cambio de comportamiento |
+| VIH | **Adaptación sustancial**: puerta de revisión, importación validada, provisional, etapa de seguimiento con estado de intervenciones, informe único y PDF en es/en/pt (conserva su asistente propio) | `1d229e7` | Validar el cambio de comportamiento; revisar el portugués; recorrido manual de las 16 variables y casos guardados |
 | VHB-VHD | Solo parche XSS | `7e51835` | Importación sin validar ni confirmar; estado pendiente |
 | Coagulopatías | Sin tocar | — | Requiere tipos para el núcleo (TS); negación y confirmación en lote |
 | Inmunomediadas | Sin tocar | — | Borrado sin confirmación; informe único |
@@ -47,4 +47,4 @@
 
 Procedimiento en `ECOSISTEMA_CMO_ARCHITECTURE.md` §6. Plantillas reales: `estratificacionEM/assets/js/assessment.js` (modelo de casillas) y `cmoriesgocardiovascular/assets/modules/assessment.js` (modelo de registros validados); pruebas e2e reutilizables en `tests/e2e/flow.e2e.mjs` de ambas.
 Plantilla adicional: `cmoncologia/src/assessment.js` (modelo de campos con varios valores por variable y cota superior de pendientes) y `cmo-vih-app/assets/modules/review-gate.js` (puerta de revisión sobre un motor que no se puede tocar).
-Orden recomendado: VIH (completar) → Pediatría → Migraña → VHB-VHD → Inmunomediadas → Coagulopatías.
+Orden recomendado: Pediatría → Migraña → VHB-VHD → Inmunomediadas → Coagulopatías.
