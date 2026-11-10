@@ -10,15 +10,15 @@ Todo lo que figura aquí se ejecutó el 2026-11-10 (Node 22, Chromium de Playwri
 | EM | 6 casos de autocomprobación + 4 | Autocomprobación + **21** unitarias · **4** e2e | Paridad con el motor (6 casos frontera en dos modos + todas las variables y opciones una a una), pendientes y peor escenario, excluyentes, modificación profesional, catálogo de intervenciones = original, informe, ida y vuelta de exportación, analizador = copia congelada 1.0.0, huella de `model.js` |
 | RCV | 11 | **22** unitarias · **4** e2e | Fronteras 16/17 y 22/23, paridad por variable y opción, provisional con 0 datos, propuestas sin validar, embarazo, menor de 18, elevación, necesidades = `needs-mapper`, informe, importación manipulada, huellas de 6 ficheros clínicos |
 | Pediatría | 27 | 28 | Regresión XSS |
-| Oncohematología | 43 | 44 | Regresión XSS |
+| Oncohematología | 43 | **58** unitarias · **5** e2e | Huellas de 3 ficheros clínicos, paridad con el motor en 400 casos aleatorios, fronteras 15/16 y 27/28, pendientes y cota superior, modificación, informe, importación hostil y formato anterior, CSV, análisis con decisión previa |
 | Migraña | 71 | 72 | Regresión XSS |
-| VIH | 50 | 51 | Regresión XSS |
+| VIH | 50 | **61** unitarias · **4** e2e | Huellas de motor/configuración/analizador, paridad con el motor en 300 casos, propuestas sin confirmar, modificación, importación, estado corrupto, exportaciones sin texto libre, borrador, un solo clic en «Analizar» |
 | VHB-VHD | 19 | 20 | Regresión XSS |
 | Coagulopatías, Inmunomediadas, Respiratorio | 83 · 16 · 50+10 | Sin cambios (no modificados) | — |
 
 ## 2. Recorridos e2e (EM y RCV)
 
-Cada batería se repitió 5 veces seguidas sin fallos tras corregir una carrera de la propia prueba (leía el aviso antes de terminar la importación asíncrona).
+Cada batería e2e se repitió varias veces seguidas (EM y RCV 5; Oncohematología 5; VIH 4) sin fallos, tras corregir una carrera de la propia prueba en EM y RCV (leía el aviso antes de terminar la importación asíncrona).
 
 - **Manual completo**: bloqueo sin centro/profesional → variables → provisional → finalizar → necesidades → estado de intervenciones → texto HCE → portapapeles (igual al texto) → PDF (cabecera `%PDF-1.4`, contenido) → `.txt` idéntico → impresión (mismo informe en el marco aislado) → JSON (`cmo-export/1`) → CSV → recarga/reinicio con confirmación → importación de fichero inválido rechazada → importación válida.
 - **Análisis asistido**: texto vacío rechazado; evidencia literal; aviso de posible negación; nada puntúa sin decisión; lo no decidido y lo descartado quedan pendientes; el texto pegado no llega al borrador ni al informe.
@@ -28,6 +28,12 @@ Cada batería se repitió 5 veces seguidas sin fallos tras corregir una carrera 
 - **Accesibilidad**: axe WCAG 2.0/2.1/2.2 A y AA = 0 infracciones en las 7 etapas de EM y de RCV (RCV partía de 42 campos sin nombre accesible).
 - **Red**: 0 peticiones a terceros en todo el recorrido.
 
+## 2b. Oncohematología y VIH
+
+- **Oncohematología** (5 recorridos, axe 0 en las 7 etapas): manual completo con 28 puntos → P1; provisional → completar → definitivo; análisis asistido donde nada puntúa hasta decidir (aceptado entra, descartado y no decidido quedan pendientes, texto y evidencia ausentes del borrador); casos locales con borrado confirmado; recarga que **recupera el borrador** (antes se perdía); importación hostil (valores fuera de dominio, prioridad inventada, XSS, resultado falsificado, formato anterior) recalculada con el motor; 375 px sin desbordamiento; 0 peticiones a terceros.
+- **VIH** (4 recorridos, axe 0 en revisión, estratificación provisional e informe): un solo clic en «Analizar»; propuestas sin confirmar no puntúan ni activan la prioridad automática; confirmar → P1; descartar; modificación sin justificación no se aplica, con justificación se aplica y avisa; las salidas (texto HCE, JSON, CSV) muestran estado y modificación y no contienen el texto pegado; importación con valor inválido descartada y aplicación operativa tras recargar con estado corrupto; 375 px; 0 peticiones a terceros.
+- **No ejecutado en VIH**: recorrido manual completo con las 16 variables, cambio de idioma a en/pt más allá de la carga, casos guardados (IndexedDB).
+
 ## 3. Validación de las propias pruebas (mutaciones)
 
 | Mutación | Resultado |
@@ -35,11 +41,15 @@ Cada batería se repitió 5 veces seguidas sin fallos tras corregir una carrera 
 | EM: el adaptador trata «No» como criterio activo | 8 pruebas fallan |
 | EM: el peor escenario deja de calcularse | 3 fallan |
 | RCV: el adaptador acepta registros sin validar | 1 falla |
-| EM/RCV: cualquier cambio en ficheros clínicos | Falla la prueba de huella SHA-256 |
+| Oncohematología: el adaptador ignora los pendientes | 4 pruebas fallan |
+| Oncohematología: se incorporan todas las propuestas, no solo las decididas | Falla el recorrido asistido |
+| Oncohematología: la modificación profesional se ignora | 1 prueba falla |
+| VIH: las propuestas sin confirmar vuelven a puntuar | 2 pruebas fallan |
+| EM/RCV/Oncohematología/VIH: cualquier cambio en ficheros clínicos | Falla la prueba de huella SHA-256 |
 
-## 4. Comprobación en navegador de los parches XSS
+## 4. Comprobación en navegador de los parches XSS (Pediatría, Migraña, VHB-VHD)
 
-Texto con `<img onerror>` pegado en las áreas de texto visibles y análisis lanzado: **Pediatría** (donde la auditoría lo había ejecutado), **Oncohematología** y **VHB-VHD**: no se ejecuta ni crea elementos, sin errores. **Migraña** y **VIH**: la app carga sin errores, pero el punto exacto corregido (justificación de la modificación; evidencia y ventana de impresión) **no se volvió a ejercitar en navegador**; queda cubierto por la prueba estática de regresión y por la lectura del diff.
+Texto con `<img onerror>` pegado y análisis lanzado: **Pediatría** (donde la auditoría lo había ejecutado) y **VHB-VHD**: no se ejecuta ni crea elementos. **Migraña**: la app carga sin errores, pero el punto corregido (justificación de la modificación) **no se volvió a ejercitar en navegador**; queda cubierto por la prueba estática de regresión. Oncohematología y VIH tienen ahora recorridos e2e propios con carga hostil.
 
 ## 5. Limitaciones
 

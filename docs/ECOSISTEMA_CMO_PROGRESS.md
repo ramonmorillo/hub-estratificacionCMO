@@ -10,9 +10,9 @@
 | EM | **Adaptación completa** (7 etapas, núcleo) | `8e2d957` | Revisión clínica de lo marcado; PR; commit de publicación 1.1.0 |
 | RCV | **Adaptación completa** (núcleo + 5 defectos) | `ec336b4` | Ídem; decidir versión (hoy 1.2.0 sin subir) |
 | Pediatría | Solo parche XSS | `e68c1d6` | Adaptar al núcleo (ya tiene estado pendiente: coste bajo) |
-| Oncohematología | Solo parche XSS | `76bb25f` | **Prioritario**: propuestas «confirmed» puntúan sin revisión; importación confía en `result` |
+| Oncohematología | **Adaptación completa** (7 etapas, núcleo, decisión previa por propuesta, provisional) | `5af557b` | Revisión clínica de lo marcado; PR; commit de publicación 1.3.0 |
 | Migraña | Solo parche XSS | `670ba4d` | Importación sin validar; informe único |
-| VIH | Solo parche XSS | `2ca6c06` | **Prioritario**: hallazgos puntúan sin confirmar; importación rompe la app |
+| VIH | **Puerta de revisión + importación validada + provisional** (sin flujo completo) | `f7f95b2` | Núcleo con etiquetas es/en/pt → etapas 5–6, informe único y PDF; validar el cambio de comportamiento |
 | VHB-VHD | Solo parche XSS | `7e51835` | Importación sin validar ni confirmar; estado pendiente |
 | Coagulopatías | Sin tocar | — | Requiere tipos para el núcleo (TS); negación y confirmación en lote |
 | Inmunomediadas | Sin tocar | — | Borrado sin confirmación; informe único |
@@ -31,18 +31,20 @@
 ## Bloqueos
 
 - `cmorespiratorio`: el control de permisos de la sesión denegó añadirlo con escritura. Solo lectura.
-- Límite de uso de la sesión alcanzado dos veces: de ahí el alcance (2 adaptaciones completas de 9).
+- Límite de uso de la sesión alcanzado dos veces: de ahí el alcance (3 adaptaciones completas de 9).
 
 ## Decisiones que necesitan al autor (clínicas o de producto)
 
 1. EM y RCV: ¿se acepta la modificación profesional (EM: en ambos sentidos con justificación ≥ 12 caracteres; RCV: solo elevación, como ya hacía)?
-2. EM: ¿las variables de tratamiento que puntúan son «necesidades farmacoterapéuticas» (criterio tomado de Respiratorio)?
+2. EM y Oncohematología: ¿las variables de tratamiento que puntúan son «necesidades farmacoterapéuticas» (criterio tomado de Respiratorio)?
 3. Reglas de extracción con falsos positivos por negación (EM, RCV, Coagulopatías, Inmunomediadas, Pediatría, VHB-VHD): ¿corregir las reglas o mantener solo el aviso?
-4. VIH y Oncohematología: ¿se bloquea la puntuación de hallazgos sin confirmar? (cambia el comportamiento actual).
-5. Rebajar una P1 automática (VIH, Oncohematología, Migraña lo permiten sin refuerzo).
-6. Incoherencias clínicas de `ECOSISTEMA_CMO_AUDIT.md` §5.
+4. **Ya aplicado, pendiente de validación**: en VIH y Oncohematología los hallazgos del texto no puntúan hasta confirmarlos (cambia el comportamiento actual; lo exige la misión: «ningún dato inferido se incorporará sin confirmación»). Oncohematología admite ahora finalizar como provisional.
+5. Rebajar una P1 automática (VIH, Oncohematología, Migraña lo permiten sin refuerzo): solo se avisa, no se ha endurecido.
+6. VIH: portugués de los textos nuevos pendiente de revisión (`PT_REVIEW.md`); el JSON ya no incluye el texto pegado y el borrador del navegador tampoco.
+7. Incoherencias clínicas de `ECOSISTEMA_CMO_AUDIT.md` §5.
 
 ## Cómo continuar con la siguiente herramienta
 
 Procedimiento en `ECOSISTEMA_CMO_ARCHITECTURE.md` §6. Plantillas reales: `estratificacionEM/assets/js/assessment.js` (modelo de casillas) y `cmoriesgocardiovascular/assets/modules/assessment.js` (modelo de registros validados); pruebas e2e reutilizables en `tests/e2e/flow.e2e.mjs` de ambas.
-Orden recomendado: Oncohematología y VIH (riesgo clínico) → Pediatría → Migraña → VHB-VHD → Inmunomediadas → Coagulopatías.
+Plantilla adicional: `cmoncologia/src/assessment.js` (modelo de campos con varios valores por variable y cota superior de pendientes) y `cmo-vih-app/assets/modules/review-gate.js` (puerta de revisión sobre un motor que no se puede tocar).
+Orden recomendado: VIH (completar) → Pediatría → Migraña → VHB-VHD → Inmunomediadas → Coagulopatías.

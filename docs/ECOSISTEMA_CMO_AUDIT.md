@@ -31,7 +31,11 @@ Fuera de alcance (no enlazados desde el hub; no inspeccionados ni modificados): 
 
 F = existente y funcional · D = existente con defectos · A = ausente · NA = no aplicable · PV = pendiente de validación.
 EM «antes» = `main` (489df35); EM «rama» = `claude/zen-pasteur-u8tn7z` (ver §5 y `ECOSISTEMA_CMO_TESTS.md`).
-Las demás columnas describen la rama publicada **antes** de esta sesión. Estado tras la sesión: RCV adaptada al núcleo en su rama de trabajo (filas 5, 7, 9–14 pasan a F; fila 3 sigue D); en Pediatría, Oncohematología, Migraña, VIH y VHB-VHD solo se ha corregido el XSS (fila 13 sigue D por el resto de defectos). Detalle en `ECOSISTEMA_CMO_FINAL_REPORT.md`.
+Las demás columnas describen la rama publicada **antes** de esta sesión. Estado tras la sesión (rama `claude/zen-pasteur-u8tn7z`, sin fusionar):
+- **RCV** y **Oncohematología**: adaptadas al núcleo; filas 5, 7–14 pasan a F y la 15 a F con pruebas nuevas; la fila 3 sigue D (reglas de extracción sin tocar; ahora con evidencia y decisión previa).
+- **VIH**: puerta de revisión y seguridad, sin adaptar al flujo completo. Pasan a F las filas 4 (confirmar/descartar cada propuesta; nada puntúa sin confirmar), 5 (resultado provisional), 7 (modificación con justificación y visible en todas las salidas), 11 (importación validada) y 13 (XSS, CSV, texto libre fuera del JSON y del borrador). Siguen D: 8 y 9 (sin necesidades ni estado de intervenciones), 10 (sin PDF; constructores separados) y 3.
+- **Pediatría, Migraña, VHB-VHD**: solo corregido el XSS (fila 13 sigue D por el resto de defectos).
+Detalle en `ECOSISTEMA_CMO_FINAL_REPORT.md`.
 
 | # | Capacidad | Resp. | EM antes | EM rama | VHB-VHD | RCV | Migraña | Coag. | Inmuno | VIH | Pediat. | Onco |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
