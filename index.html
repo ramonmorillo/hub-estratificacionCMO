@@ -5,18 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hub de Estratificación CMO - Acceso Rápido</title>
     <meta name="description" content="Catálogo de herramientas de estratificación farmacoterapéutica basadas en el modelo CMO (Capacidad, Motivación y Oportunidad).">
-    <meta name="theme-color" content="#14203a">
+    <meta name="theme-color" content="#f7f5fc">
     <link rel="icon" href="cmo-design-system/assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="cmo-design-system/src/cmo-tokens.css">
     <link rel="stylesheet" href="cmo-design-system/src/cmo-components.css">
     <style>
-        .hub-search { margin: var(--cmo-space-5) 0 var(--cmo-space-4); max-width: 720px; }
-        .hub-catalog-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--cmo-space-4); flex-wrap: wrap; }
-        .hub-count { margin: 0; font-size: var(--cmo-text-sm); color: var(--cmo-ink-muted); }
-        .hub-actions { display: flex; flex-wrap: wrap; gap: var(--cmo-space-3); margin-top: var(--cmo-space-5); }
-        .hub-note { margin-top: var(--cmo-space-7); }
-        .hub-note p { max-width: 75ch; }
-        @media (max-width: 600px) { .cmo-brandbar { flex-direction: column; align-items: flex-start; } }
+        @layer cmo.hub {
+            .cmo-scope {
+                --cmo-paper: #f7f5fc;
+                --cmo-ink: #201a39;
+                --cmo-ink-muted: #544e68;
+                --cmo-brand-strong: #44358b;
+                --cmo-rule: #ddd8ec;
+                --cmo-surface-sunk: #ede9f7;
+            }
+
+            .cmo-brandbar { padding-block: 18px; border-bottom: 0; }
+            .cmo-nav { align-items: center; }
+
+            .cmo-hero {
+                --cmo-focus: #d9ccff;
+                position: relative;
+                isolation: isolate;
+                overflow: hidden;
+                padding: clamp(28px, 6vw, 72px) clamp(20px, 5vw, 64px);
+                border-radius: 24px;
+                color: #fff;
+                background: radial-gradient(ellipse at 82% 28%, #504092, #2b2259 48%, #18142f 84%);
+            }
+
+            .cmo-hero .cmo-strata > i { background: #a8b9ff; }
+            .cmo-hero .cmo-strata > i + i { background: #d1a9f5; }
+            .cmo-hero .cmo-strata > i + i + i { background: #88d5d9; }
+            .cmo-hero .cmo-eyebrow { color: #e3d9fb; }
+            .cmo-hero .cmo-title {
+                max-width: 13ch;
+                font: 400 clamp(2.25rem, 6.7vw, 5rem)/1.02 var(--cmo-font-serif);
+                letter-spacing: -.035em;
+                overflow-wrap: break-word;
+            }
+
+            .cmo-hero .cmo-lead { max-width: 39ch; color: #e9e3f7; }
+            .cmo-hub-actions { display: flex; flex-wrap: wrap; gap: var(--cmo-space-3); margin-top: var(--cmo-space-5); }
+            .cmo-hub-actions .cmo-btn { min-height: 48px; border-radius: var(--cmo-radius-pill); }
+            .cmo-hub-actions .cmo-btn:not(.cmo-btn--secondary) { background: #fff; border-color: #fff; color: #2b2259; }
+            .cmo-hub-actions .cmo-btn:not(.cmo-btn--secondary):hover { background: #e9dfff; }
+            .cmo-hub-actions .cmo-btn--secondary { background: transparent; border-color: #beb1e1; color: #fff; }
+            .cmo-hub-actions .cmo-btn--secondary:hover { background: #3c316c; }
+
+            .cmo-hub-orbit {
+                position: absolute;
+                inset-inline-end: 3%;
+                top: 50%;
+                z-index: -1;
+                width: min(36%, 410px);
+                height: auto;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+
+            .cmo-hub-catalog-head {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: var(--cmo-space-3);
+                margin-top: clamp(28px, 5vw, 56px);
+            }
+
+            .cmo-h2 { font-size: clamp(1.65rem, 4vw, 2.65rem); font-weight: 400; }
+            .cmo-hub-count { margin: 0; font-size: var(--cmo-text-sm); color: var(--cmo-ink-muted); }
+            .cmo-hub-search { margin: var(--cmo-space-5) 0 var(--cmo-space-4); max-width: 720px; }
+            .cmo-hub-search .cmo-input { min-height: 50px; border-radius: 14px; }
+            .cmo-chip { min-height: 40px; }
+            .cmo-chip[aria-pressed="true"] { background: var(--cmo-brand-strong); border-color: var(--cmo-brand-strong); }
+
+            .cmo-card {
+                --cmo-radius-md: 18px;
+                padding: clamp(18px, 3vw, 28px);
+                box-shadow: 0 2px 10px #2b225908;
+            }
+
+            .cmo-card--tool:hover, .cmo-card--tool:focus-within { box-shadow: var(--cmo-shadow-2); }
+            .cmo-card .cmo-h3 { font-size: 1.4rem; font-weight: 500; }
+            .cmo-card__action { padding-top: var(--cmo-space-4); }
+            .cmo-hub-note {
+                margin-top: var(--cmo-space-7);
+                padding: clamp(20px, 4vw, 36px);
+                border: 1px solid var(--cmo-rule);
+                border-radius: 18px;
+                background: var(--cmo-surface-sunk);
+            }
+
+            .cmo-hub-note p { max-width: 75ch; margin-bottom: 0; }
+
+            @media (max-width: 850px) {
+                .cmo-hub-orbit { display: none; }
+            }
+
+            @media (max-width: 700px) {
+                .cmo-brandbar { align-items: flex-start; flex-direction: column; gap: var(--cmo-space-2); }
+            }
+
+            @media print {
+                .cmo-hero { color: var(--cmo-ink); background: none; }
+                .cmo-hero .cmo-eyebrow, .cmo-hero .cmo-lead,
+                .cmo-hub-actions .cmo-btn--secondary { color: var(--cmo-ink); }
+                .cmo-hub-orbit { display: none; }
+            }
+        }
     </style>
     <script type="application/json" id="cmo-app-meta">
     {
@@ -57,22 +154,42 @@
         </header>
 
         <section class="cmo-hero" aria-labelledby="titulo">
+            <svg class="cmo-hub-orbit" viewBox="0 0 420 420" aria-hidden="true" focusable="false">
+                <g fill="none" stroke="#d8c8ff">
+                    <circle cx="210" cy="210" r="195" opacity=".26" stroke-dasharray="1 7"/>
+                    <circle cx="210" cy="210" r="166" opacity=".25"/>
+                    <circle cx="210" cy="210" r="110" opacity=".22"/>
+                    <path d="M210 44v332M44 210h332" opacity=".18" stroke-dasharray="3 8"/>
+                </g>
+                <g fill="none" stroke-width="1.5">
+                    <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(-30 210 210)" stroke="#a8b9ff"/>
+                    <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(30 210 210)" stroke="#d1a9f5"/>
+                    <ellipse cx="210" cy="210" rx="150" ry="69" transform="rotate(90 210 210)" stroke="#88d5d9"/>
+                </g>
+                <circle cx="210" cy="210" r="45" fill="#2b2259" stroke="#d8c8ff"/>
+                <g text-anchor="middle" fill="#fff" font-family="Georgia, serif">
+                    <text x="210" y="218" font-size="24">CMO</text>
+                </g>
+                <circle cx="340" cy="135" r="5" fill="#a8b9ff"/>
+                <circle cx="340" cy="285" r="5" fill="#d1a9f5"/>
+                <circle cx="210" cy="60" r="5" fill="#88d5d9"/>
+            </svg>
             <div class="cmo-strata" aria-hidden="true"><i></i><i></i><i></i></div>
             <p class="cmo-eyebrow">Capacidad · Motivación · Oportunidad</p>
             <h1 class="cmo-title" id="titulo">Hub de Estratificación CMO</h1>
             <p class="cmo-lead">Acceso rápido a las herramientas de estratificación para la atención farmacéutica según modelo CMO</p>
-            <div class="hub-actions">
+            <div class="cmo-hub-actions">
                 <a class="cmo-btn" href="#herramientas">Ver herramientas</a>
                 <a class="cmo-btn cmo-btn--secondary" href="https://www.sefh.es/mapex/documentacion.php" target="_blank" rel="noopener noreferrer">Consultar documentación MAPEX <span aria-hidden="true">↗</span><span class="cmo-visually-hidden">(se abre en una pestaña nueva)</span></a>
             </div>
         </section>
 
         <main id="herramientas" tabindex="-1">
-            <div class="hub-catalog-head">
+            <div class="cmo-hub-catalog-head">
                 <h2 class="cmo-h2">Herramientas de estratificación</h2>
-                <p class="hub-count" id="resultCount" role="status" aria-live="polite"></p>
+                <p class="cmo-hub-count" id="resultCount" role="status" aria-live="polite"></p>
             </div>
-            <div class="cmo-field hub-search">
+            <div class="cmo-field cmo-hub-search">
                 <label class="cmo-label" for="searchInput">Encuentra tu herramienta</label>
                 <input class="cmo-input" type="search" id="searchInput" autocomplete="off" aria-describedby="searchHint" placeholder="Busca por patología, herramienta o área clínica…">
                 <span class="cmo-hint" id="searchHint">El texto de búsqueda se procesa solo en su navegador; no se envía ni se guarda.</span>
@@ -82,7 +199,7 @@
 
             <div class="cmo-grid" id="artifactsGrid" style="margin-top: var(--cmo-space-5)"></div>
 
-            <section class="hub-note" id="acerca" aria-labelledby="acerca-titulo">
+            <section class="cmo-hub-note" id="acerca" aria-labelledby="acerca-titulo">
                 <h2 class="cmo-h2" id="acerca-titulo">Acerca de este hub</h2>
                 <p>El hub es un catálogo de enlaces: no realiza estratificaciones ni recibe datos de pacientes. Cada herramienta es una aplicación independiente que declara su propio documento fuente, su versión, su autoría y su política de privacidad. Consulte esa información en cada herramienta antes de utilizarla.</p>
             </section>
