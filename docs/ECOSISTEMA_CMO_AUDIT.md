@@ -8,7 +8,7 @@ Esta auditoría evalúa el **circuito asistencial** de cada herramienta frente a
 - Descubrimiento: catálogo del hub (`index.html`, 10 entradas `ramonmorillo.github.io/<repo>/`) → repositorio homónimo en `github.com/ramonmorillo`, comprobado por clonado y por el `id` de `cmo-app-meta`. Asociación inequívoca en los 10 casos.
 - Por herramienta: pruebas existentes ejecutadas, lectura dirigida del código y **recorrido real en Chromium (Playwright)**: entrada manual → resultado → informe, y análisis de texto con frases negadas y texto vacío.
 - No comprobado en ninguna: diálogo real de impresión, navegadores distintos de Chromium, lectores de pantalla, pegado en una HCE real.
-- **Auditoría funcional incompleta para 2 herramientas** (Inmunomediadas y VIH): la inspección automatizada se interrumpió por límite de uso de la sesión. Sus columnas figuran como PV y deben completarse (ver `ECOSISTEMA_CMO_PROGRESS.md`).
+- Las 10 herramientas tienen auditoría funcional completa (cuatro informes parciales se interrumpieron por límite de uso y se reanudaron).
 
 ## 2. Inventario y clasificación
 
@@ -34,22 +34,22 @@ EM «antes» = `main` (489df35); EM «rama» = `claude/zen-pasteur-u8tn7z` (ver 
 
 | # | Capacidad | Resp. | EM antes | EM rama | VHB-VHD | RCV | Migraña | Coag. | Inmuno | VIH | Pediat. | Onco |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Inicio: centro, profesional, seudónimo, método, privacidad | F | D | F | D | F | D | D | PV | PV | D | D |
-| 2 | Entrada manual estructurada y validada | F | D | F | D | D | D | D | PV | PV | D | D |
-| 3 | Análisis de texto local con evidencia y control de negación | F | D | D¹ | D | D | D | D | PV | PV | D | D |
-| 4 | Revisión profesional por propuesta (aceptar/corregir/descartar) | F | D | F | D | D | F | D | PV | PV | D | D |
-| 5 | Dato ausente ≠ «No»; estado pendiente/provisional | F | A | F | A | D | D | D | PV | PV | F | D |
-| 6 | Resultado: puntuación, nivel, contribuyentes, reglas, explicación | F | F | F | F | D | F | F | PV | PV | D | D |
-| 7 | Modificación profesional justificada conservando el automático | F | A | F² | A | D | D | F | PV | PV | D | D |
-| 8 | Necesidades (confirmadas / potenciales) | F | A | F² | A | D | A | A | PV | PV | A | A |
-| 9 | Intervenciones con estado + plan de seguimiento | F | D | F | D | D | D | D | PV | PV | D | D |
-| 10 | Informe: copiar, PDF real, imprimir, texto, datos estructurados, modelo único | F | D | F | D | D | D | D | PV | PV | D | D |
-| 11 | Importación validada | F | A | F | D | A | D | D | PV | PV | D | D |
-| 12 | Persistencia, borrado, confirmaciones, aviso al salir | F | D | F³ | D | A | D | A | PV | PV | D | D |
-| 13 | Seguridad (XSS, CSV, red, identificadores) | F | D | F | D | F | D | D | PV | PV | D | D |
-| 14 | Accesibilidad / progreso / responsive | F | D | F | D | D | D | D | PV | PV | D | D |
-| 15 | Pruebas automatizadas | F (50 + 10 e2e) | D (6 casos + 4) | F | F (19) | F (11) | F (71) | F (83) | F (16)⁴ | F (50)⁴ | F (27) | F (43) |
-| 16 | Documentación y versión | F | D | F | D | D | F | D | PV | PV | F | F |
+| 1 | Inicio: centro, profesional, seudónimo, método, privacidad | F | D | F | D | F | D | D | D | D | D | D |
+| 2 | Entrada manual estructurada y validada | F | D | F | D | D | D | D | D | D | D | D |
+| 3 | Análisis de texto local con evidencia y control de negación | F | D | D¹ | D | D | D | D | D | D | D | D |
+| 4 | Revisión profesional por propuesta (aceptar/corregir/descartar) | F | D | F | D | D | F | D | F | D | D | D |
+| 5 | Dato ausente ≠ «No»; estado pendiente/provisional | F | A | F | A | D | D | D | D | D | F | D |
+| 6 | Resultado: puntuación, nivel, contribuyentes, reglas, explicación | F | F | F | F | D | F | F | F | F | D | D |
+| 7 | Modificación profesional justificada conservando el automático | F | A | F² | A | D | D | F | A | D | D | D |
+| 8 | Necesidades (confirmadas / potenciales) | F | A | F² | A | D | A | A | D | A | A | A |
+| 9 | Intervenciones con estado + plan de seguimiento | F | D | F | D | D | D | D | D | D | D | D |
+| 10 | Informe: copiar, PDF real, imprimir, texto, datos estructurados, modelo único | F | D | F | D | D | D | D | D | D | D | D |
+| 11 | Importación validada | F | A | F | D | A | D | D | A | D | D | D |
+| 12 | Persistencia, borrado, confirmaciones, aviso al salir | F | D | F³ | D | A | D | A | D | D | D | D |
+| 13 | Seguridad (XSS, CSV, red, identificadores) | F | D | F | D | F | D | D | F | D | D | D |
+| 14 | Accesibilidad / progreso / responsive | F | D | F | D | D | D | D | D | D | D | D |
+| 15 | Pruebas automatizadas | F (50 + 10 e2e) | D (6 casos + 4) | F | F (19) | F (11) | F (71) | F (83) | F (16) | D (50) | F (27) | F (43) |
+| 16 | Documentación y versión | F | D | F | D | D | F | D | F | D | F | F |
 
 ¹ Las reglas de palabras clave de EM se conservan literalmente; se añade evidencia textual y aviso de posible negación, pero no se suprime ninguna propuesta (decisión clínica pendiente).
 ² Capacidad nueva de flujo, sin reglas clínicas nuevas; requiere validación profesional antes de uso asistencial.
@@ -108,8 +108,21 @@ EM «antes» = `main` (489df35); EM «rama» = `claude/zen-pasteur-u8tn7z` (ver 
 - El borrador activo se pierde al recargar (`src/app.js:31,37`); se puede bajar un P1 automático a P3 con 15 caracteres (`src/clinical.js:52`); CSV sin neutralizar fórmulas (`src/storage.js:11`).
 - No admite cierre provisional (no se puede finalizar con pendientes); sin necesidades, estado de intervenciones, copiar, texto ni PDF real.
 
-### Inmunomediadas y VIH
-PV. Lo conocido procede de la auditoría del 2026-10-29/30 (`CMO-MIGRATION-PLAN.md`): pruebas en verde (16 y 50, no reejecutadas), paridad clínica verificada con el arnés, y hallazgos clínicos abiertos de Inmunomediadas.
+### CMO-Inmunomediadas
+- Asistente de 7 pasos con `aria-current`; revisión por variable correcta (nada puntúa sin confirmar); escape sistemático (XSS no ejecutado).
+- «Desconocida» cuenta como confirmada (`data-layer.js:103,125`) y el paso 5 no avisa de resultado provisional (el informe sí).
+- Extractor: negación de frase completa con falsos negativos de «alta confianza» premarcados para confirmación en lote («No tolera metotrexato por reacción adversa» → Reacciones adversas = No; `heuristic-extraction.js:15,25-28`, `ui.js:176`); ignora temporalidad («Ingreso hace 5 años» → ingreso en 2 meses = Sí).
+- Aceptar edad o tipo de EI extraídos no actualiza el contexto del cálculo (`data-layer.js:88-97`); edad negativa aceptada.
+- Borrado de caso sin confirmación (`app.js:269-273`); sin borrador ni aviso al salir; toast «copiado» aunque la copia falle (`app.js:333`).
+- Sin modificación profesional, importación, PDF real, JSON/CSV ni estado de intervenciones; desbordamiento a 375 px en el paso 6.
+
+### CMO-VIH
+- **Los hallazgos del texto puntúan de inmediato sin confirmación** (`app.js:131-139`; el motor ignora `clinicianConfirmed`): «Antecedente de deterioro cognitivo no confirmado» sumó +2 y generó alerta.
+- **XSS almacenado ejecutado**: evidencia del texto pegado en `innerHTML` (`ui.js:58,171`) y etiqueta del paciente en la ventana de impresión (`export-layer.js:92-94,110`).
+- Importación sin validar valores: `{"viralLoad":"banana"}` lanza `TypeError` (`cmo-engine.js:39`), se persiste y deja la app en blanco hasta borrar `localStorage` (`data-layer.js:253-262`).
+- La modificación profesional no exige motivo, permite bajar a P3 una P1 automática por embarazo y no figura en resumen, copia, CSV ni impresión (`app.js:175-182`).
+- El primer clic en «Analizar» tras escribir se pierde por re-render (`app.js:109-112,407`); CSV sin neutralizar fórmulas; la narrativa clínica queda en claro en `localStorage` (`data-layer.js:74`).
+- Con 0 datos: «Prioridad 3 — Baja, cada 12 meses» sin marca de provisional. Sin necesidades, estado de intervenciones ni PDF real; cada formato tiene su propio constructor. Sin pruebas del motor. `APP_VERSION` «v3 — September 2026» frente a 3.1.0.
 
 ## 5. Incoherencias clínicas observadas (NO corregidas; para revisión profesional)
 
@@ -124,10 +137,12 @@ PV. Lo conocido procede de la auditoría del 2026-10-29/30 (`CMO-MIGRATION-PLAN.
 | Coagulopatías | Edad solo ofrece 1 o 2 puntos (sin 0). «Calidad de vida» (variable adicional) suma al total sin cambiar los cortes. Hemofilia A al máximo = 57 puntos con cortes 19/27. Periodicidad P1 «cada mes». |
 | Pediatría | 20 ítems puntuables frente a las «18 variables» del texto fuente (el repo lo marca pendiente de validación). Edad 2–3 años se clasifica como «Preescolar (3-5)». Edad > 18 da 0 puntos y permite resultado «Definitivo». |
 | Oncohematología | Los máximos de las 26 variables suman 97 pero se muestra «/96» (reconocido en `AUDITORIA.md:18`). HADS: subescala exactamente 10 puntúa 0 (`clinical.js:23`). Método «hads» sin valores puntúa 0 y no queda pendiente. Edad 0–18 puntúa 4 y además fuerza P1. |
-| Inmunomediadas | Edad vacía suma +1; bloque demográfico 11 frente a máximo declarado 9 (abierto desde 2026-10-30). |
+| Inmunomediadas | Edad vacía suma +1; bloque demográfico 11 frente a máximo declarado 9; total alcanzable 73 frente a «/71» (abierto desde 2026-10-30). El extractor ignora temporalidad y valor («DAS28 2,1 en remisión» → actividad moderada/alta = Sí). |
+| VIH | Un único término de comorbilidad produce «menos de 2 comorbilidades» (afirma lo que el texto no dice; `ai-module.js:64-67`). Temporalidad solo comprobada en depresión. `comorbidityGoals` usa umbrales fijos (HbA1c 8, TA 145/90) que el propio código reconoce sobreajustados (`ai-module.js:189-192`). |
 
 ## 6. Conclusiones para la planificación
 
 1. La identidad visual ya es común (DS 0.2.0); la divergencia actual es **funcional**: informe, estado pendiente, revisión, modificación profesional y registro de intervenciones.
-2. Tres defectos se repiten y son transversales: (a) dato ausente tratado como negativo o resultado firme sin datos; (b) XSS por `innerHTML` con datos importados, pegados o tecleados (EM, VHB-VHD, Migraña, Pediatría, Oncohematología); (c) informes construidos por varias rutas y «PDF» = imprimir la página.
-3. Esos tres se resuelven con un núcleo pequeño y sin dependencias (informe único, PDF, flujo) y un adaptador por herramienta: ver `ECOSISTEMA_CMO_ARCHITECTURE.md`.
+2. Tres defectos se repiten y son transversales: (a) dato ausente tratado como negativo o resultado firme sin datos; (b) XSS por `innerHTML` con datos importados, pegados o tecleados (EM, VHB-VHD, Migraña, Pediatría, Oncohematología, VIH); (c) informes construidos por varias rutas y «PDF» = imprimir la página.
+3. Riesgo clínico prioritario (propuestas que puntúan sin confirmación profesional): **VIH** y **Oncohematología**; y confirmación en lote de falsos positivos/negativos en **Coagulopatías** e **Inmunomediadas**.
+4. Los tres defectos transversales se resuelven con un núcleo pequeño y sin dependencias (informe único, PDF, flujo) y un adaptador por herramienta: ver `ECOSISTEMA_CMO_ARCHITECTURE.md`.
