@@ -129,14 +129,14 @@ export function download(filename, content, type = 'text/plain;charset=utf-8') {
 const PRINT_CSS = 'body{font:11pt/1.45 system-ui,Arial,sans-serif;color:#14203a;margin:16mm}h1{font-size:16pt;margin:0 0 2mm}h2{font-size:11pt;text-transform:uppercase;letter-spacing:.03em;color:#1f3aa8;border-bottom:1px solid #1f3aa8;margin:6mm 0 2mm;padding-bottom:1mm}dl{margin:3mm 0}dl div{display:flex;gap:4mm}dt{font-weight:700;min-width:62mm;color:#4b5568}dd{margin:0}ul{margin:0;padding-left:5mm}li{margin:.6mm 0}.cmo-report__result{font-size:13pt;font-weight:700;padding:3mm 4mm;border:1px solid #14203a;margin:4mm 0}.cmo-report__sub{font-weight:700;margin:2mm 0 1mm}.cmo-report__warn{color:#93500a}.cmo-report__tool,footer{font-size:9pt;color:#4b5568}footer{margin-top:6mm;border-top:1px solid #dedbd2;padding-top:2mm}section{break-inside:avoid-page}';
 
 /** Imprime SOLO el informe (HTML ya escapado por cmo-report.js) mediante un iframe aislado. */
-export function printHtml(html, title = 'Informe') {
+export function printHtml(html, title = 'Informe', lang = 'es') {
   document.querySelector('iframe.cmo-print-frame')?.remove();
   const frame = document.createElement('iframe');
   frame.className = 'cmo-print-frame';
   frame.setAttribute('aria-hidden', 'true');
   frame.tabIndex = -1;
   frame.style.cssText = 'position:fixed;width:0;height:0;border:0;visibility:hidden';
-  frame.srcdoc = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${title.replace(/[<>&]/g, '')}</title><style>${PRINT_CSS}</style></head><body>${html}</body></html>`;
+  frame.srcdoc = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>${title.replace(/[<>&]/g, '')}</title><style>${PRINT_CSS}</style></head><body>${html}</body></html>`;
   frame.addEventListener('load', () => {
     document.dispatchEvent(new CustomEvent('cmo:print', { detail: { title } }));
     try { frame.contentWindow.focus(); frame.contentWindow.print(); } catch { window.print(); }

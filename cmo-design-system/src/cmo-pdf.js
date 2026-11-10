@@ -5,7 +5,7 @@
  * Motor de maquetación derivado de src/pdf.js de CMO Respiratorio 1.3.0.
  * Las métricas proceden de las tablas AFM estándar de Helvetica (códigos 32–255, Windows-1252).
  */
-import { reportSections, reportHeader, resultLine, footerLines } from './cmo-report.js';
+import { reportSections, reportHeader, resultLine, footerLines, labelsFor } from './cmo-report.js';
 
 const HELVETICA=[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584,761,556,0,222,556,333,1000,556,556,333,1000,667,333,1000,0,611,0,0,222,222,333,333,350,556,1000,333,1000,500,333,944,0,500,667,278,333,556,556,556,556,260,556,333,737,370,556,584,333,737,333,400,584,333,333,333,556,537,278,333,333,365,556,834,834,834,611,667,667,667,667,667,667,1000,722,667,667,667,667,278,278,278,278,722,722,778,778,778,778,778,584,778,722,722,722,722,667,667,611,556,556,556,556,556,556,889,500,556,556,556,556,278,278,278,278,556,556,556,556,556,556,556,584,611,556,556,556,556,500,556,500];
 const HELVETICA_BOLD=[278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,975,722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,333,278,333,584,556,333,556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,389,280,389,584,761,556,0,278,556,500,1000,556,556,333,1000,667,333,1000,0,611,0,0,278,278,500,500,350,556,1000,333,1000,556,333,944,0,500,667,278,333,556,556,556,556,280,556,333,737,370,556,584,333,737,333,400,584,333,333,333,611,556,278,333,333,365,556,834,834,834,611,722,722,722,722,722,722,1000,722,667,667,667,667,278,278,278,278,722,722,778,778,778,778,778,584,778,722,722,722,722,667,667,611,556,556,556,556,556,556,889,556,556,556,556,556,278,278,278,278,611,611,611,611,611,611,611,584,611,611,611,611,611,556,611,556];
@@ -134,15 +134,16 @@ class Layout {
 
 /** Genera el PDF del informe a partir de la estructura única cmo-report/1. Devuelve Uint8Array. */
 export function reportToPdf(r) {
+  const T = labelsFor(r.locale);
   const toolLabel = `${r.tool.name}${r.tool.version ? ` v${r.tool.version}` : ''}`;
   const header = reportHeader(r);
-  const dateText = header.find(([k]) => k === 'Fecha de evaluación')?.[1] || '';
-  const L = new Layout(`${r.title} · ${r.patientId ? `Paciente ${r.patientId} · ` : ''}${dateText}`);
+  const dateText = header.find(([k]) => k === T.hDate)?.[1] || '';
+  const L = new Layout(`${r.title} · ${r.patientId ? `${T.patient} ${r.patientId} · ` : ''}${dateText}`);
   L.rect(0, PAGE.height - 92, PAGE.width, 92, COLORS.ink);
   // Franja de estratos C·M·O (identidad; nunca codifica resultados)
   [[0.18, 0.28, 0.72, 0, 0.5], [0.45, 0.23, 0.63, 0.52, 0.28], [0.05, 0.4, 0.5, 0.82, 0.18]].forEach(([cr, cg, cb, x, w]) => L.rect(PAGE.left + x * 160, PAGE.height - 30, w * 160, 3, [cr, cg, cb]));
   L.textAt(r.title, PAGE.left, PAGE.height - 54, 15, true, COLORS.white);
-  L.textAt(`Informe de atención farmacéutica · ${toolLabel}`, PAGE.left, PAGE.height - 72, 9, false, COLORS.white);
+  L.textAt(`${T.kind} · ${toolLabel}`, PAGE.left, PAGE.height - 72, 9, false, COLORS.white);
   L.y = PAGE.height - 104;
   header.forEach(([k, v]) => L.keyValue(k, v));
 
@@ -164,15 +165,15 @@ export function reportToPdf(r) {
 
   const [generated, disclaimer] = footerLines(r);
   L.y -= 6;
-  L.box(['Aviso profesional', disclaimer], {fill: COLORS.warn, color: COLORS.warnInk, size: 8.5});
+  L.box([T.notice, disclaimer], {fill: COLORS.warn, color: COLORS.warnInk, size: 8.5});
   L.paragraph(generated, {size: 8, color: COLORS.muted});
 
   const total = L.pages.length;
   L.pages.forEach((ops, index) => {
     L.ops = ops;
     L.rule(PAGE.bottom - 18);
-    L.textAt(`${toolLabel} · Documento de apoyo; no sustituye el juicio clínico`, PAGE.left, PAGE.bottom - 32, 7.5, false, COLORS.muted);
-    const label = `Página ${index + 1} de ${total}`;
+    L.textAt(`${toolLabel} · ${T.support}`, PAGE.left, PAGE.bottom - 32, 7.5, false, COLORS.muted);
+    const label = T.page(index + 1, total);
     L.textAt(label, PAGE.width - PAGE.right - textWidth(label, 7.5), PAGE.bottom - 32, 7.5, false, COLORS.muted);
   });
   return buildPdf(L.pages, r.title, r.tool.name);

@@ -149,3 +149,20 @@ test('el resultado sigue siempre a la valoración, con o sin sección de context
     assert.ok(result < lines.indexOf('VARIABLES QUE CONTRIBUYEN AL RESULTADO'));
   }
 });
+
+test('idiomas: el informe en inglés y portugués no contiene rótulos en español y el español no cambia', async () => {
+  const { LABELS } = await import('../src/cmo-report.js');
+  const es = reportToText(createReport(base()));
+  for (const locale of ['en', 'pt']) {
+    const r = createReport({ ...base(), locale, disclaimer: '' });
+    const t = reportToText(r), pdf = Buffer.from(reportToPdf(r)).toString('latin1');
+    assert.equal(r.locale, locale);
+    for (const spanish of ['Fecha de evaluación', 'Valoración CMO', 'Intervenciones farmacéuticas', 'Realizadas en esta consulta', 'Resultado de estratificación', 'Generado con']) assert.ok(!t.includes(spanish), `${locale}: ${spanish}`);
+    assert.ok(t.includes(LABELS[locale].sStrat.toUpperCase()) && t.includes(LABELS[locale].disclaimer));
+    assert.ok(pdf.includes(LABELS[locale].page(1, 1).replace(/ã/g, '\\343')) || pdf.includes(LABELS[locale].support.slice(0, 12)));
+    assert.ok(reportToHtml(r).includes(LABELS[locale].kind));
+  }
+  assert.ok(es.includes('VALORACIÓN CMO (ESTRATIFICACIÓN)') && es.includes('Fecha de evaluación'));
+  assert.equal(createReport({ ...base(), locale: 'xx' }).locale, 'es', 'idioma desconocido → español');
+  for (const l of ['es', 'en', 'pt']) assert.deepEqual(Object.keys(LABELS[l]).sort(), Object.keys(LABELS.es).sort(), `${l}: mismas claves`);
+});

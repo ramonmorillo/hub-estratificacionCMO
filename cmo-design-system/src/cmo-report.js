@@ -20,6 +20,57 @@ export const INTERVENTION_STATUSES = Object.freeze({
 
 export const DEFAULT_DISCLAIMER = 'Herramienta de apoyo profesional: no diagnóstica, no prescriptiva, no sustitutiva del juicio clínico, no producto sanitario certificado y pendiente de validación asistencial.';
 
+
+/** Textos del informe por idioma. El español es el predeterminado. El portugués está pendiente de revisión profesional. */
+export const LABELS = {
+  es: {
+    disclaimer: 'Herramienta de apoyo profesional: no diagnóstica, no prescriptiva, no sustitutiva del juicio clínico, no producto sanitario certificado y pendiente de validación asistencial.',
+    statusFinal: 'Definitiva', statusProvisional: 'Provisional', provisionalWord: 'provisional',
+    sContext: 'Situación clínica y farmacoterapéutica relevante', sStrat: 'Valoración CMO (estratificación)', sFactors: 'Variables que contribuyen al resultado',
+    sNeeds: 'Necesidades farmacoterapéuticas identificadas', sInterventions: 'Intervenciones farmacéuticas', sPlan: 'Plan de atención y seguimiento', sWarnings: 'Advertencias y limitaciones',
+    model: 'Modelo', version: v => `versión ${v}`, total: 'Puntuación total', calculated: 'Resultado calculado por el modelo', rule: 'Regla especial',
+    origin: 'Origen de los datos', originText: n => `${n} variable(s) incorporada(s) desde el análisis asistido del texto, confirmada(s) por el profesional`,
+    override: 'Modificación por criterio profesional', motive: 'Motivo', justification: 'Justificación', pending: 'Variables pendientes de valoración',
+    potential: 'Potenciales, pendientes de evaluación:', done: 'Realizadas en esta consulta:', planned: 'Planificadas / pendientes:', recommended: l => `Recomendadas por el modelo para ${l} (no registradas como realizadas):`,
+    nextReview: 'Próxima valoración prevista', goals: 'Objetivos:', notes: 'Observaciones',
+    hDate: 'Fecha de evaluación', hPatient: 'Identificador del paciente (seudonimizado)', hPharmacist: 'Farmacéutico/a responsable', hHospital: 'Hospital o centro', hStatus: 'Valoración',
+    result: 'Resultado de estratificación', generated: 'Generado con', kind: 'Informe de atención farmacéutica', patient: 'Paciente', notice: 'Aviso profesional',
+    support: 'Documento de apoyo; no sustituye el juicio clínico', page: (i, n) => `Página ${i} de ${n}`,
+    statuses: { recommended: 'Recomendada por el modelo (sin registrar)', done: 'Realizada', planned: 'Planificada', not_applicable: 'No procede' }
+  },
+  en: {
+    disclaimer: 'Professional support tool: not diagnostic, not prescriptive, does not replace clinical judgement, not a certified medical device and pending clinical validation.',
+    statusFinal: 'Final', statusProvisional: 'Provisional', provisionalWord: 'provisional',
+    sContext: 'Relevant clinical and pharmacotherapeutic situation', sStrat: 'CMO assessment (stratification)', sFactors: 'Variables contributing to the result',
+    sNeeds: 'Identified pharmacotherapeutic needs', sInterventions: 'Pharmaceutical interventions', sPlan: 'Care and follow-up plan', sWarnings: 'Warnings and limitations',
+    model: 'Model', version: v => `version ${v}`, total: 'Total score', calculated: 'Result calculated by the model', rule: 'Special rule',
+    origin: 'Data origin', originText: n => `${n} variable(s) entered from the assisted text analysis, confirmed by the professional`,
+    override: 'Professional modification', motive: 'Reason', justification: 'Justification', pending: 'Variables pending assessment',
+    potential: 'Potential, pending assessment:', done: 'Carried out at this visit:', planned: 'Planned / pending:', recommended: l => `Recommended by the model for ${l} (not recorded as carried out):`,
+    nextReview: 'Next planned assessment', goals: 'Goals:', notes: 'Notes',
+    hDate: 'Assessment date', hPatient: 'Patient identifier (pseudonymized)', hPharmacist: 'Responsible pharmacist', hHospital: 'Hospital or centre', hStatus: 'Assessment',
+    result: 'Stratification result', generated: 'Generated with', kind: 'Pharmaceutical care report', patient: 'Patient', notice: 'Professional notice',
+    support: 'Support document; does not replace clinical judgement', page: (i, n) => `Page ${i} of ${n}`,
+    statuses: { recommended: 'Recommended by the model (not recorded)', done: 'Done', planned: 'Planned', not_applicable: 'Not applicable' }
+  },
+  pt: {
+    disclaimer: 'Ferramenta de apoio profissional: não diagnóstica, não prescritiva, não substitui o juízo clínico, não é um dispositivo médico certificado e está pendente de validação assistencial.',
+    statusFinal: 'Definitiva', statusProvisional: 'Provisória', provisionalWord: 'provisório',
+    sContext: 'Situação clínica e farmacoterapêutica relevante', sStrat: 'Avaliação CMO (estratificação)', sFactors: 'Variáveis que contribuem para o resultado',
+    sNeeds: 'Necessidades farmacoterapêuticas identificadas', sInterventions: 'Intervenções farmacêuticas', sPlan: 'Plano de cuidados e seguimento', sWarnings: 'Avisos e limitações',
+    model: 'Modelo', version: v => `versão ${v}`, total: 'Pontuação total', calculated: 'Resultado calculado pelo modelo', rule: 'Regra especial',
+    origin: 'Origem dos dados', originText: n => `${n} variável(eis) incorporada(s) a partir da análise assistida do texto, confirmada(s) pelo profissional`,
+    override: 'Modificação por critério profissional', motive: 'Motivo', justification: 'Justificação', pending: 'Variáveis por avaliar',
+    potential: 'Potenciais, por avaliar:', done: 'Realizadas nesta consulta:', planned: 'Planeadas / pendentes:', recommended: l => `Recomendadas pelo modelo para ${l} (não registadas como realizadas):`,
+    nextReview: 'Próxima avaliação prevista', goals: 'Objetivos:', notes: 'Observações',
+    hDate: 'Data da avaliação', hPatient: 'Identificador do doente (pseudonimizado)', hPharmacist: 'Farmacêutico/a responsável', hHospital: 'Hospital ou centro', hStatus: 'Avaliação',
+    result: 'Resultado da estratificação', generated: 'Gerado com', kind: 'Relatório de cuidados farmacêuticos', patient: 'Doente', notice: 'Aviso profissional',
+    support: 'Documento de apoio; não substitui o juízo clínico', page: (i, n) => `Página ${i} de ${n}`,
+    statuses: { recommended: 'Recomendada pelo modelo (sem registo)', done: 'Realizada', planned: 'Planeada', not_applicable: 'Não se aplica' }
+  }
+};
+export const labelsFor = locale => LABELS[locale] || LABELS.es;
+
 const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 export const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ESC[c]);
 
@@ -83,6 +134,7 @@ export function createReport(input = {}) {
   const i = input.interventions || {};
   const p = input.plan || {};
   const status = input.status === 'final' ? 'final' : 'provisional';
+  const locale = ['es', 'en', 'pt'].includes(input.locale) ? input.locale : 'es';
   return {
     schema: REPORT_SCHEMA,
     title: text(input.title, 200),
@@ -90,7 +142,8 @@ export function createReport(input = {}) {
     model: { name: text(input.model?.name, 300), version: text(input.model?.version, 80), source: text(input.model?.source, 600) },
     evaluationDate: text(input.evaluationDate, 40),
     status,
-    statusLabel: status === 'final' ? 'Definitiva' : 'Provisional',
+    locale,
+    statusLabel: status === 'final' ? labelsFor(locale).statusFinal : labelsFor(locale).statusProvisional,
     hospital: text(input.hospital, 200),
     pharmacist: text(input.pharmacist, 200),
     patientId: text(input.patientId, 60),
@@ -119,7 +172,7 @@ export function createReport(input = {}) {
       goals: list(p.goals).map(g => ({ label: text(g?.label, 400), status: text(g?.status, 80), detail: text(g?.detail, 600) })).filter(g => g.label)
     },
     warnings: list(input.warnings).map(w => text(w, 800)).filter(Boolean),
-    disclaimer: text(input.disclaimer, 800) || DEFAULT_DISCLAIMER
+    disclaimer: text(input.disclaimer, 800) || labelsFor(locale).disclaimer
   };
 }
 
@@ -136,13 +189,12 @@ export function validateReport(r) {
   return errors;
 }
 
-const STRATIFICATION_TITLE = 'Valoración CMO (estratificación)';
 const scoreLabel = s => (s.score === null ? '' : `${s.score}${s.maxScore === null ? '' : `/${s.maxScore}`}`);
 const subtotalsLabel = s => s.subtotals.map(x => `${x.label} ${x.points}${x.max === null ? '' : `/${x.max}`}`).join('; ');
 const toolLabel = r => `${r.tool.name}${r.tool.version ? ` v${r.tool.version}` : ''}`;
 const dateLabel = r => formatDate(r.evaluationDate, /T/.test(r.evaluationDate)) || r.evaluationDate;
 const points = f => (f.points === null ? '' : ` (${f.points} p)`);
-const provisional = r => (r.status === 'final' ? '' : ' (provisional)');
+const provisional = r => (r.status === 'final' ? '' : ` (${labelsFor(r.locale).provisionalWord})`);
 
 /**
  * Secciones del informe, en el orden común del ecosistema. Es la única fuente para
@@ -151,59 +203,60 @@ const provisional = r => (r.status === 'final' ? '' : ' (provisional)');
  */
 export function reportSections(r) {
   const s = r.stratification;
+  const L = labelsFor(r.locale);
   const sections = [];
   const add = (title, lines) => { const rows = lines.filter(Boolean); if (rows.length) sections.push({ title, lines: rows }); };
   const kv = (k, v) => v && { kind: 'kv', key: k, text: v };
   const it = t => t && { kind: 'item', text: t };
   const sub = t => t && { kind: 'sub', text: t };
 
-  add('Situación clínica y farmacoterapéutica relevante', r.context.map(c => kv(c.label, c.value)));
-  add(STRATIFICATION_TITLE, [
-    kv('Modelo', [r.model.name, r.model.version && `versión ${r.model.version}`].filter(Boolean).join(' · ')),
-    kv('Puntuación total', scoreLabel(s) && `${scoreLabel(s)}${s.subtotals.length ? ` (${subtotalsLabel(s)})` : ''}`),
-    kv('Resultado calculado por el modelo', s.calculatedLevel),
-    ...s.rules.map(rule => kv('Regla especial', rule)),
-    kv('Origen de los datos', s.assistedCount ? `${s.assistedCount} variable(s) incorporada(s) desde el análisis asistido del texto, confirmada(s) por el profesional` : ''),
-    s.override && kv('Modificación por criterio profesional', `${s.override.level}${s.override.motive ? `. Motivo: ${s.override.motive}` : ''}. Justificación: ${s.override.justification}`),
-    kv('Variables pendientes de valoración', s.pending.join('; '))
+  add(L.sContext, r.context.map(c => kv(c.label, c.value)));
+  add(L.sStrat, [
+    kv(L.model, [r.model.name, r.model.version && L.version(r.model.version)].filter(Boolean).join(' · ')),
+    kv(L.total, scoreLabel(s) && `${scoreLabel(s)}${s.subtotals.length ? ` (${subtotalsLabel(s)})` : ''}`),
+    kv(L.calculated, s.calculatedLevel),
+    ...s.rules.map(rule => kv(L.rule, rule)),
+    kv(L.origin, s.assistedCount ? L.originText(s.assistedCount) : ''),
+    s.override && kv(L.override, `${s.override.level}${s.override.motive ? `. ${L.motive}: ${s.override.motive}` : ''}. ${L.justification}: ${s.override.justification}`),
+    kv(L.pending, s.pending.join('; '))
   ]);
-  add('Variables que contribuyen al resultado', r.factors.map(f => it(`${f.dimension ? `${f.dimension}: ` : ''}${f.label}${f.detail ? ` — ${f.detail}` : ''}${points(f)}`)));
-  add('Necesidades farmacoterapéuticas identificadas', [
+  add(L.sFactors, r.factors.map(f => it(`${f.dimension ? `${f.dimension}: ` : ''}${f.label}${f.detail ? ` — ${f.detail}` : ''}${points(f)}`)));
+  add(L.sNeeds, [
     ...r.needs.confirmed.map(n => it(`${n.dimension ? `${n.dimension}: ` : ''}${n.label}${n.detail ? ` — ${n.detail}` : ''}`)),
-    r.needs.potential.length && sub('Potenciales, pendientes de evaluación:'),
+    r.needs.potential.length && sub(L.potential),
     ...r.needs.potential.map(n => it(`${n.dimension ? `${n.dimension}: ` : ''}${n.label}${n.detail ? ` — ${n.detail}` : ''}`))
   ]);
   const i = r.interventions;
   const block = (title, items) => (items.length ? [sub(title), ...items.map(x => it(`${x.group ? `${x.group}: ` : ''}${x.label}`))] : []);
-  add('Intervenciones farmacéuticas', [
-    ...block('Realizadas en esta consulta:', i.done),
-    ...block('Planificadas / pendientes:', i.planned),
-    ...block(`Recomendadas por el modelo para ${s.finalLevel} (no registradas como realizadas):`, i.recommended)
+  add(L.sInterventions, [
+    ...block(L.done, i.done),
+    ...block(L.planned, i.planned),
+    ...block(L.recommended(s.finalLevel), i.recommended)
   ]);
-  add('Plan de atención y seguimiento', [
+  add(L.sPlan, [
     it(r.plan.periodicity),
-    kv('Próxima valoración prevista', formatDate(r.plan.nextReview) || r.plan.nextReview),
-    ...(r.plan.goals.length ? [sub('Objetivos:'), ...r.plan.goals.map(g => it(`${g.label}${g.status ? ` [${g.status}]` : ''}${g.detail ? ` — ${g.detail}` : ''}`))] : []),
-    kv('Observaciones', r.plan.notes)
+    kv(L.nextReview, formatDate(r.plan.nextReview) || r.plan.nextReview),
+    ...(r.plan.goals.length ? [sub(L.goals), ...r.plan.goals.map(g => it(`${g.label}${g.status ? ` [${g.status}]` : ''}${g.detail ? ` — ${g.detail}` : ''}`))] : []),
+    kv(L.notes, r.plan.notes)
   ]);
-  add('Advertencias y limitaciones', r.warnings.map(w => ({ kind: 'warn', text: w })));
+  add(L.sWarnings, r.warnings.map(w => ({ kind: 'warn', text: w })));
   return sections;
 }
 
 /** Cabecera común (apartados 1–4 del informe). */
 export function reportHeader(r) {
   return [
-    ['Fecha de evaluación', dateLabel(r)],
-    ['Identificador del paciente (seudonimizado)', r.patientId],
-    ['Farmacéutico/a responsable', r.pharmacist],
-    ['Hospital o centro', r.hospital],
-    ['Valoración', r.statusLabel]
+    [labelsFor(r.locale).hDate, dateLabel(r)],
+    [labelsFor(r.locale).hPatient, r.patientId],
+    [labelsFor(r.locale).hPharmacist, r.pharmacist],
+    [labelsFor(r.locale).hHospital, r.hospital],
+    [labelsFor(r.locale).hStatus, r.statusLabel]
   ].filter(([, v]) => v);
 }
 
-export const resultLine = r => `Resultado de estratificación: ${r.stratification.finalLevel}${provisional(r)}`;
+export const resultLine = r => `${labelsFor(r.locale).result}: ${r.stratification.finalLevel}${provisional(r)}`;
 export const footerLines = r => [
-  `Generado con ${toolLabel(r)}.${r.model.source ? ` ${r.model.source}` : ''}`,
+  `${labelsFor(r.locale).generated} ${toolLabel(r)}.${r.model.source ? ` ${r.model.source}` : ''}`,
   r.disclaimer
 ];
 
@@ -216,7 +269,7 @@ export function reportToText(r) {
   let placed = false;
   for (const section of reportSections(r)) {
     out.push('', section.title.toUpperCase(), ...section.lines.map(line));
-    if (section.title === STRATIFICATION_TITLE) { out.push('', resultLine(r).toUpperCase()); placed = true; }
+    if (section.title === labelsFor(r.locale).sStrat) { out.push('', resultLine(r).toUpperCase()); placed = true; }
   }
   if (!placed) out.push('', resultLine(r).toUpperCase());
   out.push('', ...footerLines(r));
@@ -231,7 +284,7 @@ export function reportToHtml(r) {
     : `<li${l.kind === 'warn' ? ' class="cmo-report__warn"' : ''}>${e(l.text)}</li>`);
   const sections = reportSections(r).map(s => `<section><h2>${e(s.title)}</h2><ul>${s.lines.map(line).join('')}</ul></section>`.replace(/<ul><\/ul>/g, ''));
   return `<article class="cmo-report" data-level="${r.stratification.levelCode ?? ''}">`
-    + `<header><h1>${e(r.title)}</h1><p class="cmo-report__tool">Informe de atención farmacéutica · ${e(toolLabel(r))}</p>`
+    + `<header><h1>${e(r.title)}</h1><p class="cmo-report__tool">${e(labelsFor(r.locale).kind)} · ${e(toolLabel(r))}</p>`
     + `<dl>${reportHeader(r).map(([k, v]) => `<div><dt>${e(k)}</dt><dd>${e(v)}</dd></div>`).join('')}</dl></header>`
     + `<p class="cmo-report__result">${e(resultLine(r))}</p>`
     + sections.join('')
