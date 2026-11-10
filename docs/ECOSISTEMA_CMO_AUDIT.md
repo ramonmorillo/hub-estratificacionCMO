@@ -31,6 +31,7 @@ Fuera de alcance (no enlazados desde el hub; no inspeccionados ni modificados): 
 
 F = existente y funcional · D = existente con defectos · A = ausente · NA = no aplicable · PV = pendiente de validación.
 EM «antes» = `main` (489df35); EM «rama» = `claude/zen-pasteur-u8tn7z` (ver §5 y `ECOSISTEMA_CMO_TESTS.md`).
+Las demás columnas describen la rama publicada **antes** de esta sesión. Estado tras la sesión: RCV adaptada al núcleo en su rama de trabajo (filas 5, 7, 9–14 pasan a F; fila 3 sigue D); en Pediatría, Oncohematología, Migraña, VIH y VHB-VHD solo se ha corregido el XSS (fila 13 sigue D por el resto de defectos). Detalle en `ECOSISTEMA_CMO_FINAL_REPORT.md`.
 
 | # | Capacidad | Resp. | EM antes | EM rama | VHB-VHD | RCV | Migraña | Coag. | Inmuno | VIH | Pediat. | Onco |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
