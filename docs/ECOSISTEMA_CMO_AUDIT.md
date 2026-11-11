@@ -35,7 +35,8 @@ Las demás columnas describen la rama publicada **antes** de esta sesión. Estad
 - **RCV** y **Oncohematología**: adaptadas al núcleo; filas 5, 7–14 pasan a F y la 15 a F con pruebas nuevas; la fila 3 sigue D (reglas de extracción sin tocar; ahora con evidencia y decisión previa).
 - **VIH**: puerta de revisión y seguridad, sin adaptar al flujo completo. Pasan a F las filas 4 (confirmar/descartar cada propuesta; nada puntúa sin confirmar), 5 (resultado provisional), 7 (modificación con justificación y visible en todas las salidas), 11 (importación validada) y 13 (XSS, CSV, texto libre fuera del JSON y del borrador). Siguen D: 8 y 9 (sin necesidades ni estado de intervenciones), 10 (sin PDF; constructores separados) y 3.
 - **Pediatría**: adaptada (página única): pasan a F las filas 7 (ya existía y ahora figura en el informe), 8, 9, 10, 11, 13, 14 (progreso, nombres accesibles, 375 px) y 15; la 3 sigue D (reglas sin tocar) y la 12 D (sin borrador automático).
-- **Migraña, VHB-VHD**: solo corregido el XSS (fila 13 sigue D por el resto de defectos).
+- **Migraña**: adaptada (página única): pasan a F las filas 5, 7, 8, 9, 10, 11, 12 (borrado y guardado), 13, 14 (375 px) y 15; la 3 sigue D (extractor sin tocar).
+- **VHB-VHD**: solo corregido el XSS (fila 13 sigue D por el resto de defectos).
 Detalle en `ECOSISTEMA_CMO_FINAL_REPORT.md`.
 
 | # | Capacidad | Resp. | EM antes | EM rama | VHB-VHD | RCV | Migraña | Coag. | Inmuno | VIH | Pediat. | Onco |
