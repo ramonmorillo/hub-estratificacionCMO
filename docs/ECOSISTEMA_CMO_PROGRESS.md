@@ -47,4 +47,10 @@
 
 Procedimiento en `ECOSISTEMA_CMO_ARCHITECTURE.md` §6. Plantillas reales: `estratificacionEM/assets/js/assessment.js` (modelo de casillas) y `cmoriesgocardiovascular/assets/modules/assessment.js` (modelo de registros validados); pruebas e2e reutilizables en `tests/e2e/flow.e2e.mjs` de ambas.
 Plantilla adicional: `cmoncologia/src/assessment.js` (modelo de campos con varios valores por variable y cota superior de pendientes) y `cmo-vih-app/assets/modules/review-gate.js` (puerta de revisión sobre un motor que no se puede tocar).
-VIH: comportamiento validado por el autor. Pendiente: revisión clínica de los hallazgos documentados, PRs y commits de publicación (versión y fecha las fija el autor).
+## Estado a 2026-11-11
+
+- **Fusionado en `main` (o en la rama base) y publicado** (commits de publicación con versión y fecha 2026-11-11): hub 1.2.0, EM 1.1.0, RCV 1.3.0, Oncohematología 1.3.0, VIH 3.2.0, Pediatría 1.3.0, Migraña 2.2.0, VHB-VHD 1.1.0, Inmunomediadas 1.2.0, Coagulopatías 1.2.0, Respiratorio 1.4.0.
+- **CI** (`.github/workflows/ci.yml`, Ubuntu 24.04, Node 22, Playwright 1.56.1 + axe-core 4.10.2): pruebas, build, e2e con WCAG A/AA en todas las herramientas y el hub; comprobación de `dist/` en las que lo versionan.
+- **Guía de uso** publicada en el hub (`guia.html`).
+- **Pendiente del autor:** `clinicalReviewDate` y `copyright` (`null`), estado de validación clínica por herramienta (marcador `[PENDIENTE]` en la guía), validación asistencial con casos pseudonimizados reales, y verificación de los despliegues en Pages.
+- **Abierto:** falsos positivos por negación en los extractores (decisión pendiente), traducción de la interfaz de VIH más allá del informe, `confirm` nativo restante en el análisis asistido de Respiratorio.
