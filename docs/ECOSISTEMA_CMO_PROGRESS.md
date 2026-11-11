@@ -53,5 +53,4 @@ Plantilla adicional: `cmoncologia/src/assessment.js` (modelo de campos con vario
 - **CI** (`.github/workflows/ci.yml`, Ubuntu 24.04, Node 22, Playwright 1.56.1 + axe-core 4.10.2): pruebas, build, e2e con WCAG A/AA en todas las herramientas y el hub; comprobación de `dist/` en las que lo versionan.
 - **Guía de uso** publicada en el hub (`guia.html`).
 - **Pendiente del autor:** `clinicalReviewDate` y `copyright` (`null`), estado de validación clínica por herramienta (marcador `[PENDIENTE]` en la guía), validación asistencial con casos pseudonimizados reales, y verificación de los despliegues en Pages.
-- **Protocolo de validación clínica (borrador):** `docs/PROTOCOLO_VALIDACION_CLINICA.md` con plantillas en `docs/validacion/`.
 - **Abierto:** falsos positivos por negación en los extractores (decisión pendiente), traducción de la interfaz de VIH más allá del informe, `confirm` nativo restante en el análisis asistido de Respiratorio.
