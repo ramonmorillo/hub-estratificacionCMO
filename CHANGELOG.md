@@ -2,6 +2,9 @@
 
 Formato SemVer. Las versiones anteriores a 1.0.0 no estaban numeradas y se identifican por su commit.
 
+## 1.3.1 — 2026-11-11
+- Guía y PDF: la tabla de herramientas muestra una columna «Dirección» con `https://ramonmorillo.es/<herramienta>/` (enlace clicable), en lugar de las direcciones de github.io. `cmo-app-meta` 1.3.0 → 1.3.1.
+
 ## 1.3.0 — 2026-11-11
 - Guía de uso descargable en PDF (`guia-de-uso-cmo.pdf`), generada desde `guia.html` con `node scripts/build-guia-pdf.mjs` (estilos de impresión en `@layer cmo.print`). Se retira de la guía el marcador de validación pendiente. `cmo-app-meta` 1.2.0 → 1.3.0.
 
