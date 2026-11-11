@@ -14,7 +14,8 @@ Todo lo que figura aquí se ejecutó el 2026-11-10 (Node 22, Chromium de Playwri
 | Migraña | 71 | **83** unitarias · **6** e2e | Huellas de `core.mjs`/`local-extractor.mjs`, fronteras 14/15 y 18/19, paridad en 300 casos, pendientes y cota, menor de 18, modificación, actuaciones, informe, importación hostil y formato anterior, CSV |
 | VIH | 50 | **68** unitarias · **4** e2e | Huellas de motor/configuración/analizador, paridad con el motor en 300 casos, propuestas sin confirmar, modificación, importación, estado corrupto, exportaciones sin texto libre, borrador, un solo clic en «Analizar» |
 | VHB-VHD | 19 | **30** unitarias · **5** e2e | Huellas de configuración y cálculo, umbrales, pendientes y cota, reglas de seguridad, modificación, informe, copia de seguridad hostil, registro anterior, CSV; e2e con axe 0, importación hostil, reinicio, extracción asistida, 375 px |
-| Coagulopatías, Inmunomediadas, Respiratorio | 83 · 16 · 50+10 | Sin cambios (no modificados) | — |
+| Inmunomediadas | 16 | **29** unitarias · **7** e2e | Huellas de 5 ficheros clínicos, paridad con el motor, pendientes y cota (embarazo → P1), edad vacía/negativa/>120, modificación con justificación, informe provisional/definitivo, escape HTML, exportación sin texto libre, importación hostil (`__proto__`, ids y valores desconocidos, DNI), ida y vuelta; e2e con axe 0, 375 px, sin peticiones externas, propuestas sin premarcar, borrado con confirmación |
+| Coagulopatías, Respiratorio | 83 · 50+10 | Sin cambios (no modificados) | — |
 
 ## 2. Recorridos e2e (EM y RCV)
 

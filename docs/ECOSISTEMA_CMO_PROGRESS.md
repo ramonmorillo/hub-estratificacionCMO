@@ -15,7 +15,7 @@
 | VIH | **Adaptación sustancial**: puerta de revisión, importación validada, provisional, etapa de seguimiento con estado de intervenciones, informe único y PDF en es/en/pt (conserva su asistente propio) | `1d229e7` | Validar el cambio de comportamiento; revisar el portugués; recorrido manual de las 16 variables y casos guardados |
 | VHB-VHD | **Adaptación** (factores Sí/No/Pendiente, provisional, modificación profesional, informe único + PDF, actuaciones con estado, plan, copias de seguridad validadas; página única) | `a0be1c6` | Revisión clínica de lo marcado; PR; commit de publicación 1.1.0 |
 | Coagulopatías | Sin tocar | — | Requiere tipos para el núcleo (TS); negación y confirmación en lote |
-| Inmunomediadas | Sin tocar | — | Borrado sin confirmación; informe único |
+| Inmunomediadas | **Adaptación** (asistente de 7 pasos propio conservado; provisional con cota, modificación profesional, actuaciones con estado, plan, informe único + PDF + JSON, importación validada, confirmación de borrado) | `b3e2db8` | Decidir hallazgos del motor (edad vacía = 1 punto; bloque demográfico 11 > 9; máximo 73 vs 71); PR; commit de publicación |
 | Respiratorio | Referencia, sin tocar | — | Sin acceso de escritura en esta sesión; convergencia opcional |
 
 ## Decisiones tomadas (no repetir el análisis)
@@ -47,4 +47,4 @@
 
 Procedimiento en `ECOSISTEMA_CMO_ARCHITECTURE.md` §6. Plantillas reales: `estratificacionEM/assets/js/assessment.js` (modelo de casillas) y `cmoriesgocardiovascular/assets/modules/assessment.js` (modelo de registros validados); pruebas e2e reutilizables en `tests/e2e/flow.e2e.mjs` de ambas.
 Plantilla adicional: `cmoncologia/src/assessment.js` (modelo de campos con varios valores por variable y cota superior de pendientes) y `cmo-vih-app/assets/modules/review-gate.js` (puerta de revisión sobre un motor que no se puede tocar).
-Orden recomendado: Inmunomediadas → Coagulopatías (VIH: validar y completar pruebas pendientes) → Inmunomediadas → Coagulopatías.
+Orden recomendado: Coagulopatías (VIH: validar y completar pruebas pendientes).
