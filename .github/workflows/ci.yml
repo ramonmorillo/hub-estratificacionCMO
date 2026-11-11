@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Núcleo, control de publicación y E2E
+    # Ubuntu 24.04 fijado: Playwright 1.56 no soporta aún ubuntu-latest (26.04).
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Pruebas del Design System (firma y núcleo del flujo)
+        run: node --test cmo-design-system/tests/*.mjs
+
+      - name: Control de publicación
+        run: node cmo-design-system/tools/cmo-release-check.mjs index.html legal.html
+
+      - name: Instalar Playwright (Chromium) y axe-core
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1 axe-core@4.10.2
+          npx playwright install --with-deps chromium
+
+      - name: Pruebas E2E del hub (con auditoría WCAG A/AA)
+        env:
+          AXE_PATH: ${{ github.workspace }}/node_modules/axe-core/axe.min.js
+        run: node tests/hub.e2e.mjs
