@@ -4,8 +4,8 @@
 
 - **Auditadas funcionalmente: 10 de 10** herramientas del hub (más el hub), con recorrido real en navegador.
 - **Núcleo común creado** (Design System 0.3.0): informe único, PDF local, flujo de 7 etapas, exportación/importación versionada. Sin lógica clínica ni dependencias.
-- **Adaptadas: 7 de 9** (Esclerosis Múltiple, Riesgo Cardiovascular, Oncohematología e Inmunomediadas con asistente de 7 pasos; Pediatría, Migraña y VHB-VHD como página única con informe único, actuaciones con estado y plan). **VIH**: puerta de revisión, importación validada, estado provisional, etapa de seguimiento con estado de intervenciones e informe único con PDF en es/en/pt (conserva su asistente propio). **Sin tocar: 2** (Coagulopatías, Respiratorio).
-- **El objetivo de la misión no está cumplido**: 2 herramientas siguen sin el circuito común completo. El alcance lo limitó el límite de uso de la sesión, no un bloqueo técnico; el procedimiento está validado dos veces y documentado.
+- **Adaptadas: 8 de 9** (Esclerosis Múltiple, Riesgo Cardiovascular, Oncohematología e Inmunomediadas con asistente de 7 pasos; Coagulopatías con su asistente de 5 pasos conservado; Pediatría, Migraña y VHB-VHD como página única con informe único, actuaciones con estado y plan). **VIH**: puerta de revisión, importación validada, estado provisional, etapa de seguimiento con estado de intervenciones e informe único con PDF en es/en/pt (conserva su asistente propio). **Sin tocar: 1** (Respiratorio, referencia sin acceso de escritura).
+- **El objetivo de la misión no está cumplido**: 1 herramienta (Respiratorio) sigue sin converger al núcleo. El alcance lo limitó el límite de uso de la sesión, no un bloqueo técnico; el procedimiento está validado dos veces y documentado.
 - Ningún fichero de configuración clínica se ha modificado en ningún repositorio. Nada se ha fusionado ni desplegado.
 
 ## Herramientas modificadas y ramas

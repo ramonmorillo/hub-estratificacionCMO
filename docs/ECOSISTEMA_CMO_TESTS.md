@@ -15,7 +15,8 @@ Todo lo que figura aquí se ejecutó el 2026-11-10 (Node 22, Chromium de Playwri
 | VIH | 50 | **68** unitarias · **4** e2e | Huellas de motor/configuración/analizador, paridad con el motor en 300 casos, propuestas sin confirmar, modificación, importación, estado corrupto, exportaciones sin texto libre, borrador, un solo clic en «Analizar» |
 | VHB-VHD | 19 | **30** unitarias · **5** e2e | Huellas de configuración y cálculo, umbrales, pendientes y cota, reglas de seguridad, modificación, informe, copia de seguridad hostil, registro anterior, CSV; e2e con axe 0, importación hostil, reinicio, extracción asistida, 375 px |
 | Inmunomediadas | 16 | **29** unitarias · **7** e2e | Huellas de 5 ficheros clínicos, paridad con el motor, pendientes y cota (embarazo → P1), edad vacía/negativa/>120, modificación con justificación, informe provisional/definitivo, escape HTML, exportación sin texto libre, importación hostil (`__proto__`, ids y valores desconocidos, DNI), ida y vuelta; e2e con axe 0, 375 px, sin peticiones externas, propuestas sin premarcar, borrado con confirmación |
-| Coagulopatías, Respiratorio | 83 · 50+10 | Sin cambios (no modificados) | — |
+| Coagulopatías | 83 | **99** unitarias (vitest) · **4** e2e | Huellas de scoring/modelo/intervenciones/extractor, paridad con el motor, provisional y cota, regla de terapia avanzada, elevación ≥12 caracteres, informe (HTML escapado, PDF), exportación sin HCE ni evidencias, importación hostil (`__proto__`, tipos, DNI), migración v1; e2e con axe 0, 375 px, sin peticiones externas |
+| Respiratorio | 50+10 | Sin cambios (no modificado) | — |
 
 ## 2. Recorridos e2e (EM y RCV)
 
