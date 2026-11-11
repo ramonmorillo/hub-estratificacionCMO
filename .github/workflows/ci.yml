@@ -25,7 +25,7 @@ jobs:
         run: node --test cmo-design-system/tests/*.mjs
 
       - name: Control de publicación
-        run: node cmo-design-system/tools/cmo-release-check.mjs index.html legal.html
+        run: node cmo-design-system/tools/cmo-release-check.mjs index.html legal.html guia.html
 
       - name: Instalar Playwright (Chromium) y axe-core
         run: |
