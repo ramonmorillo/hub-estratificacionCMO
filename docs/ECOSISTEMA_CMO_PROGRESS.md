@@ -16,7 +16,7 @@
 | VHB-VHD | **Adaptación** (factores Sí/No/Pendiente, provisional, modificación profesional, informe único + PDF, actuaciones con estado, plan, copias de seguridad validadas; página única) | `a0be1c6` | Revisión clínica de lo marcado; PR; commit de publicación 1.1.0 |
 | Coagulopatías | **Adaptación** (React/TS conservado; provisional con cota, elevación con motivo ≥12, actuaciones con estado, informe único + PDF, exportación sin HCE ni sugerencias, importación saneada; tipos `.d.ts` junto al núcleo) | `a57e4f1` | Revisión clínica; decidir si «confirmar todas las explícitas» se mantiene; PR; publicación (rama base `main`) |
 | Inmunomediadas | **Adaptación** (asistente de 7 pasos propio conservado; provisional con cota, modificación profesional, actuaciones con estado, plan, informe único + PDF + JSON, importación validada, confirmación de borrado) | `b3e2db8` | Decidir hallazgos del motor (edad vacía = 1 punto; bloque demográfico 11 > 9; máximo 73 vs 71); PR; commit de publicación |
-| Respiratorio | Referencia, sin tocar | — | Sin acceso de escritura en esta sesión; convergencia opcional |
+| Respiratorio | **Convergencia** (referencia del núcleo): texto HCE y PDF generados por el núcleo vía adaptador; diálogos accesibles; `clinical.js`/`extractor.js` intactos | `4329559` | Aprobar el cambio de formato del texto/PDF (mismos datos); PR; publicación |
 
 ## Decisiones tomadas (no repetir el análisis)
 
@@ -47,4 +47,4 @@
 
 Procedimiento en `ECOSISTEMA_CMO_ARCHITECTURE.md` §6. Plantillas reales: `estratificacionEM/assets/js/assessment.js` (modelo de casillas) y `cmoriesgocardiovascular/assets/modules/assessment.js` (modelo de registros validados); pruebas e2e reutilizables en `tests/e2e/flow.e2e.mjs` de ambas.
 Plantilla adicional: `cmoncologia/src/assessment.js` (modelo de campos con varios valores por variable y cota superior de pendientes) y `cmo-vih-app/assets/modules/review-gate.js` (puerta de revisión sobre un motor que no se puede tocar).
-Pendiente: VIH (validar y completar pruebas) y, si se desea, converger Respiratorio.
+VIH: comportamiento validado por el autor. Pendiente: revisión clínica de los hallazgos documentados, PRs y commits de publicación (versión y fecha las fija el autor).

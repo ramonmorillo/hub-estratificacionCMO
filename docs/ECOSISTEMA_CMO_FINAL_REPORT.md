@@ -4,8 +4,8 @@
 
 - **Auditadas funcionalmente: 10 de 10** herramientas del hub (más el hub), con recorrido real en navegador.
 - **Núcleo común creado** (Design System 0.3.0): informe único, PDF local, flujo de 7 etapas, exportación/importación versionada. Sin lógica clínica ni dependencias.
-- **Adaptadas: 8 de 9** (Esclerosis Múltiple, Riesgo Cardiovascular, Oncohematología e Inmunomediadas con asistente de 7 pasos; Coagulopatías con su asistente de 5 pasos conservado; Pediatría, Migraña y VHB-VHD como página única con informe único, actuaciones con estado y plan). **VIH**: puerta de revisión, importación validada, estado provisional, etapa de seguimiento con estado de intervenciones e informe único con PDF en es/en/pt (conserva su asistente propio). **Sin tocar: 1** (Respiratorio, referencia sin acceso de escritura).
-- **El objetivo de la misión no está cumplido**: 1 herramienta (Respiratorio) sigue sin converger al núcleo. El alcance lo limitó el límite de uso de la sesión, no un bloqueo técnico; el procedimiento está validado dos veces y documentado.
+- **Adaptadas: 9 de 9** (Respiratorio, la referencia, converge al núcleo para texto y PDF) (Esclerosis Múltiple, Riesgo Cardiovascular, Oncohematología e Inmunomediadas con asistente de 7 pasos; Coagulopatías con su asistente de 5 pasos conservado; Pediatría, Migraña y VHB-VHD como página única con informe único, actuaciones con estado y plan). **VIH**: puerta de revisión, importación validada, estado provisional, etapa de seguimiento con estado de intervenciones e informe único con PDF en es/en/pt (conserva su asistente propio). **Sin tocar: 1** (Respiratorio, referencia sin acceso de escritura).
+- **Alcance técnico cumplido en las 10 herramientas.** Quedan decisiones de autor y revisión clínica de lo marcado, PRs y commits de publicación (nada fusionado ni desplegado). VIH: comportamiento validado por el autor.
 - Ningún fichero de configuración clínica se ha modificado en ningún repositorio. Nada se ha fusionado ni desplegado.
 
 ## Herramientas modificadas y ramas
@@ -64,7 +64,7 @@ Ver `ECOSISTEMA_CMO_TESTS.md`. Todas las baterías ejecutadas pasan: hub 23 + 11
 4. Resultado firme sin datos (VHB-VHD, Coagulopatías, Migraña).
 5. CSV sin protección de fórmulas (Pediatría, Oncohematología, Migraña, VIH, VHB-VHD).
 
-**Técnicos:** adaptar las 3 herramientas restantes (el núcleo ya admite es/en/pt); CI en EM y RCV; convergencia opcional de Respiratorio al núcleo; comprobar en navegador el punto exacto del parche de Migraña.
+**Técnicos:** CI en EM y RCV; comprobar en navegador el punto exacto del parche de Migraña.
 
 ## Instrucciones de despliegue
 
