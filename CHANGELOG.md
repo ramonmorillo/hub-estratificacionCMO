@@ -2,6 +2,9 @@
 
 Formato SemVer. Las versiones anteriores a 1.0.0 no estaban numeradas y se identifican por su commit.
 
+## 1.2.0 — 2026-11-11
+- Nueva página `guia.html` («Guía de uso de las herramientas»): recorrido común en 7 etapas, conceptos clave (pendiente ≠ «No», resultado provisional, modificación profesional, estado de las actuaciones), informe y exportación, datos y navegador, problemas frecuentes y límites. Enlazada desde la navegación del hub. `cmo-app-meta` 1.1.0 → 1.2.0.
+
 ## 1.1.0 — 2026-11-11
 - Publicación: `cmo-app-meta` 1.0.0 → 1.1.0 y `releaseDate: "2026-11-11"`.
 - Núcleo común CMO (Design System 0.3.0): informe único, PDF local y flujo asistencial, y documentación del ecosistema en `docs/ECOSISTEMA_CMO_*.md`.
