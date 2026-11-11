@@ -1,0 +1,108 @@
+/*!
+ * CMO Design System — componentes del flujo asistencial común (7 etapas)
+ * Complementa cmo-components.css; se carga solo en las herramientas que usan cmo-flow.js.
+ * Todo en @layer cmo.components, clases .cmo-*, sin !important. El color de nivel sale
+ * exclusivamente de --cmo-level-*; el texto del nivel lo aporta la herramienta.
+ */
+@layer cmo.components {
+  /* Indicador de progreso por etapas */
+  /* No es fijo (sticky): un indicador fijo taparía controles y el foco al desplazar (WCAG 2.4.11 y 2.5.8). */
+  .cmo-stepper { background: var(--cmo-paper); border-bottom: 1px solid var(--cmo-rule); }
+  .cmo-stepper ol { display: flex; gap: var(--cmo-space-1); margin: 0 auto; padding: var(--cmo-space-2) 0; list-style: none;
+    width: min(var(--cmo-container), 100% - 2 * var(--cmo-gutter)); overflow-x: auto; scrollbar-width: thin; }
+  .cmo-stepper li { flex: 1 0 auto; }
+  .cmo-stepper button { display: flex; align-items: center; gap: var(--cmo-space-2); width: 100%; min-height: 44px; padding: var(--cmo-space-1) var(--cmo-space-3);
+    border: 1px solid transparent; border-radius: var(--cmo-radius-sm); background: transparent; color: var(--cmo-ink-muted);
+    font: 600 var(--cmo-text-xs)/1.2 var(--cmo-font-sans); white-space: nowrap; cursor: pointer; }
+  .cmo-stepper button > span { display: inline-grid; place-items: center; flex: none; width: 24px; height: 24px; border: 1px solid var(--cmo-control-border);
+    border-radius: var(--cmo-radius-pill); font-variant-numeric: tabular-nums; background: var(--cmo-surface); color: var(--cmo-ink); }
+  .cmo-stepper button:hover { border-color: var(--cmo-control-border); color: var(--cmo-ink); }
+  .cmo-stepper button.is-done > span { background: var(--cmo-brand-soft); border-color: var(--cmo-brand-strong); color: var(--cmo-brand-strong); }
+  .cmo-stepper button[aria-current="step"] { background: var(--cmo-ink); color: #fff; }
+  .cmo-stepper button[aria-current="step"] > span { background: #fff; border-color: #fff; color: var(--cmo-ink); }
+  .cmo-stepper button:focus-visible, .cmo-tristate label:focus-within, .cmo-stage h2:focus-visible { outline: 3px solid var(--cmo-focus); outline-offset: 2px; }
+
+  /* Etapas */
+  .cmo-stage[hidden] { display: none; }
+  .cmo-stage__heading { margin: 0 0 var(--cmo-space-5); }
+  .cmo-stage__heading > span { font-size: var(--cmo-text-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--cmo-accent); }
+  .cmo-stage__heading h2 { margin: var(--cmo-space-1) 0 var(--cmo-space-2); font: 600 var(--cmo-text-xl)/1.2 var(--cmo-font-serif); color: var(--cmo-ink); }
+  .cmo-stage__heading p { margin: 0; max-width: 72ch; color: var(--cmo-ink-muted); }
+  .cmo-stage__actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--cmo-space-3); margin-top: var(--cmo-space-6);
+    padding-top: var(--cmo-space-4); border-top: 1px solid var(--cmo-rule); }
+  .cmo-panel { margin-bottom: var(--cmo-space-5); padding: var(--cmo-space-5); background: var(--cmo-surface); border: 1px solid var(--cmo-rule);
+    border-radius: var(--cmo-radius-md); box-shadow: var(--cmo-shadow-1); }
+  .cmo-panel > h3 { margin: 0 0 var(--cmo-space-3); font: 600 var(--cmo-text-lg)/1.25 var(--cmo-font-serif); }
+  .cmo-button-group { display: flex; flex-wrap: wrap; gap: var(--cmo-space-3); }
+  .cmo-btn--danger { background: var(--cmo-error); border-color: var(--cmo-error); color: #fff; }
+  .cmo-modal__actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--cmo-space-3); margin-top: var(--cmo-space-5); }
+  .cmo-modal h2 { margin: 0 0 var(--cmo-space-3); font: 600 var(--cmo-text-lg)/1.25 var(--cmo-font-serif); }
+
+  /* Indicadores de estado (puntuación, nivel, provisional…) */
+  .cmo-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--cmo-space-3); margin-bottom: var(--cmo-space-5); }
+  .cmo-status > div { display: grid; gap: 2px; padding: var(--cmo-space-4); background: var(--cmo-surface); border: 1px solid var(--cmo-rule); border-radius: var(--cmo-radius-md); }
+  .cmo-status strong { font: 600 var(--cmo-text-xl)/1.1 var(--cmo-font-serif); font-variant-numeric: tabular-nums; color: var(--cmo-ink); overflow-wrap: anywhere; }
+  .cmo-status small { font-size: var(--cmo-text-xs); color: var(--cmo-ink-muted); }
+  .cmo-flag { display: inline-flex; align-items: center; gap: var(--cmo-space-1); padding: 2px var(--cmo-space-2); border: 1px solid currentColor;
+    border-radius: var(--cmo-radius-pill); font-size: var(--cmo-text-xs); font-weight: 700; color: var(--cmo-ink-muted); background: var(--cmo-surface); }
+  .cmo-flag--pending { color: var(--cmo-warn); background: var(--cmo-warn-bg); }
+  .cmo-flag--pending::before { content: "…"; }
+  .cmo-flag--assisted { color: var(--cmo-info); background: var(--cmo-info-bg); }
+
+  /* Respuesta de tres estados: Sí / No / Pendiente (la ausencia de dato nunca es «No») */
+  .cmo-tristate { display: inline-flex; margin: 0; padding: 0; border: 1px solid var(--cmo-control-border); border-radius: var(--cmo-radius-sm); overflow: hidden; background: var(--cmo-surface); }
+  .cmo-tristate label { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--cmo-space-4); font-size: var(--cmo-text-sm); font-weight: 600; cursor: pointer; border-right: 1px solid var(--cmo-control-border); }
+  .cmo-tristate label:last-child { border-right: 0; }
+  .cmo-tristate input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .cmo-tristate label:has(input:checked) { background: var(--cmo-ink); color: #fff; }
+  .cmo-tristate label:has(input[value=""]:checked) { background: var(--cmo-warn-bg); color: var(--cmo-warn); }
+
+  /* Tabla de revisión profesional (propuestas del análisis y resumen de variables) */
+  .cmo-table-wrap { overflow-x: auto; }
+  .cmo-review { width: 100%; border-collapse: collapse; font-size: var(--cmo-text-sm); }
+  .cmo-review caption { text-align: left; font-weight: 700; padding-bottom: var(--cmo-space-2); }
+  .cmo-review th, .cmo-review td { padding: var(--cmo-space-2) var(--cmo-space-3); border-bottom: 1px solid var(--cmo-rule); text-align: left; vertical-align: top; }
+  .cmo-review thead th { font-size: var(--cmo-text-xs); text-transform: uppercase; letter-spacing: .04em; color: var(--cmo-ink-muted); border-bottom: 2px solid var(--cmo-ink); }
+  .cmo-review tr[data-state="accepted"] td:first-child { box-shadow: inset 3px 0 0 var(--cmo-level-3); }
+  .cmo-review tr[data-state="discarded"] { color: var(--cmo-ink-muted); }
+  .cmo-review tr[data-state="discarded"] td:first-child { text-decoration: line-through; }
+  .cmo-evidence { display: block; margin-top: 2px; font-size: var(--cmo-text-xs); color: var(--cmo-ink-muted); }
+  .cmo-evidence mark { background: var(--cmo-info-bg); color: var(--cmo-ink); padding: 0 2px; border-radius: 2px; }
+
+  /* Aviso no bloqueante */
+  .cmo-toast { position: fixed; left: 50%; bottom: var(--cmo-space-5); z-index: 50; transform: translateX(-50%); max-width: min(560px, 100% - 2 * var(--cmo-gutter));
+    padding: var(--cmo-space-3) var(--cmo-space-5); border-radius: var(--cmo-radius-sm); background: var(--cmo-ink); color: #fff; font: 600 var(--cmo-text-sm)/1.4 var(--cmo-font-sans); box-shadow: var(--cmo-shadow-2); }
+  .cmo-toast[hidden] { display: none; }
+  .cmo-toast[data-type="warn"] { background: var(--cmo-warn); }
+  .cmo-toast[data-type="error"] { background: var(--cmo-error); }
+
+  /* Vista previa del informe (cmo-report.js → reportToHtml) */
+  .cmo-report { padding: var(--cmo-space-5); background: var(--cmo-surface); border: 1px solid var(--cmo-rule); border-radius: var(--cmo-radius-md); font-size: var(--cmo-text-sm); }
+  .cmo-report h1 { margin: 0 0 var(--cmo-space-1); font: 600 var(--cmo-text-lg)/1.25 var(--cmo-font-serif); }
+  .cmo-report h2 { margin: var(--cmo-space-5) 0 var(--cmo-space-2); padding-bottom: var(--cmo-space-1); border-bottom: 1px solid var(--cmo-brand-strong);
+    font: 700 var(--cmo-text-xs)/1.3 var(--cmo-font-sans); letter-spacing: .05em; text-transform: uppercase; color: var(--cmo-brand-strong); }
+  .cmo-report { overflow-wrap: anywhere; }
+  .cmo-report dl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; margin: var(--cmo-space-3) 0; }
+  .cmo-report dl div { display: flex; flex-wrap: wrap; gap: 0 var(--cmo-space-3); }
+  .cmo-report dt { font-weight: 700; color: var(--cmo-ink-muted); } .cmo-report dt::after { content: ":"; }
+  .cmo-report dt, .cmo-report dd { min-width: 0; white-space: normal; }
+  .cmo-report dd { margin: 0; }
+  .cmo-report ul { margin: 0; padding-left: var(--cmo-space-5); }
+  .cmo-report__tool, .cmo-report footer { font-size: var(--cmo-text-xs); color: var(--cmo-ink-muted); }
+  .cmo-report footer { margin-top: var(--cmo-space-5); padding-top: var(--cmo-space-3); border-top: 1px solid var(--cmo-rule); }
+  .cmo-report__sub { margin: var(--cmo-space-2) 0 var(--cmo-space-1); font-weight: 700; }
+  .cmo-report__warn { color: var(--cmo-warn); }
+  .cmo-report__result { margin: var(--cmo-space-3) 0; padding: var(--cmo-space-3) var(--cmo-space-4); border: 2px solid var(--cmo-ink); border-radius: var(--cmo-radius-sm); font-weight: 700; }
+  .cmo-report[data-level="1"] .cmo-report__result { color: var(--cmo-level-1); background: var(--cmo-level-1-bg); border-color: currentColor; }
+  .cmo-report[data-level="2"] .cmo-report__result { color: var(--cmo-level-2); background: var(--cmo-level-2-bg); border-color: currentColor; }
+  .cmo-report[data-level="3"] .cmo-report__result { color: var(--cmo-level-3); background: var(--cmo-level-3-bg); border-color: currentColor; }
+
+  @media (max-width: 640px) {
+    .cmo-stepper button { padding-inline: var(--cmo-space-2); }
+    .cmo-stepper button:not([aria-current="step"]) { font-size: 0; gap: 0; }
+    .cmo-stepper button:not([aria-current="step"]) > span { font-size: var(--cmo-text-xs); }
+    .cmo-stage__actions > * { flex: 1 1 100%; }
+  }
+  @media print { .cmo-stepper, .cmo-stage__actions, .cmo-toast { display: none; } }
+  @media (forced-colors: active) { .cmo-stepper button[aria-current="step"], .cmo-tristate label:has(input:checked) { outline: 2px solid CanvasText; } }
+}

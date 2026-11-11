@@ -9,7 +9,7 @@ import { join, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const FILES = ['src/cmo-tokens.css', 'src/cmo-components.css', 'src/cmo-author-signature.js', 'assets/cmo-mark.svg', 'assets/favicon.svg'];
+const FILES = ['src/cmo-tokens.css', 'src/cmo-components.css', 'src/cmo-flow.css', 'src/cmo-author-signature.js', 'src/cmo-report.js', 'src/cmo-pdf.js', 'src/cmo-flow.js', 'assets/cmo-mark.svg', 'assets/favicon.svg'];
 const args = process.argv.slice(2);
 const target = args.find(a => !a.startsWith('--'));
 const destRel = args.includes('--dest') ? args[args.indexOf('--dest') + 1] : 'vendor/cmo-ds';
