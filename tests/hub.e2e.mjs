@@ -79,10 +79,10 @@ await check('Teclado: primer Tab = enlace de salto visible; foco con contorno 鈮
   const o = await page.evaluate(() => parseFloat(getComputedStyle(document.activeElement).outlineWidth));
   assert.ok(o >= 3, `outline ${o}`); await ctx.close();
 });
-await check('Firma de autor铆a: versi贸n 1.0.0 y fecha tomada de cmo-app-meta (nunca generada)', async () => {
+await check('Firma de autor铆a: versi贸n 1.1.0 y fecha tomada de cmo-app-meta (nunca generada)', async () => {
   const t = await after.page.textContent('cmo-author-signature');
   const meta = JSON.parse(await after.page.textContent('#cmo-app-meta'));
-  assert.match(t, /Versi贸n:?\s*1\.0\.0/); assert.match(t, /Ram贸n Morillo Verdugo/);
+  assert.match(t, /Versi贸n:?\s*1\.1\.0/); assert.match(t, /Ram贸n Morillo Verdugo/);
   if (meta.status === 'released') {
     const [y, m, d] = meta.releaseDate.split('-');
     assert.ok(t.includes(`${d}/${m}/${y}`), 'la firma muestra releaseDate'); assert.doesNotMatch(t, /pendiente de publicaci贸n/);
