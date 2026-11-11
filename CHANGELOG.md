@@ -2,6 +2,9 @@
 
 Formato SemVer. Las versiones anteriores a 1.0.0 no estaban numeradas y se identifican por su commit.
 
+## 1.3.0 — 2026-11-11
+- Guía de uso descargable en PDF (`guia-de-uso-cmo.pdf`), generada desde `guia.html` con `node scripts/build-guia-pdf.mjs` (estilos de impresión en `@layer cmo.print`). Se retira de la guía el marcador de validación pendiente. `cmo-app-meta` 1.2.0 → 1.3.0.
+
 ## 1.2.0 — 2026-11-11
 - Nueva página `guia.html` («Guía de uso de las herramientas»): recorrido común en 7 etapas, conceptos clave (pendiente ≠ «No», resultado provisional, modificación profesional, estado de las actuaciones), informe y exportación, datos y navegador, problemas frecuentes y límites. Enlazada desde la navegación del hub. `cmo-app-meta` 1.1.0 → 1.2.0.
 
