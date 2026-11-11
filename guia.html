@@ -17,8 +17,28 @@
         .guia table { width: 100%; border-collapse: collapse; font-size: var(--cmo-text-sm); }
         .guia th, .guia td { text-align: left; vertical-align: top; padding: var(--cmo-space-2) var(--cmo-space-3); border-bottom: 1px solid var(--cmo-rule); }
         .guia .table-wrap { overflow-x: auto; }
-        .pending { padding: 0 .3em; background: var(--cmo-warn-bg); color: var(--cmo-warn); font-weight: 600; border-radius: 3px; }
         .toc { columns: 2 220px; padding-left: 1.2em; }
+        .guia-download { margin-top: var(--cmo-space-4); }
+        @layer cmo.print {
+            @media print {
+                @page { size: A4; margin: 12mm 15mm 15mm; }
+                .cmo-scope { font-size: 10pt; line-height: 1.4; background: #fff; }
+                .cmo-skip, .cmo-nav, .guia-download, .toc { display: none; }
+                .cmo-container { max-width: none; padding: 0; }
+                .guia { max-width: none; }
+                .guia section { padding-top: 4mm; }
+                .guia h3 { margin: 3mm 0 1mm; }
+                .guia p, .guia ul, .guia ol { margin-block: 1.5mm; }
+                .guia li, .guia p { orphans: 3; widows: 3; }
+                .guia li { break-inside: avoid; }
+                .guia h2 { break-after: avoid; }
+                .guia h3 { break-after: avoid; }
+                .guia tr, .guia dl > div { break-inside: avoid; }
+                .guia .table-wrap { overflow: visible; }
+                .guia .table-wrap a[href^="http"]::after { content: " · " attr(href); font-size: 8pt; color: var(--cmo-ink-muted); overflow-wrap: anywhere; }
+                .cmo-footer { margin-top: 4mm; break-inside: avoid; }
+            }
+        }
         .guia a[href^="mailto:"] { overflow-wrap: anywhere; }
     </style>
     <script type="application/json" id="cmo-app-meta">
@@ -26,7 +46,7 @@
         "schema": "cmo-app-meta/1",
         "id": "hub-estratificacion-cmo",
         "name": "Hub de Estratificación CMO",
-        "appVersion": "1.2.0",
+        "appVersion": "1.3.0",
         "algorithm": null,
         "status": "released",
         "releaseDate": "2026-11-11",
@@ -58,6 +78,7 @@
                 <p class="cmo-eyebrow">Hub de Estratificación CMO</p>
                 <h1 class="cmo-title">Guía de uso de las herramientas</h1>
                 <p class="cmo-lead">Cómo trabajar con las herramientas de estratificación CMO: el recorrido común, qué significan los avisos y qué incluye cada exportación.</p>
+                <p class="guia-download"><a class="cmo-btn cmo-btn--secondary" href="guia-de-uso-cmo.pdf" download>Descargar esta guía en PDF</a></p>
             </section>
 
             <nav aria-label="Apartados">
@@ -158,21 +179,25 @@
 
             <section id="problemas" aria-labelledby="h-prob">
                 <h2 class="cmo-h2" id="h-prob">Problemas frecuentes</h2>
-                <dl class="cmo-summary">
-                    <div><dt>«Informe no disponible» o botones desactivados</dt><dd>Algunas herramientas exigen finalizar la estratificación antes de generar el informe. Si modificó datos después de finalizar, vuelva a validar.</dd></div>
-                    <div><dt>El resultado es provisional y no sé por qué</dt><dd>Revise la lista de variables pendientes en la etapa de estratificación o en el aviso del resultado.</dd></div>
-                    <div><dt>La importación se rechaza</dt><dd>El fichero debe proceder de la misma herramienta y de una versión compatible del esquema. Los ficheros de otra herramienta o editados a mano se rechazan.</dd></div>
-                    <div><dt>No se copia al portapapeles</dt><dd>Algunos navegadores lo bloquean fuera de conexiones seguras. Use «Descargar .txt» o seleccione el texto y copie con Ctrl+C.</dd></div>
-                    <div><dt>No se descarga el PDF</dt><dd>Compruebe que el navegador no bloquea las descargas de la página. El PDF se genera localmente y no requiere conexión.</dd></div>
-                    <div><dt>Perdí un caso</dt><dd>Los casos guardados viven en el navegador. Si limpió los datos del sitio, no se pueden recuperar; por eso conviene exportar el JSON.</dd></div>
-                </dl>
+                                <h3>«Informe no disponible» o botones desactivados</h3>
+                <p>Algunas herramientas exigen finalizar la estratificación antes de generar el informe. Si modificó datos después de finalizar, vuelva a validar.</p>
+                <h3>El resultado es provisional y no sé por qué</h3>
+                <p>Revise la lista de variables pendientes en la etapa de estratificación o en el aviso del resultado.</p>
+                <h3>La importación se rechaza</h3>
+                <p>El fichero debe proceder de la misma herramienta y de una versión compatible del esquema. Los ficheros de otra herramienta o editados a mano se rechazan.</p>
+                <h3>No se copia al portapapeles</h3>
+                <p>Algunos navegadores lo bloquean fuera de conexiones seguras. Use «Descargar .txt» o seleccione el texto y copie con Ctrl+C.</p>
+                <h3>No se descarga el PDF</h3>
+                <p>Compruebe que el navegador no bloquea las descargas de la página. El PDF se genera localmente y no requiere conexión.</p>
+                <h3>Perdí un caso</h3>
+                <p>Los casos guardados viven en el navegador. Si limpió los datos del sitio, no se pueden recuperar; por eso conviene exportar el JSON.</p>
             </section>
 
             <section id="limites" aria-labelledby="h-lim">
                 <h2 class="cmo-h2" id="h-lim">Qué no hacen</h2>
                 <ul>
                     <li>No diagnostican, no prescriben y no sustituyen el juicio clínico.</li>
-                    <li>No son un producto sanitario certificado y están pendientes de validación asistencial. <span class="pending">[PENDIENTE: estado de validación clínica por herramienta]</span></li>
+                    <li>No son un producto sanitario certificado y están pendientes de validación asistencial.</li>
                     <li>No guardan datos de pacientes en servidores ni usan servicios externos de análisis.</li>
                     <li>No generan texto con inteligencia artificial generativa.</li>
                 </ul>
