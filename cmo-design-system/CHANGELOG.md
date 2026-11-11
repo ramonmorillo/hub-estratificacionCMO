@@ -1,6 +1,6 @@
 # Changelog — CMO Design System
 
-## 0.3.0 — sin publicar
+## 0.3.0 — 2026-11-11
 - **Núcleo transversal del flujo asistencial** (opt-in; aditivo y compatible con 0.2.0):
   - `src/cmo-report.js`: modelo único de informe `cmo-report/1` (texto para HCE, HTML de impresión), sobre de exportación `cmo-export/1`, importación validada y CSV con protección frente a fórmulas.
   - `src/cmo-pdf.js`: PDF 1.4 local y sin dependencias a partir de `cmo-report/1` (motor derivado de CMO Respiratorio 1.3.0).

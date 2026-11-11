@@ -2,6 +2,10 @@
 
 Formato SemVer. Las versiones anteriores a 1.0.0 no estaban numeradas y se identifican por su commit.
 
+## 1.1.0 — 2026-11-11
+- Publicación: `cmo-app-meta` 1.0.0 → 1.1.0 y `releaseDate: "2026-11-11"`.
+- Núcleo común CMO (Design System 0.3.0): informe único, PDF local y flujo asistencial, y documentación del ecosistema en `docs/ECOSISTEMA_CMO_*.md`.
+
 ## 1.0.0 — 2026-10-30
 - Publicación: `cmo-app-meta` con `status: "released"` y `releaseDate: "2026-10-30"`.
 - Privacidad: se retira Cloudflare Web Analytics; el hub no carga recursos de terceros.
