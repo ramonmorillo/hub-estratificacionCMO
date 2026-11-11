@@ -4,8 +4,8 @@
 
 - **Auditadas funcionalmente: 10 de 10** herramientas del hub (más el hub), con recorrido real en navegador.
 - **Núcleo común creado** (Design System 0.3.0): informe único, PDF local, flujo de 7 etapas, exportación/importación versionada. Sin lógica clínica ni dependencias.
-- **Adaptadas: 5 de 9** (Esclerosis Múltiple, Riesgo Cardiovascular y Oncohematología con asistente de 7 etapas; Pediatría y Migraña como página única con informe único, actuaciones con estado y plan). **VIH**: puerta de revisión, importación validada, estado provisional, etapa de seguimiento con estado de intervenciones e informe único con PDF en es/en/pt (conserva su asistente propio). **Parche de seguridad: 1** (VHB-VHD). **Sin tocar: 3** (Coagulopatías, Inmunomediadas, Respiratorio).
-- **El objetivo de la misión no está cumplido**: 4 herramientas siguen sin el circuito común completo. El alcance lo limitó el límite de uso de la sesión, no un bloqueo técnico; el procedimiento está validado dos veces y documentado.
+- **Adaptadas: 6 de 9** (Esclerosis Múltiple, Riesgo Cardiovascular y Oncohematología con asistente de 7 etapas; Pediatría, Migraña y VHB-VHD como página única con informe único, actuaciones con estado y plan). **VIH**: puerta de revisión, importación validada, estado provisional, etapa de seguimiento con estado de intervenciones e informe único con PDF en es/en/pt (conserva su asistente propio). **Sin tocar: 3** (Coagulopatías, Inmunomediadas, Respiratorio).
+- **El objetivo de la misión no está cumplido**: 3 herramientas siguen sin el circuito común completo. El alcance lo limitó el límite de uso de la sesión, no un bloqueo técnico; el procedimiento está validado dos veces y documentado.
 - Ningún fichero de configuración clínica se ha modificado en ningún repositorio. Nada se ha fusionado ni desplegado.
 
 ## Herramientas modificadas y ramas
@@ -21,6 +21,7 @@ Todas en la rama `claude/zen-pasteur-u8tn7z` de su repositorio, sin PR abierto.
 | cmoncologia | `5af557b` | Flujo de 7 etapas sobre el núcleo (1.3.0, borrador) |
 | estratificacionmigrana | `670ba4d` | XSS |
 | estratificacionmigrana | `9325255` | Informe único con PDF, actuaciones con estado, plan, necesidades, provisional, importación validada (2.2.0, borrador) |
+| cmo-vhb-vhd | `a0be1c6` | Factores Sí/No/Pendiente, provisional, modificación, informe único con PDF, actuaciones, plan, copias validadas (1.1.0, borrador) |
 | cmo-vih-app | `1d229e7` | Puerta de revisión, importación validada, provisional, seguimiento e informe único con PDF (3.2.0, borrador) |
 | cmo-vhb-vhd | `7e51835` | XSS |
 
@@ -38,19 +39,19 @@ Inicio con centro, profesional y seudónimo · estado pendiente y resultado prov
 | VIH | Las propuestas del texto puntuaban sin confirmación; importación inválida dejaba la aplicación en blanco; modificación sin justificación y ausente de las salidas; primer clic en «Analizar» perdido; JSON y borrador con texto clínico libre; CSV con fórmulas; XSS; 0 datos mostrado como «Prioridad 3» firme |
 | Pediatría | Edad negativa rompía el cálculo (`TypeError`); importación puntuaba valores inventados como «No»; CSV con fórmulas; lista de casos sin la modificación profesional; tabla desbordada en móvil; XSS |
 | Migraña | Caso borrado que reaparecía al teclear y casos vacíos en cada carga; importación sin validar (aceptaba «Prioridad final: 9») e importación por `prompt()`; CSV con fórmulas; menor de 18 mostraba una prioridad de adultos; rebaja de P1 automática sin aviso real; informe TXT sin la modificación; tabla desbordada en móvil; XSS |
-| VHB-VHD | XSS por datos pegados, tecleados o importados |
+| VHB-VHD | Sin estado pendiente (casilla vacía = ausente); importación de copias sin validar ni confirmar; puntuación en vivo obsoleta tras reiniciar; sin borrar pacientes; extracción que desmarcaba lo no mencionado; CSV con fórmulas; informe armado aparte e impresión de la página completa; XSS |
 
 ## Reglas clínicas preservadas (evidencia)
 
 - EM: `assets/js/model.js` idéntico (huella en pruebas); reglas del analizador idénticas a la 1.0.0 (diff y prueba frente a copia congelada).
 - RCV: `config.js`, `cmo-engine.js`, `needs-mapper.js`, `interventions-catalog.js`, `heuristic-extraction.js`, `clinical-extraction-service.js` idénticos (huellas en pruebas).
 - Oncohematología: `clinical.js`, `extractor.js`, `assessment-state.js` idénticos (huellas). VIH: `config.js`, `cmo-engine.js`, `ai-module.js` idénticos (huellas); el motor recibe una vista del caso (`review-gate.js`).
-- Parches XSS de Pediatría: `clinical.js` solo cambia la constante `VERSION` y `extractor.js` es idéntico (huella). Migraña: `core.mjs` y `local-extractor.mjs` idénticos (huella). VHB-VHD: solo ficheros de interfaz; batería previa en verde (19).
+- Parches XSS de Pediatría: `clinical.js` solo cambia la constante `VERSION` y `extractor.js` es idéntico (huella). Migraña: `core.mjs` y `local-extractor.mjs` idénticos (huella). VHB-VHD: `APP_CONFIG` y el cálculo de `app.js` idénticos (huellas).
 - Lo nuevo que roza lo clínico es de **flujo** y está marcado para validación: modificación profesional en EM, criterio de «necesidad farmacoterapéutica» en EM, necesidades potenciales en RCV.
 
 ## Resultados de pruebas
 
-Ver `ECOSISTEMA_CMO_TESTS.md`. Todas las baterías ejecutadas pasan: hub 23 + 11 e2e; EM 21 + 4 e2e; RCV 22 + 4 e2e; Oncohematología 58 + 5 e2e; VIH 68 + 4 e2e; Pediatría 38 + 6 e2e; Migraña 83 + 6 e2e; parche de VHB-VHD 20.
+Ver `ECOSISTEMA_CMO_TESTS.md`. Todas las baterías ejecutadas pasan: hub 23 + 11 e2e; EM 21 + 4 e2e; RCV 22 + 4 e2e; Oncohematología 58 + 5 e2e; VIH 68 + 4 e2e; Pediatría 38 + 6 e2e; Migraña 83 + 6 e2e; VHB-VHD 30 + 5 e2e.
 
 ## Pendientes
 
@@ -63,13 +64,13 @@ Ver `ECOSISTEMA_CMO_TESTS.md`. Todas las baterías ejecutadas pasan: hub 23 + 11
 4. Resultado firme sin datos (VHB-VHD, Coagulopatías, Migraña).
 5. CSV sin protección de fórmulas (Pediatría, Oncohematología, Migraña, VIH, VHB-VHD).
 
-**Técnicos:** adaptar las 4 herramientas restantes (el núcleo ya admite es/en/pt); CI en EM y RCV; convergencia opcional de Respiratorio al núcleo; comprobar en navegador el punto exacto del parche de Migraña.
+**Técnicos:** adaptar las 3 herramientas restantes (el núcleo ya admite es/en/pt); CI en EM y RCV; convergencia opcional de Respiratorio al núcleo; comprobar en navegador el punto exacto del parche de Migraña.
 
 ## Instrucciones de despliegue
 
 No se ha desplegado nada: GitHub Pages publica la rama por defecto de cada repositorio y no se ha tocado ninguna.
 
-1. Revisar y abrir un PR por repositorio desde `claude/zen-pasteur-u8tn7z`. Orden sugerido: el parche XSS de VHB-VHD → hub → EM → RCV → Oncohematología → Pediatría → Migraña → VIH (este último cambia el comportamiento de la puntuación: validar primero con el autor).
+1. Revisar y abrir un PR por repositorio desde `claude/zen-pasteur-u8tn7z`. Orden sugerido: hub → EM → RCV → Oncohematología → Pediatría → Migraña → VHB-VHD → VIH (este último cambia el comportamiento de la puntuación: validar primero con el autor).
 2. Antes de fusionar EM, RCV, Oncohematología o VIH: `npm test` y `npm run test:e2e`; resolver las decisiones clínicas 1–4 de `ECOSISTEMA_CMO_PROGRESS.md`.
 3. Commit de publicación (según `CMO-RELEASE-CHECKLIST.md`): EM → `status: "released"` y `releaseDate` real con 1.1.0; RCV → decidir versión en `APP_CONFIG.version`, `package.json` y `cmo-app-meta`; hub → decidir si el 0.3.0 se declara en `cmo-app-meta.designSystem` del propio hub.
 4. Pediatría se publica desde `claude/awesome-cray-vilcvr` (no tiene `main`): el PR va contra esa rama. Pediatría, Oncohematología y Migraña incluyen ya `dist/` regenerado (Oncohematología se reconstruye también en el e2e).

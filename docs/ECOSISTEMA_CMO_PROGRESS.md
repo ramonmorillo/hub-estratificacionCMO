@@ -13,7 +13,7 @@
 | Oncohematología | **Adaptación completa** (7 etapas, núcleo, decisión previa por propuesta, provisional) | `5af557b` | Revisión clínica de lo marcado; PR; commit de publicación 1.3.0 |
 | Migraña | **Adaptación** (informe único + PDF, actuaciones con estado, plan, necesidades, provisional con cota, importación validada; página única) | `9325255` | Revisión clínica de lo marcado; PR; commit de publicación 2.2.0 |
 | VIH | **Adaptación sustancial**: puerta de revisión, importación validada, provisional, etapa de seguimiento con estado de intervenciones, informe único y PDF en es/en/pt (conserva su asistente propio) | `1d229e7` | Validar el cambio de comportamiento; revisar el portugués; recorrido manual de las 16 variables y casos guardados |
-| VHB-VHD | Solo parche XSS | `7e51835` | Importación sin validar ni confirmar; estado pendiente |
+| VHB-VHD | **Adaptación** (factores Sí/No/Pendiente, provisional, modificación profesional, informe único + PDF, actuaciones con estado, plan, copias de seguridad validadas; página única) | `a0be1c6` | Revisión clínica de lo marcado; PR; commit de publicación 1.1.0 |
 | Coagulopatías | Sin tocar | — | Requiere tipos para el núcleo (TS); negación y confirmación en lote |
 | Inmunomediadas | Sin tocar | — | Borrado sin confirmación; informe único |
 | Respiratorio | Referencia, sin tocar | — | Sin acceso de escritura en esta sesión; convergencia opcional |
@@ -47,4 +47,4 @@
 
 Procedimiento en `ECOSISTEMA_CMO_ARCHITECTURE.md` §6. Plantillas reales: `estratificacionEM/assets/js/assessment.js` (modelo de casillas) y `cmoriesgocardiovascular/assets/modules/assessment.js` (modelo de registros validados); pruebas e2e reutilizables en `tests/e2e/flow.e2e.mjs` de ambas.
 Plantilla adicional: `cmoncologia/src/assessment.js` (modelo de campos con varios valores por variable y cota superior de pendientes) y `cmo-vih-app/assets/modules/review-gate.js` (puerta de revisión sobre un motor que no se puede tocar).
-Orden recomendado: VHB-VHD → Inmunomediadas → Coagulopatías.
+Orden recomendado: Inmunomediadas → Coagulopatías (VIH: validar y completar pruebas pendientes) → Inmunomediadas → Coagulopatías.

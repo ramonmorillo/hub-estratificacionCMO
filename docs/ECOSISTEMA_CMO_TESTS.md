@@ -13,7 +13,7 @@ Todo lo que figura aquí se ejecutó el 2026-11-10 (Node 22, Chromium de Playwri
 | Oncohematología | 43 | **58** unitarias · **5** e2e | Huellas de 3 ficheros clínicos, paridad con el motor en 400 casos aleatorios, fronteras 15/16 y 27/28, pendientes y cota superior, modificación, informe, importación hostil y formato anterior, CSV, análisis con decisión previa |
 | Migraña | 71 | **83** unitarias · **6** e2e | Huellas de `core.mjs`/`local-extractor.mjs`, fronteras 14/15 y 18/19, paridad en 300 casos, pendientes y cota, menor de 18, modificación, actuaciones, informe, importación hostil y formato anterior, CSV |
 | VIH | 50 | **68** unitarias · **4** e2e | Huellas de motor/configuración/analizador, paridad con el motor en 300 casos, propuestas sin confirmar, modificación, importación, estado corrupto, exportaciones sin texto libre, borrador, un solo clic en «Analizar» |
-| VHB-VHD | 19 | 20 | Regresión XSS |
+| VHB-VHD | 19 | **30** unitarias · **5** e2e | Huellas de configuración y cálculo, umbrales, pendientes y cota, reglas de seguridad, modificación, informe, copia de seguridad hostil, registro anterior, CSV; e2e con axe 0, importación hostil, reinicio, extracción asistida, 375 px |
 | Coagulopatías, Inmunomediadas, Respiratorio | 83 · 16 · 50+10 | Sin cambios (no modificados) | — |
 
 ## 2. Recorridos e2e (EM y RCV)
